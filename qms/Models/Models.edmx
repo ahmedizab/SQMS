@@ -1,0 +1,1187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Hometown" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="smalldatetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblBranch">
+          <Key>
+            <PropertyRef Name="branch_id" />
+          </Key>
+          <Property Name="branch_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="branch_name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="250" />
+          <Property Name="contact_person" Type="varchar" MaxLength="150" />
+          <Property Name="contact_no" Type="varchar" MaxLength="50" />
+          <Property Name="display_next" Type="int" Nullable="false" />
+          <Property Name="static_ip" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblBranchUser">
+          <Key>
+            <PropertyRef Name="user_branch_id" />
+          </Key>
+          <Property Name="user_branch_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="branch_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblBreakType">
+          <Key>
+            <PropertyRef Name="break_type_id" />
+          </Key>
+          <Property Name="break_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="break_type_short_name" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="break_type_name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="start_time" Type="datetime" />
+          <Property Name="end_time" Type="datetime" />
+          <Property Name="duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCounter">
+          <Key>
+            <PropertyRef Name="counter_id" />
+          </Key>
+          <Property Name="counter_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="branch_id" Type="int" Nullable="false" />
+          <Property Name="counter_no" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="contact_no" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="250" />
+          <Property Name="customer_type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCustomerType">
+          <Key>
+            <PropertyRef Name="customer_type_id" />
+          </Key>
+          <Property Name="customer_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_type_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDailyBreak">
+          <Key>
+            <PropertyRef Name="daily_break_id" />
+          </Key>
+          <Property Name="daily_break_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="break_type_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="counter_id" Type="int" Nullable="false" />
+          <Property Name="start_time" Type="datetime" Nullable="false" />
+          <Property Name="end_time" Type="datetime" />
+          <Property Name="remarks" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="tblServiceDetail">
+          <Key>
+            <PropertyRef Name="service_id" />
+          </Key>
+          <Property Name="service_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="token_id" Type="bigint" Nullable="false" />
+          <Property Name="customer_id" Type="bigint" Nullable="false" />
+          <Property Name="issues" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="solutions" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="service_datetime" Type="smalldatetime" Nullable="false" />
+          <Property Name="start_time" Type="datetime" Nullable="false" />
+          <Property Name="end_time" Type="datetime" Nullable="false" />
+          <Property Name="service_sub_type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblServiceStatus">
+          <Key>
+            <PropertyRef Name="service_status_id" />
+          </Key>
+          <Property Name="service_status_id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="service_status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblServiceSubType">
+          <Key>
+            <PropertyRef Name="service_sub_type_id" />
+          </Key>
+          <Property Name="service_sub_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="service_type_id" Type="int" Nullable="false" />
+          <Property Name="service_sub_type_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="max_duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblServiceType">
+          <Key>
+            <PropertyRef Name="service_type_id" />
+          </Key>
+          <Property Name="service_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="service_type_name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSmsLog">
+          <Key>
+            <PropertyRef Name="process_id" />
+          </Key>
+          <Property Name="process_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sms_status" Type="bit" Nullable="false" />
+          <Property Name="sms_time" Type="datetime" />
+          <Property Name="token_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTokenQueue">
+          <Key>
+            <PropertyRef Name="token_id" />
+          </Key>
+          <Property Name="token_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="branch_id" Type="int" Nullable="false" />
+          <Property Name="service_type_id" Type="int" Nullable="false" />
+          <Property Name="contact_no" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="token_no" Type="int" Nullable="false" />
+          <Property Name="service_date" Type="datetime" Nullable="false" />
+          <Property Name="cancel_time" Type="datetime" />
+          <Property Name="service_status_id" Type="smallint" Nullable="false" />
+          <Property Name="counter_id" Type="int" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBranchUser_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblBranchUser" Type="Self.tblBranchUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblBranchUser">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBranchUser_tblBranch">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="1" />
+          <End Role="tblBranchUser" Type="Self.tblBranchUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tblBranchUser">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCounter_tblBranch">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="1" />
+          <End Role="tblCounter" Type="Self.tblCounter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tblCounter">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCustomer_tblCustomerType">
+          <End Role="tblCustomerType" Type="Self.tblCustomerType" Multiplicity="1" />
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerType">
+              <PropertyRef Name="customer_type_id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="customer_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDailyBreak_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="tblDailyBreak" Type="Self.tblDailyBreak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDailyBreak">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDailyBreak_tblBreakType">
+          <End Role="tblBreakType" Type="Self.tblBreakType" Multiplicity="1" />
+          <End Role="tblDailyBreak" Type="Self.tblDailyBreak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBreakType">
+              <PropertyRef Name="break_type_id" />
+            </Principal>
+            <Dependent Role="tblDailyBreak">
+              <PropertyRef Name="break_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDailyBreak_tblCounter">
+          <End Role="tblCounter" Type="Self.tblCounter" Multiplicity="1" />
+          <End Role="tblDailyBreak" Type="Self.tblDailyBreak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCounter">
+              <PropertyRef Name="counter_id" />
+            </Principal>
+            <Dependent Role="tblDailyBreak">
+              <PropertyRef Name="counter_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceDetail_tblCustomer">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+          <End Role="tblServiceDetail" Type="Self.tblServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="tblServiceDetail">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceDetail_tblServiceSubType">
+          <End Role="tblServiceSubType" Type="Self.tblServiceSubType" Multiplicity="1" />
+          <End Role="tblServiceDetail" Type="Self.tblServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceSubType">
+              <PropertyRef Name="service_sub_type_id" />
+            </Principal>
+            <Dependent Role="tblServiceDetail">
+              <PropertyRef Name="service_sub_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceDetail_tblTokenQueue">
+          <End Role="tblTokenQueue" Type="Self.tblTokenQueue" Multiplicity="1" />
+          <End Role="tblServiceDetail" Type="Self.tblServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTokenQueue">
+              <PropertyRef Name="token_id" />
+            </Principal>
+            <Dependent Role="tblServiceDetail">
+              <PropertyRef Name="token_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceSubType_tblServiceType">
+          <End Role="tblServiceType" Type="Self.tblServiceType" Multiplicity="1" />
+          <End Role="tblServiceSubType" Type="Self.tblServiceSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceType">
+              <PropertyRef Name="service_type_id" />
+            </Principal>
+            <Dependent Role="tblServiceSubType">
+              <PropertyRef Name="service_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="tblTokenQueue" Type="Self.tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblBranch">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="1" />
+          <End Role="tblTokenQueue" Type="Self.tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblCounter">
+          <End Role="tblCounter" Type="Self.tblCounter" Multiplicity="0..1" />
+          <End Role="tblTokenQueue" Type="Self.tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCounter">
+              <PropertyRef Name="counter_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="counter_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblServiceStatus">
+          <End Role="tblServiceStatus" Type="Self.tblServiceStatus" Multiplicity="1" />
+          <End Role="tblTokenQueue" Type="Self.tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceStatus">
+              <PropertyRef Name="service_status_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="service_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblServiceType">
+          <End Role="tblServiceType" Type="Self.tblServiceType" Multiplicity="1" />
+          <End Role="tblTokenQueue" Type="Self.tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceType">
+              <PropertyRef Name="service_type_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="service_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetInProgressTokenList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="branch_id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBranchUser" EntityType="Self.tblBranchUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBreakType" EntityType="Self.tblBreakType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCounter" EntityType="Self.tblCounter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomerType" EntityType="Self.tblCustomerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDailyBreak" EntityType="Self.tblDailyBreak" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblServiceDetail" EntityType="Self.tblServiceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblServiceStatus" EntityType="Self.tblServiceStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblServiceSubType" EntityType="Self.tblServiceSubType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblServiceType" EntityType="Self.tblServiceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSmsLog" EntityType="Self.tblSmsLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTokenQueue" EntityType="Self.tblTokenQueue" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBranchUser_AspNetUsers" Association="Self.FK_tblBranchUser_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="tblBranchUser" EntitySet="tblBranchUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBranchUser_tblBranch" Association="Self.FK_tblBranchUser_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranch" />
+            <End Role="tblBranchUser" EntitySet="tblBranchUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCounter_tblBranch" Association="Self.FK_tblCounter_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranch" />
+            <End Role="tblCounter" EntitySet="tblCounter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCustomer_tblCustomerType" Association="Self.FK_tblCustomer_tblCustomerType">
+            <End Role="tblCustomerType" EntitySet="tblCustomerType" />
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDailyBreak_AspNetUsers" Association="Self.FK_tblDailyBreak_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="tblDailyBreak" EntitySet="tblDailyBreak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDailyBreak_tblBreakType" Association="Self.FK_tblDailyBreak_tblBreakType">
+            <End Role="tblBreakType" EntitySet="tblBreakType" />
+            <End Role="tblDailyBreak" EntitySet="tblDailyBreak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDailyBreak_tblCounter" Association="Self.FK_tblDailyBreak_tblCounter">
+            <End Role="tblCounter" EntitySet="tblCounter" />
+            <End Role="tblDailyBreak" EntitySet="tblDailyBreak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceDetail_tblCustomer" Association="Self.FK_tblServiceDetail_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblServiceDetail" EntitySet="tblServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceDetail_tblServiceSubType" Association="Self.FK_tblServiceDetail_tblServiceSubType">
+            <End Role="tblServiceSubType" EntitySet="tblServiceSubType" />
+            <End Role="tblServiceDetail" EntitySet="tblServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceDetail_tblTokenQueue" Association="Self.FK_tblServiceDetail_tblTokenQueue">
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueue" />
+            <End Role="tblServiceDetail" EntitySet="tblServiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceSubType_tblServiceType" Association="Self.FK_tblServiceSubType_tblServiceType">
+            <End Role="tblServiceType" EntitySet="tblServiceType" />
+            <End Role="tblServiceSubType" EntitySet="tblServiceSubType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_AspNetUsers" Association="Self.FK_tblTokenQueue_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblBranch" Association="Self.FK_tblTokenQueue_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranch" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblCounter" Association="Self.FK_tblTokenQueue_tblCounter">
+            <End Role="tblCounter" EntitySet="tblCounter" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblServiceStatus" Association="Self.FK_tblTokenQueue_tblServiceStatus">
+            <End Role="tblServiceStatus" EntitySet="tblServiceStatus" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblServiceType" Association="Self.FK_tblTokenQueue_tblServiceType">
+            <End Role="tblServiceType" EntitySet="tblServiceType" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="qmsEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="psp_getNewToken" ReturnType="Collection(Int32)">
+            <Parameter Name="branch_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="AspNetRoles" EntityType="Models.AspNetRole" />
+          <EntitySet Name="AspNetUsers" EntityType="Models.AspNetUser" />
+          <EntitySet Name="tblBranches" EntityType="Models.tblBranch" />
+          <EntitySet Name="tblBranchUsers" EntityType="Models.tblBranchUser" />
+          <EntitySet Name="tblCounters" EntityType="Models.tblCounter" />
+          <EntitySet Name="tblCustomers" EntityType="Models.tblCustomer" />
+          <EntitySet Name="tblServiceDetails" EntityType="Models.tblServiceDetail" />
+          <EntitySet Name="tblServiceStatus" EntityType="Models.tblServiceStatu" />
+          <EntitySet Name="tblServiceTypes" EntityType="Models.tblServiceType" />
+          <EntitySet Name="tblTokenQueues" EntityType="Models.tblTokenQueue" />
+          <AssociationSet Name="FK_tblBranchUser_AspNetUsers" Association="Models.FK_tblBranchUser_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="tblBranchUser" EntitySet="tblBranchUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_AspNetUsers" Association="Models.FK_tblTokenQueue_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBranchUser_tblBranch" Association="Models.FK_tblBranchUser_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranches" />
+            <End Role="tblBranchUser" EntitySet="tblBranchUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCounter_tblBranch" Association="Models.FK_tblCounter_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranches" />
+            <End Role="tblCounter" EntitySet="tblCounters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblBranch" Association="Models.FK_tblTokenQueue_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranches" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblCounter" Association="Models.FK_tblTokenQueue_tblCounter">
+            <End Role="tblCounter" EntitySet="tblCounters" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceDetail_tblCustomer" Association="Models.FK_tblServiceDetail_tblCustomer">
+            <End Role="tblCustomer" EntitySet="tblCustomers" />
+            <End Role="tblServiceDetail" EntitySet="tblServiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceDetail_tblTokenQueue" Association="Models.FK_tblServiceDetail_tblTokenQueue">
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueues" />
+            <End Role="tblServiceDetail" EntitySet="tblServiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblServiceStatus" Association="Models.FK_tblTokenQueue_tblServiceStatus">
+            <End Role="tblServiceStatu" EntitySet="tblServiceStatus" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTokenQueue_tblServiceType" Association="Models.FK_tblTokenQueue_tblServiceType">
+            <End Role="tblServiceType" EntitySet="tblServiceTypes" />
+            <End Role="tblTokenQueue" EntitySet="tblTokenQueues" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Models.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="tblBreakTypes" EntityType="Models.tblBreakType" />
+          <EntitySet Name="tblServiceSubTypes" EntityType="Models.tblServiceSubType" />
+          <AssociationSet Name="FK_tblServiceDetail_tblServiceSubType" Association="Models.FK_tblServiceDetail_tblServiceSubType">
+            <End Role="tblServiceSubType" EntitySet="tblServiceSubTypes" />
+            <End Role="tblServiceDetail" EntitySet="tblServiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblServiceSubType_tblServiceType" Association="Models.FK_tblServiceSubType_tblServiceType">
+            <End Role="tblServiceType" EntitySet="tblServiceTypes" />
+            <End Role="tblServiceSubType" EntitySet="tblServiceSubTypes" />
+          </AssociationSet>
+          <EntitySet Name="tblDailyBreaks" EntityType="Models.tblDailyBreak" />
+          <AssociationSet Name="FK_tblDailyBreak_AspNetUsers" Association="Models.FK_tblDailyBreak_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="tblDailyBreak" EntitySet="tblDailyBreaks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDailyBreak_tblBreakType" Association="Models.FK_tblDailyBreak_tblBreakType">
+            <End Role="tblBreakType" EntitySet="tblBreakTypes" />
+            <End Role="tblDailyBreak" EntitySet="tblDailyBreaks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDailyBreak_tblCounter" Association="Models.FK_tblDailyBreak_tblCounter">
+            <End Role="tblCounter" EntitySet="tblCounters" />
+            <End Role="tblDailyBreak" EntitySet="tblDailyBreaks" />
+          </AssociationSet>
+          <EntitySet Name="tblCustomerTypes" EntityType="Models.tblCustomerType" />
+          <AssociationSet Name="FK_tblCustomer_tblCustomerType" Association="Models.FK_tblCustomer_tblCustomerType">
+            <End Role="tblCustomerType" EntitySet="tblCustomerTypes" />
+            <End Role="tblCustomer" EntitySet="tblCustomers" />
+          </AssociationSet>
+          <FunctionImport Name="GetInProgressTokenList" ReturnType="Collection(Models.GetInProgressTokenList_Result)">
+          <Parameter Name="branch_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tblSmsLogs" EntityType="Models.tblSmsLog" />
+          </EntityContainer>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Models.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Hometown" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="0" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblBranchUsers" Relationship="Models.FK_tblBranchUser_AspNetUsers" FromRole="AspNetUser" ToRole="tblBranchUser" />
+          <NavigationProperty Name="tblTokenQueues" Relationship="Models.FK_tblTokenQueue_AspNetUsers" FromRole="AspNetUser" ToRole="tblTokenQueue" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Models.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="tblDailyBreaks" Relationship="Models.FK_tblDailyBreak_AspNetUsers" FromRole="AspNetUser" ToRole="tblDailyBreak" />
+        </EntityType>
+        <EntityType Name="tblBranch">
+          <Key>
+            <PropertyRef Name="branch_id" />
+          </Key>
+          <Property Name="branch_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="branch_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="contact_person" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="contact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="display_next" Type="Int32" Nullable="false" />
+          <Property Name="static_ip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblBranchUsers" Relationship="Models.FK_tblBranchUser_tblBranch" FromRole="tblBranch" ToRole="tblBranchUser" />
+          <NavigationProperty Name="tblCounters" Relationship="Models.FK_tblCounter_tblBranch" FromRole="tblBranch" ToRole="tblCounter" />
+          <NavigationProperty Name="tblTokenQueues" Relationship="Models.FK_tblTokenQueue_tblBranch" FromRole="tblBranch" ToRole="tblTokenQueue" />
+        </EntityType>
+        <EntityType Name="tblBranchUser">
+          <Key>
+            <PropertyRef Name="user_branch_id" />
+          </Key>
+          <Property Name="user_branch_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="branch_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_tblBranchUser_AspNetUsers" FromRole="tblBranchUser" ToRole="AspNetUser" />
+          <NavigationProperty Name="tblBranch" Relationship="Models.FK_tblBranchUser_tblBranch" FromRole="tblBranchUser" ToRole="tblBranch" />
+        </EntityType>
+        <EntityType Name="tblCounter">
+          <Key>
+            <PropertyRef Name="counter_id" />
+          </Key>
+          <Property Name="counter_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="branch_id" Type="Int32" Nullable="false" />
+          <Property Name="counter_no" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="location" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblBranch" Relationship="Models.FK_tblCounter_tblBranch" FromRole="tblCounter" ToRole="tblBranch" />
+          <NavigationProperty Name="tblTokenQueues" Relationship="Models.FK_tblTokenQueue_tblCounter" FromRole="tblCounter" ToRole="tblTokenQueue" />
+          <NavigationProperty Name="tblDailyBreaks" Relationship="Models.FK_tblDailyBreak_tblCounter" FromRole="tblCounter" ToRole="tblDailyBreak" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="contact_no" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblServiceDetails" Relationship="Models.FK_tblServiceDetail_tblCustomer" FromRole="tblCustomer" ToRole="tblServiceDetail" />
+          <Property Name="customer_type_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCustomerType" Relationship="Models.FK_tblCustomer_tblCustomerType" FromRole="tblCustomer" ToRole="tblCustomerType" />
+        </EntityType>
+        <EntityType Name="tblServiceDetail">
+          <Key>
+            <PropertyRef Name="service_id" />
+          </Key>
+          <Property Name="service_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="token_id" Type="Int64" Nullable="false" />
+          <Property Name="customer_id" Type="Int64" Nullable="false" />
+          <Property Name="issues" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="solutions" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="service_datetime" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tblCustomer" Relationship="Models.FK_tblServiceDetail_tblCustomer" FromRole="tblServiceDetail" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblTokenQueue" Relationship="Models.FK_tblServiceDetail_tblTokenQueue" FromRole="tblServiceDetail" ToRole="tblTokenQueue" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="service_sub_type_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblServiceSubType" Relationship="Models.FK_tblServiceDetail_tblServiceSubType" FromRole="tblServiceDetail" ToRole="tblServiceSubType" />
+        </EntityType>
+        <EntityType Name="tblServiceStatu">
+          <Key>
+            <PropertyRef Name="service_status_id" />
+          </Key>
+          <Property Name="service_status_id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="service_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblTokenQueues" Relationship="Models.FK_tblTokenQueue_tblServiceStatus" FromRole="tblServiceStatu" ToRole="tblTokenQueue" />
+        </EntityType>
+        <EntityType Name="tblServiceType">
+          <Key>
+            <PropertyRef Name="service_type_id" />
+          </Key>
+          <Property Name="service_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="service_type_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblTokenQueues" Relationship="Models.FK_tblTokenQueue_tblServiceType" FromRole="tblServiceType" ToRole="tblTokenQueue" />
+          <NavigationProperty Name="tblServiceSubTypes" Relationship="Models.FK_tblServiceSubType_tblServiceType" FromRole="tblServiceType" ToRole="tblServiceSubType" />
+        </EntityType>
+        <EntityType Name="tblTokenQueue">
+          <Key>
+            <PropertyRef Name="token_id" />
+          </Key>
+          <Property Name="token_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="branch_id" Type="Int32" Nullable="false" />
+          <Property Name="service_type_id" Type="Int32" Nullable="false" />
+          <Property Name="contact_no" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="token_no" Type="Int32" Nullable="false" />
+          <Property Name="service_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="service_status_id" Type="Int16" Nullable="false" />
+          <Property Name="counter_id" Type="Int32" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_tblTokenQueue_AspNetUsers" FromRole="tblTokenQueue" ToRole="AspNetUser" />
+          <NavigationProperty Name="tblBranch" Relationship="Models.FK_tblTokenQueue_tblBranch" FromRole="tblTokenQueue" ToRole="tblBranch" />
+          <NavigationProperty Name="tblCounter" Relationship="Models.FK_tblTokenQueue_tblCounter" FromRole="tblTokenQueue" ToRole="tblCounter" />
+          <NavigationProperty Name="tblServiceDetails" Relationship="Models.FK_tblServiceDetail_tblTokenQueue" FromRole="tblTokenQueue" ToRole="tblServiceDetail" />
+          <NavigationProperty Name="tblServiceStatu" Relationship="Models.FK_tblTokenQueue_tblServiceStatus" FromRole="tblTokenQueue" ToRole="tblServiceStatu" />
+          <NavigationProperty Name="tblServiceType" Relationship="Models.FK_tblTokenQueue_tblServiceType" FromRole="tblTokenQueue" ToRole="tblServiceType" />
+          <Property Name="cancel_time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tblBranchUser_AspNetUsers">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Models.tblBranchUser" Role="tblBranchUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblBranchUser">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_AspNetUsers">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Models.tblTokenQueue" Role="tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBranchUser_tblBranch">
+          <End Type="Models.tblBranch" Role="tblBranch" Multiplicity="1" />
+          <End Type="Models.tblBranchUser" Role="tblBranchUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tblBranchUser">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCounter_tblBranch">
+          <End Type="Models.tblBranch" Role="tblBranch" Multiplicity="1" />
+          <End Type="Models.tblCounter" Role="tblCounter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tblCounter">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblBranch">
+          <End Type="Models.tblBranch" Role="tblBranch" Multiplicity="1" />
+          <End Type="Models.tblTokenQueue" Role="tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblCounter">
+          <End Type="Models.tblCounter" Role="tblCounter" Multiplicity="0..1" />
+          <End Type="Models.tblTokenQueue" Role="tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCounter">
+              <PropertyRef Name="counter_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="counter_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceDetail_tblCustomer">
+          <End Type="Models.tblCustomer" Role="tblCustomer" Multiplicity="1" />
+          <End Type="Models.tblServiceDetail" Role="tblServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="tblServiceDetail">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceDetail_tblTokenQueue">
+          <End Type="Models.tblTokenQueue" Role="tblTokenQueue" Multiplicity="1" />
+          <End Type="Models.tblServiceDetail" Role="tblServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTokenQueue">
+              <PropertyRef Name="token_id" />
+            </Principal>
+            <Dependent Role="tblServiceDetail">
+              <PropertyRef Name="token_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblServiceStatus">
+          <End Type="Models.tblServiceStatu" Role="tblServiceStatu" Multiplicity="1" />
+          <End Type="Models.tblTokenQueue" Role="tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceStatu">
+              <PropertyRef Name="service_status_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="service_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTokenQueue_tblServiceType">
+          <End Type="Models.tblServiceType" Role="tblServiceType" Multiplicity="1" />
+          <End Type="Models.tblTokenQueue" Role="tblTokenQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceType">
+              <PropertyRef Name="service_type_id" />
+            </Principal>
+            <Dependent Role="tblTokenQueue">
+              <PropertyRef Name="service_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="Models.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="tblBreakType">
+          <Key>
+            <PropertyRef Name="break_type_id" />
+          </Key>
+          <Property Name="break_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="break_type_short_name" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="break_type_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="start_time" Type="DateTime" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <Property Name="duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblDailyBreaks" Relationship="Models.FK_tblDailyBreak_tblBreakType" FromRole="tblBreakType" ToRole="tblDailyBreak" />
+        </EntityType>
+        <EntityType Name="tblServiceSubType">
+          <Key>
+            <PropertyRef Name="service_sub_type_id" />
+          </Key>
+          <Property Name="service_sub_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="service_type_id" Type="Int32" Nullable="false" />
+          <Property Name="service_sub_type_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="max_duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblServiceDetails" Relationship="Models.FK_tblServiceDetail_tblServiceSubType" FromRole="tblServiceSubType" ToRole="tblServiceDetail" />
+          <NavigationProperty Name="tblServiceType" Relationship="Models.FK_tblServiceSubType_tblServiceType" FromRole="tblServiceSubType" ToRole="tblServiceType" />
+        </EntityType>
+        <Association Name="FK_tblServiceDetail_tblServiceSubType">
+          <End Type="Models.tblServiceSubType" Role="tblServiceSubType" Multiplicity="1" />
+          <End Type="Models.tblServiceDetail" Role="tblServiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceSubType">
+              <PropertyRef Name="service_sub_type_id" />
+            </Principal>
+            <Dependent Role="tblServiceDetail">
+              <PropertyRef Name="service_sub_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblServiceSubType_tblServiceType">
+          <End Type="Models.tblServiceType" Role="tblServiceType" Multiplicity="1" />
+          <End Type="Models.tblServiceSubType" Role="tblServiceSubType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblServiceType">
+              <PropertyRef Name="service_type_id" />
+            </Principal>
+            <Dependent Role="tblServiceSubType">
+              <PropertyRef Name="service_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblDailyBreak">
+          <Key>
+            <PropertyRef Name="daily_break_id" />
+          </Key>
+          <Property Name="daily_break_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="break_type_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="counter_id" Type="Int32" Nullable="false" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Models.FK_tblDailyBreak_AspNetUsers" FromRole="tblDailyBreak" ToRole="AspNetUser" />
+          <NavigationProperty Name="tblBreakType" Relationship="Models.FK_tblDailyBreak_tblBreakType" FromRole="tblDailyBreak" ToRole="tblBreakType" />
+          <NavigationProperty Name="tblCounter" Relationship="Models.FK_tblDailyBreak_tblCounter" FromRole="tblDailyBreak" ToRole="tblCounter" />
+        </EntityType>
+        <Association Name="FK_tblDailyBreak_AspNetUsers">
+          <End Type="Models.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="Models.tblDailyBreak" Role="tblDailyBreak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblDailyBreak">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDailyBreak_tblBreakType">
+          <End Type="Models.tblBreakType" Role="tblBreakType" Multiplicity="1" />
+          <End Type="Models.tblDailyBreak" Role="tblDailyBreak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBreakType">
+              <PropertyRef Name="break_type_id" />
+            </Principal>
+            <Dependent Role="tblDailyBreak">
+              <PropertyRef Name="break_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDailyBreak_tblCounter">
+          <End Type="Models.tblCounter" Role="tblCounter" Multiplicity="1" />
+          <End Type="Models.tblDailyBreak" Role="tblDailyBreak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCounter">
+              <PropertyRef Name="counter_id" />
+            </Principal>
+            <Dependent Role="tblDailyBreak">
+              <PropertyRef Name="counter_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCustomerType">
+          <Key>
+            <PropertyRef Name="customer_type_id" />
+          </Key>
+          <Property Name="customer_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_type_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCustomers" Relationship="Models.FK_tblCustomer_tblCustomerType" FromRole="tblCustomerType" ToRole="tblCustomer" />
+        </EntityType>
+        <Association Name="FK_tblCustomer_tblCustomerType">
+          <End Type="Models.tblCustomerType" Role="tblCustomerType" Multiplicity="1" />
+          <End Type="Models.tblCustomer" Role="tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerType">
+              <PropertyRef Name="customer_type_id" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="customer_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetInProgressTokenList_Result">
+          <Property Type="String" Name="static_ip" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="counter_no" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="token_no" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <EntityType Name="tblSmsLog">
+          <Key>
+            <PropertyRef Name="process_id" />
+          </Key>
+          <Property Name="process_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sms_status" Type="Boolean" Nullable="false" />
+          <Property Name="sms_time" Type="DateTime" Precision="3" />
+          <Property Name="token_id" Type="Int64" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="qmsEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Models.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Models.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Hometown" ColumnName="Hometown" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBranches">
+            <EntityTypeMapping TypeName="Models.tblBranch">
+              <MappingFragment StoreEntitySet="tblBranch">
+                <ScalarProperty Name="static_ip" ColumnName="static_ip" />
+                <ScalarProperty Name="display_next" ColumnName="display_next" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="branch_name" ColumnName="branch_name" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBranchUsers">
+            <EntityTypeMapping TypeName="Models.tblBranchUser">
+              <MappingFragment StoreEntitySet="tblBranchUser">
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_branch_id" ColumnName="user_branch_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCounters">
+            <EntityTypeMapping TypeName="Models.tblCounter">
+              <MappingFragment StoreEntitySet="tblCounter">
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="counter_no" ColumnName="counter_no" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="counter_id" ColumnName="counter_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="Models.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="customer_type_id" ColumnName="customer_type_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblServiceDetails">
+            <EntityTypeMapping TypeName="Models.tblServiceDetail">
+              <MappingFragment StoreEntitySet="tblServiceDetail">
+                <ScalarProperty Name="service_sub_type_id" ColumnName="service_sub_type_id" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="service_datetime" ColumnName="service_datetime" />
+                <ScalarProperty Name="solutions" ColumnName="solutions" />
+                <ScalarProperty Name="issues" ColumnName="issues" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="token_id" ColumnName="token_id" />
+                <ScalarProperty Name="service_id" ColumnName="service_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblServiceStatus">
+            <EntityTypeMapping TypeName="Models.tblServiceStatu">
+              <MappingFragment StoreEntitySet="tblServiceStatus">
+                <ScalarProperty Name="service_status" ColumnName="service_status" />
+                <ScalarProperty Name="service_status_id" ColumnName="service_status_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblServiceTypes">
+            <EntityTypeMapping TypeName="Models.tblServiceType">
+              <MappingFragment StoreEntitySet="tblServiceType">
+                <ScalarProperty Name="service_type_name" ColumnName="service_type_name" />
+                <ScalarProperty Name="service_type_id" ColumnName="service_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTokenQueues">
+            <EntityTypeMapping TypeName="Models.tblTokenQueue">
+              <MappingFragment StoreEntitySet="tblTokenQueue">
+                <ScalarProperty Name="cancel_time" ColumnName="cancel_time" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="counter_id" ColumnName="counter_id" />
+                <ScalarProperty Name="service_status_id" ColumnName="service_status_id" />
+                <ScalarProperty Name="service_date" ColumnName="service_date" />
+                <ScalarProperty Name="token_no" ColumnName="token_no" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="service_type_id" ColumnName="service_type_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="token_id" ColumnName="token_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="tblBreakTypes">
+            <EntityTypeMapping TypeName="Models.tblBreakType">
+              <MappingFragment StoreEntitySet="tblBreakType">
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="break_type_name" ColumnName="break_type_name" />
+                <ScalarProperty Name="break_type_short_name" ColumnName="break_type_short_name" />
+                <ScalarProperty Name="break_type_id" ColumnName="break_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblServiceSubTypes">
+            <EntityTypeMapping TypeName="Models.tblServiceSubType">
+              <MappingFragment StoreEntitySet="tblServiceSubType">
+                <ScalarProperty Name="max_duration" ColumnName="max_duration" />
+                <ScalarProperty Name="service_sub_type_name" ColumnName="service_sub_type_name" />
+                <ScalarProperty Name="service_type_id" ColumnName="service_type_id" />
+                <ScalarProperty Name="service_sub_type_id" ColumnName="service_sub_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDailyBreaks">
+            <EntityTypeMapping TypeName="Models.tblDailyBreak">
+              <MappingFragment StoreEntitySet="tblDailyBreak">
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="counter_id" ColumnName="counter_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="break_type_id" ColumnName="break_type_id" />
+                <ScalarProperty Name="daily_break_id" ColumnName="daily_break_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomerTypes">
+            <EntityTypeMapping TypeName="Models.tblCustomerType">
+              <MappingFragment StoreEntitySet="tblCustomerType">
+                <ScalarProperty Name="customer_type_name" ColumnName="customer_type_name" />
+                <ScalarProperty Name="customer_type_id" ColumnName="customer_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetInProgressTokenList" FunctionName="Models.Store.GetInProgressTokenList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.GetInProgressTokenList_Result">
+                <ScalarProperty Name="static_ip" ColumnName="static_ip" />
+                <ScalarProperty Name="counter_no" ColumnName="counter_no" />
+                <ScalarProperty Name="token_no" ColumnName="token_no" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tblSmsLogs">
+            <EntityTypeMapping TypeName="Models.tblSmsLog">
+              <MappingFragment StoreEntitySet="tblSmsLog">
+                <ScalarProperty Name="token_id" ColumnName="token_id" />
+                <ScalarProperty Name="sms_time" ColumnName="sms_time" />
+                <ScalarProperty Name="sms_status" ColumnName="sms_status" />
+                <ScalarProperty Name="process_id" ColumnName="process_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

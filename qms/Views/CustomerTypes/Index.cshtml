@@ -1,0 +1,53 @@
+﻿@model IEnumerable<qms.Models.tblCustomerType>
+
+@{
+    //Layout = null;
+    ViewBag.Title = "";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h4 class="page-head-line">Cusomer Type Name </h4>
+            <button class="btn btn-color">
+                @Html.ActionLink("Create New", "Create")
+            </button>
+            <div class="col-md-12 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">
+
+                <table class="table table-hover table-bordered" id="data">
+                    <tr>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.customer_type_name)*@
+                            @*@Html.DisplayName("Cusomer Type Name")*@
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customer_type_name)
+                            </td>
+                            <td></td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.customer_type_id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.customer_type_id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.customer_type_id })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

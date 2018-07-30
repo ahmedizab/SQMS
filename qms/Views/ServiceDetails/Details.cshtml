@@ -1,0 +1,55 @@
+﻿@model qms.Models.tblServiceDetail
+@{
+    ViewBag.Title = "Service Detail Info";
+}
+<div>
+    <h4>ServiceDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Customer Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCustomer.customer_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Contact No")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblTokenQueue.contact_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Issues")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issues)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Solution")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.solutions)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Service Date")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.service_datetime)
+        </dd>
+
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.service_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

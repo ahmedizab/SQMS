@@ -1,0 +1,106 @@
+﻿@using qms.Models
+@model BranchLoginModel
+@{
+    ViewBag.Title = "Branch Log in";
+}
+
+
+@{
+    ViewBag.Title = "Log in";
+}
+<style type="text/css">
+    .bgimg {
+        background-image: url('../Content/queue.jpg');
+    }
+</style>
+
+<div class="">
+
+    <h2>Branch User</h2>
+    <div class="row bgimg">
+        <div class=" col-lg-offset-4">
+            <section id="loginForm">
+                @using (Html.BeginForm("Index", "TokenQueues", new { ReturnUrl = ViewBag.BReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.branch_name, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <select name="branch_name" class="form-control" id="branch_name" required>
+                                <option value="">Select a Branch</option>
+                                @foreach (var item in ViewBag.branchList)
+                                {
+                                    if (item.branch_id == ViewBag.userBranchId)
+                                    {
+                                        <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.branch_id">@item.branch_name</option>
+                                    }
+                                }
+                            </select>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.counter_no, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            <select name="counter_no" class="form-control" required id="counter_no"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="GO" class="btn btn-success" />
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+
+
+
+    </div>
+</div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var selectedBranch = $("#branch_name option:selected").text();
+            var selectedVal = @ViewBag.userBranchId;
+            $('#counter_no').empty();
+            $.ajax({
+                url: "../../Home/GetCounterByBranchId",
+                type: "GET",
+                dataType: "json",
+                data: { branchId: selectedVal },
+                success: function (data) {
+                    // alert(response);
+                    // debugger;
+                    //$.each(data, function (key, value) {
+                    //    $('#counter_no').append($("<option></option>").attr("value", counter_id).text(counter_no));
+                    //});
+                    if (data.data.length > 0) {
+                        $('#counter_no').append($("<option value=''>Select a Counter</option>"));
+
+                        for (var i = 0; i < data.data.length ; i++) {
+                            $('#counter_no').append($("<option></option>").attr("value", data.data[i].counter_id).text(data.data[i].counter_no));
+                        }
+                    } else {
+                        $('#counter_no').append($("<option value=''>No Counter Found!!!</option>"));
+                    }
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+            $("#branch_name").attr('disabled', true);
+        });
+</script>
+@section scripts {
+
+  
+    
+}

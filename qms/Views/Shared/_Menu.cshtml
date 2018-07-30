@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        @Html.Partial("_MenuAdmin")
+    }
+    else if (User.IsInRole("Branch Admin"))
+    {
+        @Html.Partial("_MenuBranchAdmin")
+    }
+    else if (User.IsInRole("Token Generator"))
+    {
+        @Html.Partial("_MenuTokenGenerator")
+    }
+    else if (User.IsInRole("Service Holder"))
+    {
+        @Html.Partial("_MenuServiceHolder")
+    }
+    else if (User.IsInRole("Display User"))
+    {
+        @Html.Partial("_MenuDisplayUser")
+    }
+
+}
+@*else
+{
+    @Html.Partial("_MenuDisplayUser")
+}*@
+
+

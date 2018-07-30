@@ -1,0 +1,67 @@
+﻿@model IEnumerable<qms.Models.tblBreakType>
+@{
+    ViewBag.Title = "Break Type List";
+}
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Break > List </h4>
+
+        <button class="btn btn-color">
+            @Html.ActionLink("Create New Break", "Create")
+        </button>
+
+        <div class="col-md-12 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.break_type_short_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.break_type_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.start_time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.end_time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.duration)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.break_type_short_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.break_type_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.start_time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.end_time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.duration)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.break_type_id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.break_type_id })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </div>
+
+        </div>
+    </div>

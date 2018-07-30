@@ -1,0 +1,313 @@
+﻿@using Microsoft.AspNet.Identity
+@using qms.Utility
+@model IEnumerable<qms.ViewModels.VMTokenQueue>
+
+@{
+    ViewBag.Title = "Token List";
+}
+
+<div class="container">
+    <div class="row">
+
+        <h4 class="page-head-line">Token > Token List </h4>
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-color">
+                    @Html.ActionLink("Generate Token", "Create")
+                </button>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div id="message" style="height: 50px;font-size: 20px;padding-top:10px;" class="col-md-offset-5 col-md-7 alert alert-success"></div>
+            </div>
+
+        </div>
+
+        <div id="printableArea" class="hide">
+            <h5>Date : <span id="date"></span></h5>
+            <h3><span id="printTokenId"></span></h3>
+        </div>
+
+
+
+        <input type="hidden" id="hidtokenNo" name="hidtokenNo" />
+        @*<div class="col-md-12">
+                <fieldset>
+
+                    <table>
+                        <tr>
+                            <td>As on Date</td>
+                            <td>
+                                <input type="text" class="dateTimePicker form-control" id="txtAsOnDate" />
+                            </td>
+                            <td>
+                                <input type="button" value="Find" class="btn btn-info" onclick="GetList();" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </fieldset>
+                <div id="dvDeductionReport"></div>
+
+            </div>*@
+        <div class="form-group">
+
+            @Html.Label("Branch:", new { @class = "col-md-1 control-label" })
+            <div class="col-md-3" style="margin-bottom :10px;">
+
+                <select name="branch_name" class="form-control" id="branch_name">
+                    <option value="">All Branch</option>
+                    @foreach (var item in ViewBag.branchList)
+                    {
+                        if (item.branch_id == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+
+                    }
+
+                </select>
+
+            </div>
+            @*<div class="col-md-3" style="margin-bottom :10px;">
+
+                <select name="service_status" class="form-control" id="service_status">
+                    <option value="">All Service</option>
+                    @foreach (var item in ViewBag.service_status)
+                    {
+                        if (item.service_status == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+
+                    }
+
+                </select>
+
+            </div>*@
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+        <div class="col-md-12 scrollbar table-scroll" style="margin-bottom : 20px;">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding" style="text-align: center">
+                    <th>
+                        @Html.DisplayName("Branch Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Token No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Creation Time")
+                    </th>
+                    @*<th>
+                    @Html.DisplayName("Service Time")
+                </th>*@
+
+
+                    <th>
+                        @Html.DisplayName("Contact No")
+                    </th>
+                    @*<th>
+                    @Html.DisplayName("Counter")
+                </th>*@
+                    @*<th>
+                    @Html.DisplayName("User Name")
+                </th>*@
+                    <th>
+                        @Html.DisplayName("Service Status")
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td id="token" style="text-align : center;">
+                            @*Token No*@
+                            @Html.DisplayFor(modelItem => item.token_no)
+                        </td>
+                        <td>
+                            @*Creation Time*@
+                            @Html.DisplayFor(modelItem => item.service_date)
+                            @*@Html.HiddenFor(modelItem => item.tblBranch.branch_name)*@
+                        </td>
+                        @*<td>
+                        @if (item.cancel_time.HasValue)
+                        {
+                            @Html.DisplayFor(modelItem => item.cancel_time)
+                        }
+                        else if(item.tblServiceDetails.Any())
+                        {
+                            @Html.DisplayFor(modelItem => item.tblServiceDetails.FirstOrDefault().service_datetime)
+                        }
+
+                    </td>*@
+
+
+                        <td>
+                          @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
+                        
+                        @*<td>
+                        @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                    </td>*@
+                        <td>
+                            
+                            @Html.DisplayFor(modelItem => item.service_status)
+                        </td>
+                        <td>
+                            @*<button class="btn btn-lg btn-color" id="save_btn" >
+                            @Html.ActionLink("SMS", "Sms","TokenQueues", new { tokenId = item.token_id })
+                        </button>*@
+
+                            @*<button class="btn btn-color" id="save_btn" onclick="return sms('@Html.DisplayFor(modelItem => item.contact_no)','@Html.DisplayFor(modelItem => item.tokenNoFormated)')">SMS</button>*@
+                            <button class="btn btn-color" id="save_btn" onclick="return sms('@Html.DisplayFor(modelItem => item.contact_no)','@Html.DisplayFor(modelItem => item.token_no)')">SMS</button>
+
+                        </td>
+                        <td>
+                            @*<button class="btn btn-color" id="print_btn" onclick="return print('@Html.DisplayFor(modelItem => item.token_id)');">Print</button>*@
+                            @*<input type="button" class="btn btn-color" onclick="return printToken('@Html.DisplayFor(modelItem => item.tokenNoFormated)')" value="Print" />*@
+                            <input type="button" class="btn btn-color" onclick="return printToken('@Html.DisplayFor(modelItem => item.token_no)')" value="Print" />
+
+                        </td>
+                        @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.token_id })
+
+                    </td>*@
+                    </tr>
+
+
+                }
+
+
+
+            </table>
+            
+        </div>
+       
+    </div>
+</div>
+<script>
+
+    function FilterTable() {
+        index = -1;
+        inp = $('#filterBox').val();
+        $("#data:visible tr:not(:has(>th))").each(function () {
+            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        $('#Hedding').show();
+    }
+
+    $(document).ready(function () {
+        inp = $("#branch_name option:selected").text();
+        if (inp == "All Branch") {
+            $("#branch_name").attr('disabled', false);
+        }
+        else $("#branch_name").attr('disabled', true);
+
+        FilterTable2();
+        $("#branch_name").change(function () {
+            // var selectedBranch = $("#branch_name option:selected").text();
+            FilterTable2();
+
+        });
+    });
+
+    function FilterTable2() {
+        index = -1;
+        inp = $("#branch_name option:selected").text();
+        if (inp == "All Branch") {
+            inp = "";
+        }
+        $("#data:visible tr:not(:has(>th))").each(function () {
+            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        $('#Hedding').show();
+    };
+    function GetList() {
+
+        var date = $('#txtAsOnDate').val();
+
+        if (date == "") {
+            ShowModalMessage("Please select a date");
+            return;
+        }
+
+        var URL = '/SQMS/TokenQueues/GetList/?date=' + date;
+        $.get(URL, function (data) {
+
+            $("#data").html('');
+            $("#data").html(data);
+        });
+    };
+
+    function sms(mobileNo, tokenNo) {
+
+        
+        //var con = JSON.stringify(contactNo);
+        $.ajax({
+            url: '/SQMS/TokenQueues/SMSSend',
+            type: 'POST',
+            dataType: 'json',
+            data: { mobileNo: mobileNo, tokenNo: tokenNo },
+            success: function (data) {
+                $("#message").html("Message sent");
+                //  $("#service_name").empty();
+            }
+        });
+    };
+
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+
+    function printToken(id) {
+        //var contactNo = $("#save_btn").val();
+        var tokenNo = id//$("#hidtokenNo").val();
+        //var con = JSON.stringify(contactNo);
+        $.ajax({
+            url: '/SQMS/TokenQueues/Print',
+            type: 'POST',
+            dataType: 'json',
+            data: { tokenNo: tokenNo },
+            success: function (data) {
+                $("#date").text(data.Date);
+                $("#printTokenId").text(data.Message);
+                printDiv('printableArea');
+                //  $("#service_name").empty();
+            }
+        });
+    };
+
+</script>

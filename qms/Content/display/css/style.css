@@ -1,0 +1,357 @@
+/*
+    Theme Name: Mentor
+    Theme URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+*/
+
+body {
+	font-size: 15px;
+    line-height: 1.52;
+    color: #717f86;
+    font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    background-color:#e56200;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+html{
+    background-color:#e56200;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.section-padding{
+	padding: 60px 0px;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+    color: #fff;
+}
+a{
+    color: #5fcf80;
+}
+a:hover, a:focus{
+    color: #5fcf80;
+}
+
+.btn-trial a{
+	background-color: #5FCF80;
+	border-radius: 25px;
+	color: #ffffff !important;
+	border: 1px solid #5FCF80;
+}
+.btn-trial a:hover, .btn-trial a:focus{
+	border: 1px solid #5FCF80;
+	background-color: #fff;
+	color: #5FCF80 !important;
+}
+
+.padding-zero{
+	padding: 0px;
+}
+.mart20{
+	margin-top: 20px;
+}
+
+.big-text{
+    font-size: 35px;
+}
+.small-text{
+    font-size: 16px;
+}
+.bg-color {
+    background-color: #f26f23;
+    min-height: 51.9px;
+    padding: 9px 40px;
+       margin-bottom: 5px;
+    text-align: center;
+	border-right: 3px solid #e56200;
+}
+
+.bg-color-head {
+    background-color: #e56200;
+    min-height: 51.9px;
+    padding: 10px 10px;
+       margin-bottom: 5px;
+    text-align: center;
+	border-right: 3px solid #e56200;
+}
+.back{
+	background: #e56200;
+	height: 550px;
+    padding-left:40px;
+}
+.bg-color-full {
+    background-color: #e56200;
+    min-height: 42px;
+    padding: 10px 20px;
+    margin-bottom: 0px;
+}
+.bg-color span {
+    font-size: 45px;
+    color: #fff;
+    font-weight: 600;
+}
+.re {
+    padding-left: 15px;
+}
+#logo-title img {
+    height: 70px;
+	text-align:left;
+}
+#logo-title {
+	text-align:left;
+}
+/***********************************
+Features
+************************************/
+h1 {
+    font-size: 45px;
+    font-family: sans-serif;
+    font-weight: 800;
+	    margin-bottom: 0px;
+		margin-top: 8px;
+}
+.h4, h4 {
+    font-size: 34px;
+    line-height: 48px;
+}
+h2 {
+    font-size: 40px;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-bottom: 0px;
+    margin-top: 5px;
+    text-align: left;
+}
+h3 {
+    font-size: 33px;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+
+.heading h4 {
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #000;
+    margin: 10px 0px;
+    text-align: left;
+}
+.heading p {
+  text-align: left;
+}
+
+.orga-stru h3 {
+    font-size: 36px;
+    color: white;
+    font-weight: bold;
+}
+.orga-stru p {
+    font-size: 14px;
+    color: white;
+    font-weight: normal;
+    line-height: 20px;
+    padding-top: 15px;
+}
+.orga-stru i
+{
+    font-size: 150px;
+    margin-top: 35px;
+    color: rgb(255, 255, 255);
+}
+h3.det-txt {
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+h4.sm-txt {
+    color: #5FCF80;
+    font-size: 24px;
+}
+p.det-p {
+    padding: 40px 0px;
+}
+
+#cta-2{
+    padding: 140px 0;
+}
+.cta-2-txt {
+    font-size: 24px;
+    padding-bottom: 15px;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 34px !important;
+}
+
+.btn-bg {
+    border: 0px;
+    border-radius: 0px;
+    color: #fff !important;
+    padding: 20px 0px;
+    font-weight: bold !important;
+    font-size: 14px;
+    background-color: #5fcf80;
+}
+
+/***********************************
+Footer
+************************************/
+.footer {
+    padding: 60px 0 20px;
+    background: #111;
+    color: #ccc;
+}
+.footer a {
+    color: #fff;
+}
+
+.footer h3{
+	font-weight: 300;
+	letter-spacing: 0.05em;
+	margin: 0 0 40px;
+	font-size: 24px;
+}
+
+.mem-info{
+    padding: 45px 10px 0px;
+    background-color: #eee;
+}
+.mem-info h4 {
+    font-size: 18px;
+    padding: 10px 0px;
+}
+.mem-info h3{
+    font-size: 24px;
+    padding: 15px 0px;
+}
+.mem-info h5
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.mem-info p {
+    margin: 0 0 10px;
+}
+.agent-social li {
+    display: inline-block;
+    padding: 0px 10px 0px 0px;
+    margin-bottom: 10px;
+}
+
+.footer .form-control:focus{
+    box-shadow: none;
+}
+/***********************************
+************************************
+Responsive media queries
+************************************
+***********************************/
+@media (min-width: 769px) and (max-width: 980px) {
+    .ser-text {
+    font-size: 20px;
+    }
+    .service-box, .feature-info, .orga-stru{
+        margin-bottom: 30px;
+    }
+    .pricing-head .amount {
+    font-size: 51px;
+    }
+    .price-table .pricing-head h4 {
+    font-size: 18px;
+    }
+}
+@media (min-width: 451px) and (max-width: 768px) {
+    .ser-text {
+    font-size: 20px;
+    }
+    .service-box, .feature-info{
+        margin-bottom: 30px;
+    }
+
+    .pricing-head .amount {
+    font-size: 51px;
+    }
+    .price-table .pricing-head h4 {
+    font-size: 18px;
+    }
+}
+@media (min-width: 20px) and (max-width: 450px) {
+    .text-dec {
+    font-size: 20px;
+    }
+    .big-text {
+    font-size: 30px;
+    }
+    .small-text {
+    font-size: 14px;
+    }
+    .intro-para {
+    font-size: 30px;
+    }
+    .header-section p{
+        font-size: 14px;
+    }
+    .heading {
+    margin-bottom: 20px;
+    }
+    .orga-stru i {
+    font-size: 92px;
+    }
+    .orga-stru {
+    padding: 5px 5px 15px 5px;
+    width: 75px;
+    margin-bottom: 20px;
+    }
+    .orga-stru h3 {
+    font-size: 28px;
+    }
+    .orga-stru p {
+    font-size: 13px;
+    }
+    h3.det-txt {
+    font-size: 28px;
+    }
+    .cta-2-txt {
+    font-size: 20px;
+    }
+    .service-box, .text-comment, .price-table{
+        margin-bottom: 30px;
+    }
+    .contact-form-button{
+        width: 40%;
+    }
+
+    .cta-2-form-submit-btn {
+    font-size: 10px;
+    }
+    .cta-2-form input[type="email"] {
+    padding: 13px 10px;
+    font-size: 10px;
+    min-width: 187px;
+    }
+    .modal-sm {
+    width: 300px;
+    }
+
+    }
+}

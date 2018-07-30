@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity
+@using qms.Utility;
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        
+        @if (Request.IsAuthenticated)
+        {
+            SessionManager sm = new SessionManager(Session);
+            if (!string.IsNullOrEmpty(sm.branch_name))
+            {
+                <li>
+                   @* @Html.ActionLink(sm.user_name + "! " + sm.branch_name + (sm.counter_id>0?" (" + sm.counter_no + ")":""), "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })*@
+                </li>
+            }
+            else
+            {
+                <li>
+                    @*@Html.ActionLink(sm.user_name + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })*@
+                </li>
+            }
+
+
+        }
+        @*@if (Request.IsAuthenticated)
+        {
+
+            if (!string.IsNullOrEmpty(Session["counter_id"] as string))
+            {
+                <li>
+                    <a href="#">@HttpContext.Current.Session["counter_id"].ToString()</a>
+                </li>
+            }
+
+        }*@
+        
+        <li><a href="javascript:sessionStorage.removeItem('accessToken');$('#logoutForm').submit();">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        
+        @*<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>*@
+    </ul>
+}

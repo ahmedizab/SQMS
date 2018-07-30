@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d2f5b535bf064b42a0d9a1397457d0bd" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="Models.AspNetRole" Width="1.5" PointX="1.5" PointY="13.75" />
+        <EntityTypeShape EntityType="Models.AspNetUser" Width="1.5" PointX="0.75" PointY="8.5" />
+        <EntityTypeShape EntityType="Models.tblBranch" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="Models.tblBranchUser" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="Models.tblCounter" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="Models.tblCustomer" Width="1.5" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="Models.tblServiceDetail" Width="1.5" PointX="7.5" PointY="5.5" />
+        <EntityTypeShape EntityType="Models.tblServiceStatu" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="Models.tblServiceType" Width="1.5" PointX="3" PointY="11.125" />
+        <EntityTypeShape EntityType="Models.tblTokenQueue" Width="1.5" PointX="5.25" PointY="4.75" />
+        <AssociationConnector Association="Models.FK_tblBranchUser_AspNetUsers" />
+        <AssociationConnector Association="Models.FK_tblTokenQueue_AspNetUsers" />
+        <AssociationConnector Association="Models.FK_tblBranchUser_tblBranch" />
+        <AssociationConnector Association="Models.FK_tblCounter_tblBranch" />
+        <AssociationConnector Association="Models.FK_tblTokenQueue_tblBranch" />
+        <AssociationConnector Association="Models.FK_tblTokenQueue_tblCounter" />
+        <AssociationConnector Association="Models.FK_tblServiceDetail_tblCustomer" />
+        <AssociationConnector Association="Models.FK_tblServiceDetail_tblTokenQueue" />
+        <AssociationConnector Association="Models.FK_tblTokenQueue_tblServiceStatus" />
+        <AssociationConnector Association="Models.FK_tblTokenQueue_tblServiceType" />
+        <AssociationConnector Association="Models.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Models.tblBreakType" Width="1.5" PointX="3.75" PointY="18.5" />
+        <EntityTypeShape EntityType="Models.tblServiceSubType" Width="1.5" PointX="5.25" PointY="15.125" />
+        <AssociationConnector Association="Models.FK_tblServiceDetail_tblServiceSubType" />
+        <AssociationConnector Association="Models.FK_tblServiceSubType_tblServiceType" />
+        <EntityTypeShape EntityType="Models.tblDailyBreak" Width="1.5" PointX="6" PointY="10.625" />
+        <AssociationConnector Association="Models.FK_tblDailyBreak_AspNetUsers" />
+        <AssociationConnector Association="Models.FK_tblDailyBreak_tblBreakType" />
+        <AssociationConnector Association="Models.FK_tblDailyBreak_tblCounter" />
+        <EntityTypeShape EntityType="Models.tblCustomerType" Width="1.5" PointX="1.5" PointY="16.125" />
+        <AssociationConnector Association="Models.FK_tblCustomer_tblCustomerType" />
+        <EntityTypeShape EntityType="Models.tblSmsLog" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

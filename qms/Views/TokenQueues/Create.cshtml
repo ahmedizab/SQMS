@@ -1,0 +1,209 @@
+﻿@model qms.ViewModels.VMTokenQueue
+
+@{
+    ViewBag.Title = "New Token";
+    Layout = "_LayoutToken.cshtml";
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<style>
+    .keyPadBtn{
+        padding:5px 0px;
+        background:#e56200;
+        font-weight:bold;
+        border:0px solid #999999;
+        margin:2px;
+        text-align:center;
+        font-size:30px;
+        cursor:pointer;
+    }
+</style>
+<div class="container" style="margin-left:15px; padding:3px">
+    <div id="printableArea" class="hide">
+        <h5>Date : <span id="date"></span></h5>
+        <h3>Token# <span id="printTokenId"></span></h3>
+    </div>
+    <input type="hidden" id="hidtokenNo" name="hidtokenNo" />
+    <input type="hidden" id="mobileNo" name="hidMobileNo" />
+    <input type="hidden" id="tokenNo" name="hidMobileNo" />
+
+    <div class="row img-rounded" style="padding:10px; 
+        background:#ffd800; 
+        text-align:center; color:blue;
+        width:93%;
+        font-size:35px">
+        <div id="message">
+            TOKEN NO.
+        </div>
+    </div>
+    <div class="row img-rounded" style="border:1px solid #EAEAEA; 
+            width:93%;position:relative; padding-top:5px;
+            text-align:center;
+            padding-left:5px; 
+            margin-top:25px">
+        @foreach (var item in ViewBag.ServiceTypeList)
+        {
+            <label for="@item.service_type_id" style="padding:10px">@item.service_type_name</label>
+            <input type="radio" name="radio-service" id="@item.service_type_id" value="@item.service_type_id" />
+        }
+    </div>
+    <div class="row" style="position:relative; margin-top:10px">
+        <label id="contact_no" class="form-control" style="font-size:20px; width:87%;">01</label>
+    </div>
+    <div class="row" style="margin-left:-15px; margin-right:-15px; margin-top:10px; padding:0px">
+        <div class="col col-xs-8">
+            <div class="row">
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('1');">1</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('2');">2</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('3');">3</div>                
+            </div>
+            <div class="row">
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('4');">4</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('5');">5</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('6');">6</div>
+            </div>
+            <div class="row">
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('7');">7</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('8');">8</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('9');">9</div>
+            </div>
+            <div class="row">
+                <div class="col col-xs-3 keyPadBtn" onclick="backSpace();">&lt;</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('0');">0</div>
+                <div class="col col-xs-3 keyPadBtn" onclick="AddNmber('+');">+</div>
+            </div>
+        </div>
+        <div class="col col-xs-3 pull-left">
+            <div class="row img-rounded keyPadBtn" 
+                 style="color:white; padding:15px 0px; font-size:24px;
+                 margin-bottom:10px" onclick="return Save();">
+                TOKEN
+            </div>
+            <div class="row  keyPadBtn" style="font-size:24px;" onclick="return sms();">
+                SMS
+            </div>
+            <div class="row  keyPadBtn" style="font-size:24px;" onclick="printDiv('printableArea')">
+                PRINT
+            </div>
+        </div>
+    </div>    
+</div>
+<br/><br/>
+
+    @section scripts{
+       <script type="text/javascript">
+           $(document).ready(function () {
+               $("input[type=radio]").checkboxradio();
+           });
+           var today = new Date();
+           function AddNmber(number) {
+               $("#contact_no").html($("#contact_no").html() + number);
+           }
+
+           function voidMsisdn() {
+               $("#contact_no").html("01");
+           }
+
+           function backSpace() {
+               var str = $("#contact_no").html().substr(0, $("#contact_no").html().length - 1);
+               $("#contact_no").html(str);
+           }
+           document.getElementById('date').innerHTML = today.getDate();
+
+           //$("#message").html(document.location.host); 
+
+            function Save() {
+
+                var contactNo = $("#contact_no").html();
+                var servicetype = $("input[name=radio-service]:checked").val();
+                if (servicetype == "") {
+                    alert('Please Select Service Type!!!');
+                    return;
+                }
+
+                //var con = JSON.stringify(contactNo);
+                $.ajax({
+                    url: '/TokenQueues/Create',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { mobile: contactNo, service: servicetype },
+                    success: function (data) {
+                        $("#message").html(data.Message);
+                        $("#service_name").val('');
+                        $("#txtContact").val('');
+                        $("#hidtokenNo").val(data.tokenId);
+                        $("#printTokenId").text(data.tokenNo);
+                        $("#tokenNo").val(data.tokenNo);
+
+                        $("#mobileNo").val(data.msisdn);
+
+                        $("#date").text(data.Date);
+                        voidMsisdn();  // 2018-07-20
+                        
+                        //  $("#service_name").empty();
+                    }
+                });
+            };
+
+            function sms() {
+
+                var mobileNo = $("#mobileNo").val();
+                var tokenNo = $("#tokenNo").val();
+
+
+                //var con = JSON.stringify(contactNo);
+                $.ajax({
+                    url: '/TokenQueues/SMSSend',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { mobileNo: mobileNo, tokenNo: tokenNo },
+                    success: function (data) {
+                        if (data.Success == true)
+                            $("#message").html("Message sent");
+                        else
+                            $("#message").html(data.Message);
+                        //  $("#service_name").empty();
+                    }
+                });
+            };
+            //function sms() {
+            //    //var contactNo = $("#txtContact").val();
+            //    var tokenId = $("#hidtokenNo").val();
+            //    if (tokenId == "") {
+            //        alert('Please Create a Token First!!!');
+            //        return;
+            //    }
+
+            //    //var con = JSON.stringify(contactNo);
+            //    $.ajax({
+            //        url: '/TokenQueues/Sms',
+            //        type: 'POST',
+            //        dataType: 'json',
+            //        data: { tokenId: tokenId },
+            //        success: function (data) {
+            //            $("#message").html(data.Message);
+            //            $("#service_name").val('');
+            //            $("#txtContact").val('');
+            //            $("#hidtokenNo").val('');
+
+            //            //  $("#service_name").empty();
+            //        }
+            //    });
+            //};
+
+            function printDiv(divName) {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                $("#message").val('');
+                window.print();
+                document.body.innerHTML = originalContents;
+               
+            }
+
+            
+
+</script>
+
+    }
+
+

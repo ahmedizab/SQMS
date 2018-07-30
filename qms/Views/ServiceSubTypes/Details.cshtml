@@ -1,0 +1,49 @@
+﻿@model qms.Models.tblServiceSubType
+@{
+    ViewBag.Title = "Service Detail";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>tblServiceSubType</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.service_sub_type_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.service_sub_type_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.max_duration)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.max_duration)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.tblServiceType.service_type_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tblServiceType.service_type_name)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.service_sub_type_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

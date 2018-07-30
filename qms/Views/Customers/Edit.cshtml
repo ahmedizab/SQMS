@@ -1,0 +1,69 @@
+﻿@model qms.Models.tblCustomer
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@{
+    ViewBag.Title = "Cusmoer Info Edit";
+}
+<div class="container">
+    <div class="row" style="margin-bottom : 10px;">
+
+        <h4 class="page-head-line">Customer > Edit</h4>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.customer_id)
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.customer_name, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @*@Html.Label("Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.customer_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Customer Name" } })
+                        @Html.ValidationMessageFor(model => model.customer_name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.contact_no, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @*@Html.Label("Contact No", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.contact_no, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact No" } })
+                        @Html.ValidationMessageFor(model => model.contact_no, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @*@Html.Label("Address", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @*@Html.Label("Priority Type", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.tblCustomerType.customer_type_id, new { htmlAttributes = new { @class = "form-control" } })
+                        @*@Html.DropDownList("customer_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Priority Type" })*@
+                        @Html.ValidationMessageFor(model => model.tblCustomerType.customer_type_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="submit" value="Save" class="btn btn-color" />
+                        <button class="btn btn-color">
+                            @Html.ActionLink("Back to List", "Index")
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

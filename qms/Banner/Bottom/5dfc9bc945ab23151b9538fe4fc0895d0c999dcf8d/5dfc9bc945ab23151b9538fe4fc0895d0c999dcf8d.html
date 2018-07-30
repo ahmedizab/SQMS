@@ -1,0 +1,253 @@
+﻿<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="cache-control" content="max-age=0"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <title>HTML5Maker.com Animation</title>
+</head>
+<body style="padding:0; margin:0;background:transparent;">
+
+<div id='globalDiv_160415' style='margin: 0 0; overflow: hidden; transform : translate3d(0,0,0); -moz-transform : translate3d(0,0,0); -ms-transform : translate3d(0,0,0); -o-transform : translate3d(0,0,0); -webkit-transform : translate3d(0,0,0); width:100%; height:33px;'>
+<div id='mainDiv_160415' style='margin: 0 auto; overflow: hidden; position:relative; width:100%; height:33px;'>
+    <div id='image0_160415' style='position: absolute; visibility:hidden; width: 118px; height: 20px;'>
+        <img src='5270cc3820e56mBY0wSmlQzL1d96rTR2X.png' border=0 style='width:118px; height:20px;' />
+    </div>
+    <div id='image1_160415' style='position: absolute; visibility:hidden; width: 109px; height: 20px;'>
+        <img src='5270cc387a3d6w96UtJCBK6pWEwFsBVay.png' border=0 style='width:109px; height:20px;' />
+    </div></div>
+</div><script language='javascript' src='TweenMax.min.js'></script>
+<script language='javascript'>
+var slidesObjects_160415 = {totalTime:300, width:231, height:33, fromBorder:false, loop:true, goToUrl:'', target:'_blank', 
+items:[
+{id:'image0_160415', url:'', target:'_blank',
+      rotation:0, w:118, h:20, rotationRect:{left:0, top:0}, rect:{left:0, top:0, right:118, bottom:20}, 
+       appear:{o:1, s:1, effect:'effect_item_left', custom_x:0, custom_y:0, x:3, y:8, delay:0, easing:Quad.easeOut, duration:60},
+      disappear:{o:0, effect:'effect_item_none', s:1, custom_x:0, custom_y:0, x:3, y:8, delay:180, easing:Quad.easeOut, duration:60}}, 
+{id:'image1_160415', url:'', target:'_blank',
+      rotation:0, w:109, h:20, rotationRect:{left:0, top:0}, rect:{left:0, top:0, right:109, bottom:20}, 
+       appear:{o:1, s:1, effect:'effect_item_right', custom_x:0, custom_y:0, x:117, y:8, delay:0, easing:Quad.easeOut, duration:60},
+      disappear:{o:0, effect:'effect_item_none', s:1, custom_x:0, custom_y:0, x:117, y:8, delay:180, easing:Quad.easeOut, duration:60}}]}, ratio = 1, borderWidth = 0, fps=60, firstResize = true, additionalFrame=0, gURL='', id='html5';
+
+function beginAnimation160415() {
+   if (firstResize){
+   if( isMobile.any() ){
+   fps = 30;
+   }
+   slidesObjects_160415.totalTime = Math.round(slidesObjects_160415.totalTime/60*fps);
+   TweenMax.ticker.fps(fps);
+   gURL = slidesObjects_160415.goToUrl;
+   var gTarget = slidesObjects_160415.target;
+   if (gURL !='') {
+   var mainDivId = 'mainDiv_160415',
+   sceneItem = document.getElementById(mainDivId);initGoToUrl160415(sceneItem, gURL, gTarget);
+   }
+   disableContext160415();   firstResize = false;   onWindowResize160415(); return;   }
+   for (var ind in slidesObjects_160415.items) {
+       var obj = slidesObjects_160415.items[ ind],
+       id = obj.id,
+       item = document.getElementById(id);
+       if (gURL == '') {
+           initGoToUrl160415(item, obj.url, obj.target);
+       }
+       item.style.left='0px';
+       resizeObject160415(item, obj.w, obj.h);
+       startAppearAnimation160415(item, obj, 0);
+   }
+}
+
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() { 
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() { 
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); 
+    }
+};
+function disableContext160415() {
+    document.getElementById('mainDiv_160415').oncontextmenu = function(event) { 
+        return false;
+    } 
+}
+
+function initGoToUrl160415(item, url, target) {
+   if (url != '') {
+       item.onclick = function() {
+           window.open(url, target);
+       };
+       item.style.cursor = 'pointer';
+   }
+}
+
+function convertRotatedPosition(item, convert_type, effect){
+if (convert_type == 'appear_start_position' || convert_type == 'disappear_end_position')
+{
+    var newX, newY;
+var tempConf = item.appear; if (convert_type == 'disappear_end_position'){    tempConf = item.disappear;}   switch (effect)
+   {
+     case 'effect_item_left':
+        newX = -item.rect.right-borderWidth;
+        newY = tempConf.y;
+   break;
+    case 'effect_item_top':
+       newX = tempConf.x;
+       newY = -item.rect.bottom-2;
+   break;
+   case 'effect_item_right':
+       newX = -item.rect.left + slidesObjects_160415.width+borderWidth;
+       newY = tempConf.y;
+    break;
+   case 'effect_item_bottom':
+        newX = tempConf.x;
+        newY = -item.rect.top +slidesObjects_160415.height+2;
+    break;
+    case 'effectCustom':
+        newX = tempConf.custom_x;
+        newY = tempConf.custom_y;
+    if (tempConf.custom_x < 0)
+    {
+       newX = tempConf.custom_x-borderWidth;
+    }
+    if (tempConf.custom_x > slidesObjects_160415.width)
+    {
+      newX = tempConf.custom_x+borderWidth;
+    }
+    break;
+    default:
+        newX = tempConf.x;
+        newY = tempConf.y;
+    break;
+}
+    newX = newX-item.rotationRect.left+item.rect.left;
+    newY = newY-item.rotationRect.top+item.rect.top;
+}
+if (convert_type == 'appear_end_position' || convert_type == 'disappear_start_position')
+{
+    newX = item.appear.x-item.rotationRect.left+item.rect.left;
+    newY = item.appear.y-item.rotationRect.top+item.rect.top;
+}
+return {x:Math.round(newX*ratio)+'px',y:Math.round(newY*ratio)+'px'};
+}
+function startAppearAnimation160415(item, obj, startdelay) {
+   var convertedPos = convertRotatedPosition(obj, 'appear_start_position', obj.appear.effect);
+   TweenMax.killTweensOf(item);
+   if (Math.round(obj.appear.delay/60*fps)+startdelay != 0)   TweenMax.to(item, 0,{css: {visibility: 'hidden'}});
+   TweenMax.to(item, 0, {
+   css: {x: convertedPos.x, y: convertedPos.y, scaleX:obj.appear.s, scaleY:obj.appear.s, 
+  opacity: obj.appear.o, 
+   rotation:obj.rotation, 
+   transformOrigin:'50% 50%'},useFrames:true, 
+   delay:Math.round(obj.appear.delay/60*fps)+startdelay, 
+   onComplete:animateAppear160415, onCompleteParams:[item,obj]});}
+
+function animateAppear160415(item, obj) {
+   var convertedPos = convertRotatedPosition(obj, 'appear_end_position', obj.appear.effect);
+   var appearDelay = Math.round(obj.appear.delay/60*fps),
+   appearDuration = Math.round(obj.appear.duration/60*fps),
+   appearEase = obj.appear.easing;
+   TweenMax.to(item, appearDuration, {
+       css: {visibility:'visible', x:convertedPos.x, y:convertedPos.y, opacity: 1, scaleX:1, scaleY:1, transformOrigin:'50% 50%'},
+       useFrames: true,
+       immediateRender: true,
+       ease:appearEase,
+       onComplete:animateDisappear160415,
+       onCompleteParams:[item, obj]});
+}
+
+function animateDisappear160415(item, obj) {
+   var convertedPos = convertRotatedPosition(obj, 'disappear_end_position', obj.disappear.effect);
+   var disappearDelay = Math.round(obj.disappear.delay/60*fps),
+   disappearDuration = Math.round((obj.disappear.duration-additionalFrame)/60*fps+additionalFrame),
+   disappearEase = obj.disappear.easing;
+   var delay = slidesObjects_160415.totalTime - Math.round(obj.appear.duration/60*fps) - Math.round(obj.appear.delay/60*fps) - Math.round(obj.disappear.duration/60*fps) - additionalFrame - Math.round(obj.disappear.delay/60*fps)
+   var _oncomplete = slidesObjects_160415.loop ? startAppearAnimation160415 : null;
+   TweenMax.to(item, disappearDuration, {
+       css: {x: convertedPos.x, y: convertedPos.y, opacity: obj.disappear.o, scaleX:obj.disappear.s, scaleY:obj.disappear.s, transformOrigin:'50% 50%' },
+       delay: disappearDelay,
+       useFrames: true,
+       immediateRender: true,
+       ease:disappearEase,
+       onComplete: _oncomplete,
+       onCompleteParams: [item, obj, delay]});
+}
+
+function listenResize160415(evnt, elem, func) {
+   if (elem.addEventListener){ 
+       elem.addEventListener(evnt,func,false);}
+   else if (elem.attachEvent) { 
+       var r = elem.attachEvent('on'+evnt, func);
+       return r;
+   }else{beginAnimation160415();}
+}
+
+function listenLoad160415(evnt, elem, func) {
+   if (elem.addEventListener){ 
+       elem.addEventListener(evnt,func,false);}
+   else if (elem.attachEvent) { 
+       var r = elem.attachEvent('on'+evnt, func);
+       return r;
+   }else{onWindowResize160415();}
+}
+
+function resizeObject160415(item, originalW, originalH) {
+    var image = item.getElementsByTagName('img')[ 0];
+    item.style.width = (originalW * ratio) + 'px';
+    item.style.height = (originalH * ratio) + 'px';
+    image.style.width = (originalW * ratio) + 'px';
+    image.style.height = (originalH * ratio) + 'px';
+}
+
+function onWindowResize160415() {
+    var w = window,
+            banner = document.getElementById('mainDiv_160415'),
+            globalBanner = document.getElementById('globalDiv_160415'),
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    borderWidth = 0;
+    if (x < slidesObjects_160415.width) {
+        ratio = x / slidesObjects_160415.width;
+        banner.style.width = Math.round(slidesObjects_160415.width*ratio) + 'px';
+        banner.style.height = Math.round(slidesObjects_160415.height*ratio) + 'px';
+        globalBanner.style.height = Math.round(slidesObjects_160415.height*ratio) + 'px';
+    } else {
+        ratio = 1;
+        banner.style.width = slidesObjects_160415.width + 'px';
+        banner.style.height = slidesObjects_160415.height + 'px';
+        globalBanner.style.height = slidesObjects_160415.height + 'px';
+        if (slidesObjects_160415.fromBorder){
+        borderWidth = Math.round((x-slidesObjects_160415.width)/2);
+        }
+    }
+    if (window.parent){     window.parent.postMessage('changeSize'+banner.style.height+'html5maker'+id, '*');}
+    TweenMax.killAll();
+    beginAnimation160415();
+}
+
+(function () {
+    listenResize160415('resize', window, onWindowResize160415);
+})();
+
+(function () {
+   listenLoad160415('load', window, beginAnimation160415);
+})();</script>
+</body>
+</html>

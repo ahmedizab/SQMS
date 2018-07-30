@@ -1,0 +1,23 @@
+﻿<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Home", "AdminDashboard", "Home", new { area = "" }, null)</li>
+    <li class="dropdown">
+        <a class="btn dropdown-toggle" data-toggle="dropdown">
+            Setting
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Security", "Index", "BranchUsers", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Service Types", "Index", "ServiceTypes", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Service Sub Types", "Index", "ServiceSubTypes", new { area = "" }, null)</li>
+            @*<li>@Html.ActionLink("Breaks", "Index", "BreakTypes", new { area = "" }, null)</li>*@
+            <li>@Html.ActionLink("Branches", "Index", "Branches", new { area = "" }, null)</li>
+            @*<li>@Html.ActionLink("Customer Types", "Index", "CustomerTypes", new { area = "" }, null)</li>*@
+            <li>@Html.ActionLink("Counters", "Index", "Counters", new { area = "" }, null)</li>
+        </ul>
+    </li>
+    <li>@Html.ActionLink("Customers", "Index", "Customers", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Tokens", "Index", "TokenQueues", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Daily Services", "Index", "ServiceDetails", new { area = "" }, null)</li>
+    @*<li>@Html.ActionLink("Daily Breaks", "Index", "DailyBreaks", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Reports", "Index", "Report", new { area = "" }, null)</li>*@
+</ul>

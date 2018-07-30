@@ -1,0 +1,85 @@
+﻿
+@model IEnumerable<qms.ViewModels.VM_Customer>
+
+@{
+    ViewBag.Title = "Customer List";
+}
+<div class="container">
+
+    <div class="row">
+
+        <h4 class="page-head-line">Customer > List </h4>
+        <div class="row">
+            <div class="col-md-3" style="margin-bottom : 10px;">
+                <button class="btn btn-color">
+                    @Html.ActionLink("Create New Customer", "Create")
+                </button>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+            </div>
+       
+
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+                    <th>
+                        @Html.DisplayName("Cusomer Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Contact No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Address")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Type")
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.address)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_type_name)
+                        </td>
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.customer_id })
+
+                        </td>*@
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+    function FilterTable() {
+        index = -1;
+        inp = $('#filterBox').val();
+        $("#data:visible tr:not(:has(>th))").each(function () {
+            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        $('#Hedding').show();
+    }
+</script>

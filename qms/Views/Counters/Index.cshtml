@@ -1,0 +1,123 @@
+﻿
+@model IEnumerable<qms.ViewModels.VMCounter>
+@{
+    ViewBag.Title = "Counter List";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Counter > List</h4>
+        <button class="btn btn-color" style="margin-bottom : 10px;">
+            @Html.ActionLink("Create New Counter", "Create")
+        </button>
+
+        <div class="form-group">
+            @Html.Label("Branch:", new { @class = "col-md-1 control-label" })
+            <div class="col-md-3" style="margin-bottom : 10px;">
+
+                <select name="branch_name" class="form-control" id="branch_name">
+                    <option value="">All Branch</option>
+                    @foreach (var item in ViewBag.branchList)
+                    {
+                        if (item.branch_id == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+
+                    }
+                </select>
+
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr id="Hedding">
+                    <th>
+                        @Html.DisplayName("Counter No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Location")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Branch Name")
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.counter_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.counter_id })
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </div>
+
+        </div>
+    </div>
+<script>
+    function FilterTable() {
+        index = -1;
+        inp = $('#filterBox').val();
+        $("#data:visible tr:not(:has(>th))").each(function () {
+            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        $('#Hedding').show();
+    }
+
+    $(document).ready(function () {
+        inp = $("#branch_name option:selected").text();
+        if (inp == "All Branch") {
+            $("#branch_name").attr('disabled', false);
+        }
+        else $("#branch_name").attr('disabled', true);
+
+        FilterTable2();
+        $("#branch_name").change(function () {
+            // var selectedBranch = $("#branch_name option:selected").text();
+            FilterTable2();
+
+        });
+    });
+
+    function FilterTable2() {
+        index = -1;
+        inp = $("#branch_name option:selected").text();
+        if (inp == "All Branch") {
+            inp = "";
+        }
+        $("#data:visible tr:not(:has(>th))").each(function () {
+            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        $('#Hedding').show();
+    };
+</script>

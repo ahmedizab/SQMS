@@ -1,0 +1,54 @@
+﻿@*@model IEnumerable<qms.Models.tblServiceSubType>*@
+@model IEnumerable<qms.ViewModels.VMServiceType>
+
+@{
+    ViewBag.Title = "Service List";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Sub Type > List</h4>
+
+        <button class="btn btn-color" style="margin-bottom : 10px;">
+            @Html.ActionLink("Generate Service Sub Types", "Create")
+        </button>
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr>
+                    <th>
+                       Type Name
+                    </th>
+                    <th>
+                        Service Name
+                    </th>
+                    <th>
+                       Duration(Minutes)
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.service_type_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.service_sub_type_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.max_duration)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.service_sub_type_id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.service_sub_type_id })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </div>
+
+        </div>
+    </div>

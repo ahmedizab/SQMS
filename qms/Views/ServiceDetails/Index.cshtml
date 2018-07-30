@@ -1,0 +1,210 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<qms.ViewModels.VMServiceDetails>
+@{
+    ViewBag.Title = "Service Detail List";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service > List</h4>
+        <button class="btn btn-color" style="margin-bottom : 10px;">
+            @*@if (!User.IsInRole("Admin"))
+                {*@
+            @Html.ActionLink("Generate Service", "Create")
+            @*}*@
+
+        </button>
+        @*<div class="col-md-12">
+                <fieldset>
+
+                    <table>
+                        <tr>
+                            <td>As on Date</td>
+                            <td>
+                                <input type="text" class="dateTimePicker form-control" id="txtAsOnDate" />
+                            </td>
+                            <td>
+                                <input type="button" value="Find" class="btn btn-info" onclick="GetList();" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </fieldset>
+                <div id="dvList"></div>
+
+            </div>*@
+
+        <div class="form-group">
+
+            <div class="col-md-3" style="margin-bottom : 10px;">
+                @*@Html.Label("", new { @class = "col-md-3 control-label" })*@
+                <select name="branch_name" class="form-control" id="branch_name">
+                    <option value="">All Branch</option>
+                    @foreach (var item in ViewBag.branchList)
+                    {
+                        if (item.branch_id == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+
+                    }
+                </select>
+
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+            </div>
+        </div>
+
+        <div class="col-md-12 scrollbar table-scroll">
+
+            <table class="table table-hover table-bordered" id="data">
+
+                <tr id="Hedding">
+                    <th>
+                        @Html.DisplayName("Branch")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Counter")
+                    </th>
+                    <th>
+                        @Html.DisplayName("User Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Service Start Time")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Service End Time")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Customer Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Contact No")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Issues")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Solutions")
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.counter_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.start_time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.service_datetime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.issues)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.solutions)
+                        </td>
+                        @*<td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.service_id })
+                            }
+                            else
+                            {
+                                @Html.DisplayName("Edit")
+                            }
+                         </td>*@
+                        </tr>
+                }
+
+
+            </table>
+            </div>
+        </div>
+    </div>
+
+        <script>
+
+
+            function FilterTable() {
+                index = -1;
+                inp = $('#filterBox').val();
+
+                $("#data:visible tr:not(:has(>th))").each(function () {
+                    if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                $('#Hedding').show();
+            };
+
+            $(document).ready(function () {
+                inp = $("#branch_name option:selected").text();
+                if (inp == "All Branch") {
+                    $("#branch_name").attr('disabled', false);
+                }
+                else $("#branch_name").attr('disabled', true);
+
+                FilterTable2();
+                $("#branch_name").change(function () {
+                    // var selectedBranch = $("#branch_name option:selected").text();
+                    FilterTable2();
+
+                });
+            });
+
+            function FilterTable2() {
+                index = -1;
+                inp = $("#branch_name option:selected").text();
+                if (inp == "All Branch") {
+                    inp = "";
+                }
+                $("#data:visible tr:not(:has(>th))").each(function () {
+                    if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                $('#Hedding').show();
+            };
+            function GetList() {
+
+                var date = $('#txtAsOnDate').val();
+
+                if (date == "") {
+                    ShowModalMessage("Please select a date");
+                    return;
+                }
+
+                var URL = '/ServiceDetails/GetList/?date=' + date;
+                $.get(URL, function (data) {
+
+                    $("#dvList").html('');
+                    $("#dvList").html(data);
+                });
+            }
+        </script>

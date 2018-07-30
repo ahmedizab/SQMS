@@ -1,0 +1,98 @@
+﻿@model qms.Models.tblCustomer
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@{
+    ViewBag.Title = "Create New Customer";
+}
+
+<div class="container">
+
+
+
+
+
+    <div class="row">
+        <h4 class="page-head-line">Customer > Create</h4>
+       
+            <div class="col-md-14">
+
+
+                <div class="col-md-4">
+                    <fieldset>
+                        <legend style="color : #f46f43">Customer Upload from excel</legend>
+                        <div>
+                            <strong class="error">@ViewBag.ErrorMessage</strong>
+                            @*@using (Html.BeginForm("ImportExcel", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+                                @using (Html.BeginForm("Index", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>
+                                            <input type="file" id="FileUpload1" name="FileUpload1" class="btn btn-color" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" id="Submit" name="Submit" value="Submit" class="btn btn-color" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                            <br />
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-5">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4 style="color : #f46f43"> Create New Customer</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.customer_name, htmlAttributes: new { @class = "control-label col-md-4" })*@
+                                @*@Html.Label("Customer Name", htmlAttributes: new { @class = "control-label col-md-4" })*@
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.customer_name, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Customer Name" } })
+                                    @Html.ValidationMessageFor(model => model.customer_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.contact_no, htmlAttributes: new { @class = "control-label col-md-4" })*@
+                                @*@Html.Label("Contact No", htmlAttributes: new { @class = "control-label col-md-4" })*@
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.contact_no, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Contact No" } })
+                                    @Html.ValidationMessageFor(model => model.contact_no, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-4" })*@
+                                @*@Html.Label("Address", htmlAttributes: new { @class = "control-label col-md-4" })*@
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Address" } })
+                                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    <input type="submit" value="Create" class="btn btn-color" />
+                                    <button class="btn btn-color">
+                                        @Html.ActionLink("Back to List", "Index")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    
+</div>

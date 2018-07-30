@@ -1,0 +1,585 @@
+﻿@model qms.ViewModels.VMServiceDetails
+@using qms.Utility;
+@*@model IEnumerable<qms.Models.tblServiceDetail>*@
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@{
+    ViewBag.Title = "Customer Service";
+    SessionManager sm = new SessionManager(Session);
+}
+
+<div class="container">
+    <div class="row">
+        <div class="page-head-line" style="position:relative; font-weight:bold; padding-bottom:3px">
+            <div style="position:relative; float:left">
+                <h4>Customer Service > Create Service </h4>
+            </div>
+            <div style="position:relative; float:right">
+                Counter# @(sm.counter_no), &gt;&gt; Token # <span id="update-message"></span>
+
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <input type="hidden" id="hidtokenNo" name="hidtokenNo" />
+                <div class="col-md-2">
+                    @*@Html.ActionLink("Take A Break", "Create", "DailyBreaks", new { area = "" }, new { @class = "btn btn-info" })*@
+                </div>
+                <div class="col-md-8">
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="text-align:center">
+            <div class="col-md-2" style="text-align:center">
+                <button type="submit" onclick="NewServiceNo()" class="btn-squere-xl  btn-color marzin-bottom" id="newService_btn">
+                    <span><i class="fa fa-cogs"></i></span> Service
+                </button>
+
+                <button class="btn-squere-xl btn-color marzin-bottom">
+                    <span><i class="fa fa-list"></i></span>
+                    @Html.ActionLink("Service List", "Index")
+                </button>
+
+                <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
+                    <span><i class="fa fa-check-circle"></i></span>Done
+                </button>
+            </div>
+            <div class="col-md-6" style="text-align:center">
+
+                <table class="table table-striped">
+                    <tr>
+
+                        @*<td>Start Time</td>*@
+                        <td>
+                            <div style="position:relative">
+                                <div style="position:relative; float:left">
+                                    @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = "Start Time" })
+                                </div>
+                                <div style="position:relative; float:right">
+                                    @Html.TextBoxFor(m => m.service_type_name, new { @class = "form-control Next", @id = "txtServiceType", @placeholder = "Service Type" })
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        @*<td>Services</td>*@
+                        <td>@Html.DropDownList("service_sub_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Services" })</td>
+                    </tr>
+                    <tr>
+                        @*<td>Mobile No</td>*@
+                        <td>@Html.TextBoxFor(m => m.contact_no, new { @class = "form-control Next", @id = "txtContact", @placeholder = "Mobile No" }) @Html.ValidationMessageFor(m => m.contact_no)</td>
+                        <td><button class="btn btn-color" onclick="GetCustomerInformation()">GO</button></td>
+                    </tr>
+                    <tr>
+                        @*<td>Customer Name</td>*@
+                        <td>@Html.TextBoxFor(m => m.customer_name, new { @class = "form-control Next", @id = "txtName", @placeholder = "Customer Name" }) @Html.ValidationMessageFor(m => m.customer_name)</td>
+                    </tr>
+                    <tr>
+                        @*<td>Address</td>*@
+                        <td>@Html.TextBoxFor(m => m.address, new { @class = "form-control Next", @id = "txtAddress", @placeholder = "Address" }) @Html.ValidationMessageFor(m => m.address)</td>
+                    </tr>
+                    <tr>
+                        @*<td>Issues</td>*@
+                        <td>@Html.TextAreaFor(m => m.issues, new { @class = "form-control Next", @id = "txtIssues", @row = "5", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
+                    </tr>
+                    <tr>
+                        @*<td>Solutions</td>*@
+                        <td>@Html.TextAreaFor(m => m.solutions, new { @class = "form-control Next", @id = "txtsolutions", @row = "5", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
+                    </tr>
+                    @*<tr>
+                            <td>
+                                <button type="submit" onclick="Save()" class="btn btn-lg btn-primary btn-block" id="save_btn">
+                                        Done
+                                    </button>
+                            </td>
+                            <td>
+                                <button type="submit" onclick="SaveNext()" class="btn btn-lg btn-primary btn-block" id="saveNext_btn">
+                                        Done & Next
+                                    </button>
+                            </td>
+                            <td>
+                                <button type="submit" onclick="CancelNext()" class="btn btn-lg btn-danger" id="cancelNext_btn">
+                                        Cancel & Next
+                                    </button>
+                            </td>
+                            <td>
+                                <button type="submit" onclick="Cancel()" class="btn btn-lg btn-danger" id="cancel_btn">
+                                        Cancel
+                                    </button>
+                            </td>
+                        </tr>*@
+                </table>
+            </div>
+
+            <div class="col-md-2" style="text-align:center">
+
+                <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
+                    <span><i class="fa fa-chevron-circle-right"></i></span>Done & Next
+                </button>
+
+                <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
+                    <span><i class="fa fa-times-circle"></i></span>Cancel
+                </button>
+                <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
+                    <span><i class="fa fa-angle-double-right"></i></span>Cancel & Next
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div id="historyDiv" class="col-md-6">
+                <h4>Previous Service History</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Issues</th>
+                            <th>Solutions</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablebody"></tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#historyDiv").hide();
+        })
+
+
+        function loadServices(services) {
+            //service_sub_type_id
+            $('#service_sub_type_id').empty();
+            $.each(services, function (index, service) {
+                $('#service_sub_type_id').append($('<option>').text(service.Text).attr('value', service.Value));
+            });
+        }
+
+        function NewServiceNo() {
+
+            $.ajax({
+                //url: "/SQMS/ServiceDetails/NewTokenNo",
+                url: "/ServiceDetails/NewTokenNo",
+                type: 'POST',
+                dataType: "json",
+                success: function (data) {
+                    //debugger;
+                    if (data.Success == true) {
+                        $("#update-message").html('');
+                        $("#update-message").html(data.Message.token);
+                        $("#start_time").val(data.Message.start_time);
+                        $("#start_time").prop('disabled', true);
+                        $("#txtServiceType").val(data.Message.serviceType);
+                        $("#txtServiceType").prop('disabled', true);
+                        $("#hidtokenNo").val(data.Message.tokenid);
+                        $("#token").val(data.Message.token);
+                        if (data.Message.mobile_no != "") {
+
+                            $("#txtContact").val(data.Message.mobile_no);
+                            //$("#txtContact").prop('disabled', true);
+                            GetCustomerInformation(); // 2018-07-20
+                        } else {
+                            $("#txtContact").prop('disabled', false);
+                        }
+
+                        $("#txtName").val("");
+                        $("#txtAddress").val("");
+                        loadServices(data.Services);
+                    } else {
+                        $("#update-message").html(data.EMessage);
+                    }
+
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+
+            });
+        }
+
+        function Cancel() {
+
+            var token = $("#hidtokenNo").val();
+
+            $.ajax({
+                url: "/ServiceDetails/CancelTokenNo",
+                type: 'POST',
+                dataType: "json",
+                data: { tokenID: token },
+                success: function (data) {
+
+
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#update-message").html('');
+                    $("#hidtokenNo").val('');
+                    $("#txtServiceType").val('');
+                    $("#start_time").val('');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+        } function Transfer() {
+
+            var token = $("#hidtokenNo").val();
+
+            $.ajax({
+                url: "/SQMS/ServiceDetails/Transfer",
+                type: 'POST',
+                dataType: "json",
+                data: { tokenID: token },
+                success: function (data) {
+
+
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#update-message").html('');
+                    $("#hidtokenNo").val('');
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+        }
+
+        function CancelN() {
+
+            var token = $("#hidtokenNo").val();
+
+            $.ajax({
+                url: "/SQMS/ServiceDetails/CancelTokenNo",
+                type: 'POST',
+                dataType: "json",
+                data: { tokenID: token },
+                success: function (data) {
+
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#update-message").html('');
+                    $("#hidtokenNo").val('');
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+        }
+
+        function CancelNext() {
+            var token = $("#hidtokenNo").val();
+
+            $.ajax({
+                url: "/SQMS/ServiceDetails/CancelTokenNo",
+                type: 'POST',
+                dataType: "json",
+                data: { tokenID: token },
+                success: function (data) {
+
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#update-message").html('');
+                    $("#hidtokenNo").val('');
+
+                    NewServiceNo();
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+        }
+
+        function Skip() {
+            var token = $("#hidtokenNo").val();
+
+            $.ajax({
+                url: "/SQMS/ServiceDetails/Skip",
+                type: 'POST',
+                dataType: "json",
+                data: { tokenID: token },
+                success: function (data) {
+                    debugger;
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#update-message").html('');
+                    $("#hidtokenNo").val('');
+
+                    NewServiceNo();
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+        }
+        function ReIssue() {
+            debugger;
+            $.ajax({
+                url: "/SQMS/ServiceDetails/ReIssue",
+                type: 'POST',
+                dataType: "json",
+                success: function (data) {
+                    //debugger;
+                    if (data.Success == true) {
+                        $("#update-message").html('');
+                        $("#update-message").html(data.Message.token);
+                        $("#start_time").val(data.Message.start_time);
+                        $("#start_time").prop('disabled', true);
+                        $("#txtServiceType").val(data.Message.serviceType);
+                        $("#txtServiceType").prop('disabled', true);
+                        $("#hidtokenNo").val(data.Message.tokenid);
+                        $("#token").val(data.Message.token);
+                        if (data.Message.mobile_no != "") {
+
+                            $("#txtContact").val(data.Message.mobile_no);
+                            $("#txtContact").prop('disabled', true);
+                        } else {
+                            $("#txtContact").prop('disabled', false);
+                        }
+
+                        $("#txtName").val("");
+                        $("#txtAddress").val("");
+                        loadServices(data.Services);
+                    } else {
+                        $("#update-message").html(data.EMessage);
+                    }
+
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+        }
+
+
+
+        function GetCustomerInformation() {
+            $('#tablebody').empty();
+            var token = $("#hidtokenNo").val();
+            var contact_nember = $("#txtContact").val();
+            $.ajax({
+                url: "/ServiceDetails/GetCustomerInformation",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    token_id: token,
+                    contact_no: contact_nember
+                },
+                success: function (response) {
+                    //debugger;
+
+                    $("#historyDiv").show();
+                    var select = $('#tablebody');
+                    for (var i = 0; i < response.Message.length ; i++) {
+                        select.append($('<tr><td>' + response.Message[i].issues + '</td><td>'
+                            + response.Message[i].solutions + '</td><td>'
+                            + response.Message[i].service_datetime_string + '</td></tr>'));
+
+                        if (response.Message[i].customer_name != "") {
+                            $("#txtName").val(response.Message[i].customer_name);
+                            $("#txtName").prop('disabled', true);
+
+                        } else {
+                            $("#txtName").prop('disabled', false);
+                        }
+
+                        if (response.Message[i].address != "") {
+                            $("#txtAddress").val(response.Message[i].address);
+                            $("#txtAddress").prop('disabled', true);
+                        } else {
+                            $("#txtAddress").prop('disabled', false);
+                        }
+                    }
+
+
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                }
+            });
+
+        }
+
+        function Save() {
+            debugger;
+            var contactNo = $("#txtContact").val();
+            var Customername = $("#txtName").val();
+            var Customeraddress = $("#txtAddress").val();
+            var customerissues = $("#txtIssues").val();
+            var customersolutions = $("#txtsolutions").val();
+            var customertokenno = $("#hidtokenNo").val();
+            if (customertokenno == "") {
+                alert("Please First Generate New Service No.....");
+                return false;
+            }
+            if (contactNo == "") {
+                alert("Please Enter Mobile No.....");
+                return false;
+            }
+
+            if (Customername == "") {
+                alert("Please Enter Customer Name....");
+                return false;
+            }
+
+            if (Customeraddress == "") {
+                alert("Please Enter Address.....");
+                return false;
+            }
+
+            if (customerissues == "") {
+                alert("Please Enter Issues.....");
+                return false;
+            }
+            if (customersolutions == "") {
+                alert("Please Enter Solutions.....");
+                return false;
+            }
+
+
+
+            var data0 = {
+                "contact_no": contactNo,
+                "customer_name": Customername,
+                "issues": customerissues,
+                "address": Customeraddress,
+                "solutions": customersolutions,
+                "token_id": customertokenno,
+                "start_time": $("#start_time").val(),
+                "service_sub_type_id": $('#service_sub_type_id').val()
+            }
+
+            $.ajax({
+                url: '/ServiceDetails/Done',
+                type: 'POST',
+                dataType: 'json',
+                data: { model: data0 },
+                success: function (data) {
+
+                    $("#update-message").html('');
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#historyDiv").hide();
+                    $("#txtServiceType").val('');
+                    $("#start_time").val('');
+
+
+                }
+            });
+
+        }
+
+        function SaveNext() {
+            debugger;
+            var contactNo = $("#txtContact").val();
+            var Customername = $("#txtName").val();
+            var Customeraddress = $("#txtAddress").val();
+            var customerissues = $("#txtIssues").val();
+            var customersolutions = $("#txtsolutions").val();
+            var customertokenno = $("#hidtokenNo").val();
+            if (customertokenno == "") {
+                alert("Please First Generate New Service No.....");
+                return false;
+            }
+            if (contactNo == "") {
+                alert("Please Enter Mobile No.....");
+                return false;
+            }
+
+            if (Customername == "") {
+                alert("Please Enter Customer Name....");
+                return false;
+            }
+
+            if (Customeraddress == "") {
+                alert("Please Enter Address.....");
+                return false;
+            }
+
+            if (customerissues == "") {
+                alert("Please Enter Issues.....");
+                return false;
+            }
+            if (customersolutions == "") {
+                alert("Please Enter Solutions.....");
+                return false;
+            }
+
+
+
+            var data0 = {
+                "contact_no": contactNo,
+                "customer_name": Customername,
+                "issues": customerissues,
+                "address": Customeraddress,
+                "solutions": customersolutions,
+                "token_id": customertokenno,
+                "start_time": $("#start_time").val(),
+                "service_sub_type_id": $('#service_sub_type_id').val()
+            }
+
+
+            //if (contactNo == "") {
+            //    alert('Please type Mobile no');
+            //    return false;
+            //}
+            //var con = JSON.stringify(contactNo);
+
+            $.ajax({
+                url: '/SQMS/ServiceDetails/Create',
+                type: 'POST',
+                dataType: 'json',
+                data: { model: data0 },
+                success: function (data) {
+
+                    $("#update-message").html('');
+                    $("#txtContact").val('');
+                    $("#txtName").val('');
+                    $("#txtIssues").val('');
+                    $("#txtsolutions").val('');
+                    $("#txtAddress").val('');
+                    $("#historyDiv").hide();
+                    $("#txtServiceType").val('');
+                    $("#start_time").val('');
+
+                    NewServiceNo();
+                }
+            });
+
+        }
+
+    </script>
+}

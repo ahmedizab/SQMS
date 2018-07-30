@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNet.Identity
+@using qms.Utility;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Queuee Management</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link href="~/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery.min.js"></script>
+    
+</head>
+<body>
+
+    
+    <!-- HEADER END-->
+    <!-- LOGO HEADER END-->
+    @if (Request.IsAuthenticated)
+    {
+        <section class="menu-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="navbar-collapse collapse ">
+                            <ul id="menu-top" class="nav navbar-nav navbar-right" style="width: 100%">
+                                @Html.Partial("_Menu")
+                                @Html.Partial("_LoginPartial")
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }
+
+
+
+
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="www.subrasystems.com">
+                        @*<iframe id="5dfc9bc945ab23151b9538fe4fc0895d0c999dcf8d" src="/Banner/Bottom/5dfc9bc945ab23151b9538fe4fc0895d0c999dcf8d/5dfc9bc945ab23151b9538fe4fc0895d0c999dcf8d.html" width="100%" height="28" frameborder="0" scrolling="no" allowtransparency="true"></iframe>*@
+                        Developed By: Subra Systems Ltd.
+
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

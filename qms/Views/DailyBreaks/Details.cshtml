@@ -1,0 +1,58 @@
+﻿@model qms.Models.tblDailyBreak
+
+@{
+    ViewBag.Title = "Daily Break Detail";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>tblDailyBreak</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.end_time)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.end_time)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.remarks)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.remarks)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetUser.Hometown)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUser.Hometown)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.tblBreakType.break_type_short_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.tblBreakType.break_type_short_name)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

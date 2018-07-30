@@ -1,0 +1,242 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/respond.js"></script>
+    <script src="~/Scripts/responsivevoice.src.js"></script>
+    @*<script src="http://code.responsivevoice.org/responsivevoice.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css" />*@
+
+
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <title>CounterList</title>
+
+    <style type="text/css">
+        #topContent {
+            position: absolute;
+            height: 80%;
+            padding: 0px;
+            top: 0%;
+            bottom: 80%;
+        }
+
+        #divVideoAdd {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            padding-right: 0px;
+            float: left;
+        }
+
+        #divCurrentTokens {
+            padding: 0px;
+            margin: 0px;
+            float: right;
+            padding-right: 0px;
+        }
+
+        #divNextToken {
+            position: relative;
+            float: left;
+            margin-top: 38.5%;
+            width: 100%;
+            text-align: left;
+            padding: 0px;
+        }
+
+        .row {
+            margin: 0px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="btn-warning">
+    <input id="branch_id" value="@ViewBag.branch_id" />
+    <input id="welcome" value="@ViewBag.dispalyWelcome" />
+
+    <div class="row">
+        <div id="topContent" class="col-lg-12 col-md-12 btn-info">
+            <div id="divVideoAdd" class="col-lg-9 col-md-9">
+                <video id="myVideo" width="100%" height="100%" style="padding:0px;" muted loop="true" autoplay>
+                    <source src="@Url.Content(ViewBag.dispalyVideo)" type="video/mp4" width="100%" height="100%" style="margin:0px; padding:0px;">
+                </video>
+
+
+                <br>
+            </div>
+            <div id="divCurrentTokens" class="col-lg-3 col-md-3">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 btn btn-primary">
+                        <div class="col col-lg-6 col-md-6"><h3>Counter</h3></div>
+                        <div class="col col-lg-6 col-md-6"><h3>Token</h3></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="divNextToken" class="row btn btn-warning text-left">
+        <div class="col-lg-12 col-md-12">
+            <h3 id="nextToken">Next Token: </h3>
+        </div>
+
+    </div>
+    <marquee class="btn-warning" behavior="scroll" direction="left" style="color:red">
+        <h3>@ViewBag.dispalyFooterAdd</h3>
+    </marquee>
+
+
+
+    <script>
+        /*
+            window.addEventListener('load', function(){
+                var newVideo = document.getElementById('myVideo');
+                newVideo.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                }, false);
+
+                newVideo.play();
+
+            });
+        */
+                var vid = document.getElementById("myVideo");
+                vid.addEventListener('ended',videoEndHandler,false);
+                function videoEndHandler(e) {
+                    vid.load();
+                    vid.mute();
+                    vid.play();
+                }
+
+                $(function () {
+                    // Declare a proxy to reference the hub.
+                    var notifications = $.connection.notifyDisplay;
+
+                    //debugger;
+                    // Create a function that the hub can call to broadcast messages.
+                    notifications.client.updateMessages = function (text) {
+                        getAllMessages();
+                        if(text.length>0) textToTalk(text);
+                    };
+                    // Start the connection.
+                    $.connection.hub.start().done(function () {
+                        getAllMessages();
+                        welComeSpeech();
+                    }).fail(function (e) {
+                        alert(e);
+                    });
+
+/*
+                    setTimeout(function(){
+                        vid.load();
+                        vid.mute();
+                        vid.play();
+                    }, 1000); //5 second timeout in milliseconds
+*/
+                });
+
+                vid.onpause = function() {
+                    vid.load();
+                    vid.mute();
+                    vid.play();
+                }
+
+                function welComeSpeech() {
+                    var text = $('#welcome').val();
+
+                    responsiveVoice.setDefaultVoice("US English Female");
+                    responsiveVoice.speak(text);
+
+                    //$.ajax({
+                    //    url: "/Counters/display",
+                    //    type: 'POST',
+                    //    dataType: "json",
+                    //    data: { text: text },
+                    //    success: function (data) {
+                    //        var audio = new Audio('../Voices/Welcome.mp3');
+                    //        audio.play();
+                    //    },
+                    //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    //        alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+                    //    }
+                    //});
+                }
+
+                function textToTalk(text) {
+                    //var branch_id = $('#branch_id').val();
+                    //var audio = new Audio('../Voices/' + branch_id + '.mp3');
+                    //audio.play();
+
+                    responsiveVoice.setDefaultVoice("US English Female");
+                    responsiveVoice.speak(text);
+                }
+
+
+                function getAllMessages() {
+                    var branch_id = $('#branch_id').val();
+                    $.ajax({
+                        url: '/SQMS/Counters/GetDisplayInfo?branch_id=' + branch_id,
+                        //contentType: 'application/html ; charset:utf-8',
+                        type: 'GET',
+                        //dataType: 'html'
+                    }).success(function (result) {
+                        if (result.success == "true") {
+                            $("#divCurrentTokens").empty();
+                            var row = '<div class="row">';
+                            row += '    <div class="col-lg-12 col-md-12 btn btn-primary">';
+                            row += '        <div class="col col-lg-6 col-md-6"><h3>Counter</h3></div>';
+                            row += '        <div class="col col-lg-6 col-md-6"><h3>Token</h3></div>';
+                            row += '    </div>';
+                            row += '</div>';
+                            $('#divCurrentTokens').append(row);
+                            $.each(result.tokenInProgress, function (key, token) {
+
+                                row = '<div class="row">';
+                                row += '<div class="col-lg-12 col-md-12 btn btn-info">';
+                                row += '    <div class="col col-lg-6 col-md-6"><h3>' + token.counter_no + '</h3></div>';
+                                row += '    <div class="col col-lg-6 col-md-6"><h3>' + token.token_no + '</h3></div>';
+                                row += '</div>';
+                                row += '</div>';
+                                $('#divCurrentTokens').append(row);
+                            });
+
+                            $("#nextToken").text('Next Token: ' + result.nextTokens);
+                        }
+                        else {
+                            alert(result.errorMsg);
+                        }
+                    }).error(function () {
+                        alert("Error");
+                    });
+                }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

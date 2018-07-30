@@ -1,0 +1,48 @@
+﻿@model qms.Models.tblDailyBreak
+
+@{
+    ViewBag.Title = "Daily Break Include";
+}
+<h4>Daily Break > Create</h4>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+   <br />     
+        <div class="form-horizontal">
+            <h4>Take a Break</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.user_id, null, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("user_id", null, htmlAttributes: new { @class = "form-control", disabled="disabled" })
+                    @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.break_type_id, null, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("break_type_id", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.break_type_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.remarks, new { @class = "form-control Next", @row = "5" })
+                    @Html.ValidationMessageFor(model => model.remarks, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    <div>@Html.ActionLink("Back to Service", "Create", "ServiceDetails", new { area = "" }, new { @class = "btn btn-info" })</div>
+   

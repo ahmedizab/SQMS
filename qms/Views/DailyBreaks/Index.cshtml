@@ -1,0 +1,140 @@
+﻿@model IEnumerable<qms.Models.tblDailyBreak>
+@{
+    ViewBag.Title = "Daily Break List";
+}
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Break > List </h4>
+
+
+        <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
+        <div class="form-group" style="margin-left:-15px;">
+            @Html.Label("Branch:", new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+
+                <select name="branch_name" class="form-control" id="branch_name">
+                    <option value="">All Branch</option>
+                    @foreach (var item in ViewBag.branchList)
+                    {
+                        if (item.branch_id == ViewBag.userBranchId)
+                        {
+                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.branch_id">@item.branch_name</option>
+                        }
+
+                    }
+                </select>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">
+
+            <table class="table table-hover table-bordered" id="data">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tblCounter.tblBranch.branch_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tblCounter.counter_no)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AspNetUser.Hometown)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.break_type_id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.start_time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.end_time)
+                    </th>
+                    <th>
+                        Interval
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.remarks)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblCounter.tblBranch.branch_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblCounter.counter_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetUser.Hometown)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblBreakType.break_type_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.start_time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.end_time)
+                        </td>
+                        <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.remarks)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            </div>
+        </div>
+    </div>
+        <script>
+            function FilterTable() {
+                index = -1;
+                inp = $('#filterBox').val();
+                $("#data:visible tr:not(:has(>th))").each(function () {
+                    if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                $('#Hedding').show();
+            }
+
+            $(document).ready(function () {
+                inp = $("#branch_name option:selected").text();
+                if (inp == "All Branch") {
+                    $("#branch_name").attr('disabled', false);
+                }
+                else $("#branch_name").attr('disabled', true);
+
+                FilterTable2();
+                $("#branch_name").change(function () {
+                    // var selectedBranch = $("#branch_name option:selected").text();
+                    FilterTable2();
+
+                });
+            });
+
+            function FilterTable2() {
+                index = -1;
+                inp = $("#branch_name option:selected").text();
+                if (inp == "All Branch") {
+                    inp = "";
+                }
+                $("#data:visible tr:not(:has(>th))").each(function () {
+                    if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                $('#Hedding').show();
+            };
+        </script>

@@ -1,0 +1,68 @@
+﻿@model qms.Models.tblBreakType
+@{
+    ViewBag.Title = "Break Type Detail";
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> Break Type Details</title>
+</head>
+<body>
+    <div>
+        <h4>tblBreakType</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.break_type_short_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.break_type_short_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.break_type_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.break_type_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.start_time)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.start_time)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.end_time)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.end_time)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.duration)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.duration)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.break_type_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
