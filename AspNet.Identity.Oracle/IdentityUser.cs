@@ -38,6 +38,11 @@ namespace AspNet.Identity.Oracle
         public string UserName { get; set; }
 
         /// <summary>
+        /// User Full Name
+        /// </summary>
+        public string Hometown { get; set; }
+
+        /// <summary>
         ///     Email
         /// </summary>
         public virtual string Email { get; set; }

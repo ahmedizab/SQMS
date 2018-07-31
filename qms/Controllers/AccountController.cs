@@ -239,6 +239,7 @@ namespace qms.Controllers
         public ActionResult Register()
         {
             int branch_id = new SessionManager(Session).branch_id;
+            ViewBag.branchList = dbBranch.GetAllBranch();
             ViewBag.branch_id = new SelectList(dbBranch.GetAllBranch(), "branch_id", "branch_name", branch_id); ///----Kamrul
             ViewBag.name = new SelectList(dbRoles.GetAllRoles().Where(e => e.Name != "Admin"), "name", "name");
             return View();
@@ -252,9 +253,9 @@ namespace qms.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Hometown = model.Hometown };
-
+            user.LockoutEnabled = false;
             int branch_id = 0;
-            if (!User.IsInRole("Admin,Branch Admin"))
+            if (!User.IsInRole("Admin"))
             {
                 branch_id = new SessionManager(Session).branch_id;
             }

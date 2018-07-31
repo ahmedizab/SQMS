@@ -21,7 +21,7 @@ namespace qms.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(dbManager.GetAll());
+            return View(dbManager.GetAllCustomer());
             //var tblCustomer = db.tblCustomers.Include(c => c.tblCustomerType);
             //return View(await db.tblCustomers.ToListAsync());
         }

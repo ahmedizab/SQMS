@@ -54,7 +54,7 @@ namespace qms.DAL
             try
             {
                 MapParameters(branchuser);
-                long? branch_id = manager.CallStoredProcedure_Insert("USP_Branch_Insert");
+                long? branch_id = manager.CallStoredProcedure_Insert("USP_BranchUser_Insert");
                 if (branch_id.HasValue) return (int)branch_id.Value;
                 else return 0;
             }

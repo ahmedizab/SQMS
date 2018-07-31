@@ -17,7 +17,12 @@ namespace qms.BLL
             DataTable dt = dal.GetAll();
             return ObjectMappingList(dt);
         }
-
+        public List<VM_Customer> GetAllCustomer()
+        {
+            DALCustomer dal = new DALCustomer();
+            DataTable dt = dal.GetAll();
+            return ObjectMappingListVM(dt);
+        }
         public tblCustomer GetById(int id)
         {
             DALCustomer dal = new DALCustomer();
@@ -85,7 +90,7 @@ namespace qms.BLL
                 customer.customer_name = (row["customer_name"] == DBNull.Value ? null : row["customer_name"].ToString());
                 customer.address = (row["address"] == DBNull.Value ? null : row["address"].ToString());
                 customer.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
-               
+
 
                 list.Add(customer);
 
