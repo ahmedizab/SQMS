@@ -1,5 +1,7 @@
-﻿using qms.Models;
+﻿using qms.BLL;
+using qms.Models;
 using qms.Utility;
+using qms.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +13,12 @@ namespace qms.Controllers
     public class ApiServiceController : Controller
     {
         //private qmsEntities db = new qmsEntities();
+        private BLLDashboard db = new BLLDashboard();
 
         [Authorize(Roles = "Admin")]
         public JsonResult GetAdminDashboard()
         {
-            var dashboardData = db.tblBranches.Select(b => new
-            {
-                branch_name = b.branch_name,
-                tokens = b.tblTokenQueues.Count(),
-                services = b.tblTokenQueues.SelectMany(s=>s.tblServiceDetails).Count()
-            }).ToList();
+            var dashboardData = db.GetAdminDashboard();
 
             return Json(new { success = true, data = dashboardData }, JsonRequestBehavior.AllowGet);
         }
@@ -29,21 +27,10 @@ namespace qms.Controllers
         public JsonResult GetBranchAdminDashboard()
         {
             SessionManager sm = new SessionManager(Session);
+            List<VMDashboardBranchAdminStatuses> statusData = new List<VMDashboardBranchAdminStatuses>();
+            var dashboardData = db.GetBranchAdminDashboard(sm.branch_id, statusData);
 
-            var dashboardData = db.tblCounters.Where(c=>c.branch_id==sm.branch_id).Select(c => new
-            {
-                counter_no = c.counter_no,
-                tokens = c.tblTokenQueues.Count(),
-                services = c.tblTokenQueues.SelectMany(s => s.tblServiceDetails).Count()
-            }).ToList();
-
-            var statusData = db.tblServiceStatus.Select(ss => new
-            {
-                service_status = ss.service_status,
-                tokens= ss.tblTokenQueues.Where(t=>t.branch_id==sm.branch_id).Count()
-            }).ToList();
-
-            return Json(new { success = true, data = dashboardData, statusData= statusData }, JsonRequestBehavior.AllowGet);
+           return Json(new { success = true, data = dashboardData, statusData= statusData }, JsonRequestBehavior.AllowGet);
         }
     }
 }

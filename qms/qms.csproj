@@ -316,6 +316,7 @@
     <Compile Include="BLL\BLLCounters.cs" />
     <Compile Include="BLL\BLLCustomer.cs" />
     <Compile Include="BLL\BLLDailyBreak.cs" />
+    <Compile Include="BLL\BLLDashboard.cs" />
     <Compile Include="BLL\BLLServiceDetail.cs" />
     <Compile Include="BLL\BLLServiceSubType.cs" />
     <Compile Include="BLL\BLLServiceType.cs" />
@@ -347,6 +348,7 @@
     <Compile Include="DAL\DALCounters.cs" />
     <Compile Include="DAL\DALCustomer.cs" />
     <Compile Include="DAL\DALDailyBreak.cs" />
+    <Compile Include="DAL\DALDashboard.cs" />
     <Compile Include="DAL\DALServiceDetail.cs" />
     <Compile Include="DAL\DALServiceSubType.cs" />
     <Compile Include="DAL\DALServiceType.cs" />
@@ -442,6 +444,7 @@
     <Compile Include="Utility\TokenPrint.cs" />
     <Compile Include="ViewModels\VMBranchLogin.cs" />
     <Compile Include="ViewModels\VMCounter.cs" />
+    <Compile Include="ViewModels\VMDashboards.cs" />
     <Compile Include="ViewModels\VMNextToken.cs" />
     <Compile Include="ViewModels\VMServiceDetails.cs" />
     <Compile Include="ViewModels\VMServiceType.cs" />

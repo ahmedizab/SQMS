@@ -7,19 +7,27 @@ using System.Web;
 
 namespace qms.DAL
 {
-    public class DALAspNetUser
+    public class DALDashboard
     {
         OracleDataManager manager = new OracleDataManager();
-        public DataTable GetAllUser()
+        public DataSet GetBranchAdminDashboard( int branch_id)
         {
             try
             {
-
+                manager.AddParameter(new OracleParameter("P_BRANCH_ID", branch_id));
                 OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_AspNetUser_SelectAll");
+                DataTable dtCounter = manager.CallStoredProcedure_Select("USP_DASHBOARD_COUNTERS");
+                DataTable dtStatuses= manager.CallStoredProcedure_Select("USP_DASHBOARD_STATUSES");
+
+                dtCounter.TableName = "COUNTERS";
+                dtStatuses.TableName = "STATUSES";
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dtCounter);
+                ds.Tables.Add(dtStatuses);
+                return ds;
             }
             catch (Exception)
             {
@@ -30,16 +38,15 @@ namespace qms.DAL
 
         }
 
-        public DataTable GetSessionInfoByUserName(string userName)
+        public DataTable GetAdminDashboard()
         {
             try
             {
-                manager.AddParameter(new OracleParameter("P_USER_NAME", userName));
                 OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_SessionInfo_ByUserName");
+                return manager.CallStoredProcedure_Select("USP_DASHBOARD_ADMIN");
             }
             catch (Exception)
             {
