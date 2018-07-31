@@ -12,6 +12,7 @@ namespace qms.DAL
     public class DALServiceDetail
     {
         OracleDataManager manager = new OracleDataManager();
+
         public DataTable GetAll()
         {
             try
@@ -31,7 +32,7 @@ namespace qms.DAL
 
 
         }
-        public DataTable GetNewToken(int branch_id, int counter_id, string userid,out long token_id, out int token_no,out string contact_no, out string service_type, out DateTime start_time,out string customer_name,out string address )
+        public DataTable GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address)
         {
             try
             {
@@ -42,23 +43,23 @@ namespace qms.DAL
                 OracleParameter param_TOKEN_ID = new OracleParameter("PO_TOKEN_ID", OracleType.Number);
                 param_TOKEN_ID.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_TOKEN_ID);
-                
+
                 OracleParameter param_TOKEN_NO = new OracleParameter("PO_TOKEN_NO", OracleType.Number);
                 param_TOKEN_NO.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_TOKEN_NO);
-                OracleParameter param_CONTACT_NO = new OracleParameter("PO_CONTACT_NO", OracleType.VarChar,20);
+                OracleParameter param_CONTACT_NO = new OracleParameter("PO_CONTACT_NO", OracleType.VarChar, 20);
                 param_CONTACT_NO.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_CONTACT_NO);
-                OracleParameter param_SERVICE_TYPE = new OracleParameter("PO_SERVICE_TYPE", OracleType.VarChar,100);
+                OracleParameter param_SERVICE_TYPE = new OracleParameter("PO_SERVICE_TYPE", OracleType.VarChar, 100);
                 param_SERVICE_TYPE.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_SERVICE_TYPE);
                 OracleParameter param_START_TIME = new OracleParameter("PO_START_TIME", OracleType.DateTime);
                 param_START_TIME.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_START_TIME);
-                OracleParameter param_CUSTOMER_NAME = new OracleParameter("PO_CUSTOMER_NAME", OracleType.VarChar,150);
+                OracleParameter param_CUSTOMER_NAME = new OracleParameter("PO_CUSTOMER_NAME", OracleType.VarChar, 150);
                 param_CUSTOMER_NAME.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_CUSTOMER_NAME);
-                OracleParameter param_ADDRESS = new OracleParameter("PO_ADDRESS", OracleType.VarChar,250);
+                OracleParameter param_ADDRESS = new OracleParameter("PO_ADDRESS", OracleType.VarChar, 250);
                 param_ADDRESS.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_ADDRESS);
                 OracleParameter param = new OracleParameter("PO_CURSOR", OracleType.Cursor);
@@ -91,7 +92,7 @@ namespace qms.DAL
                 OracleDataManager manager = new OracleDataManager();
                 manager.AddParameter(new OracleParameter("p_token_id", token_id));
 
-                 manager.CallStoredProcedure_Select("USP_Token_Cancel");
+                manager.CallStoredProcedure_Select("USP_Token_Cancel");
             }
             catch (Exception)
             {
