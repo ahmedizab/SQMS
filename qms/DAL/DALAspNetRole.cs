@@ -7,10 +7,10 @@ using System.Web;
 
 namespace qms.DAL
 {
-    public class DALUserRoles
+    public class DALAspNetRole
     {
         OracleDataManager manager = new OracleDataManager();
-        public DataTable GetAllUser()
+        public DataTable GetAllRoles()
         {
             try
             {

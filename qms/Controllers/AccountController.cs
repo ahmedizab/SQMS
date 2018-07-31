@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using qms.Models;
 using qms.Utility;
+using qms.ViewModels;
 
 namespace qms.Controllers
 {
@@ -18,10 +19,10 @@ namespace qms.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private qmsEntities db = new qmsEntities();
+        //private qmsEntities db = new qmsEntities();
         private BLL.BLLBranch dbBranch = new BLL.BLLBranch();
         private BLL.BLLAspNetUser dbUser = new BLL.BLLAspNetUser();
-        private BLL.BLLUserRoles dbUserRoles = new BLL.BLLUserRoles();
+        private BLL.BLLAspNetRole dbRoles = new BLL.BLLAspNetRole();
 
         private BLL.BLLBranchUsers dbBranchUser = new BLL.BLLBranchUsers();
 
@@ -101,19 +102,16 @@ namespace qms.Controllers
                 case SignInStatus.Success:
                     {
                         SessionManager sm = new SessionManager(Session);
-                        AspNetUser user = db.AspNetUsers.Where(u => u.UserName == model.Email).FirstOrDefault(); //-------Kamrul
-                        string role_name = user.AspNetRoles.FirstOrDefault().Name;
-                        //string role_name = dbUserRoles.GetAllUser().Where(user.Id);
+                        VMSessionInfo user = dbUser.GetSessionInfoByUserName(model.Email); //-------Kamrul
+                        
 
-
-                        sm.user_name = user.Hometown;
-                        sm.user_id = user.Id;
-                        if (user.tblBranchUsers.Any())
+                        sm.user_name = user.user_name;
+                        sm.user_id = user.user_id;
+                        if (user.branch_id>0)
                         {
-                            tblBranchUser branchUser = user.tblBranchUsers.FirstOrDefault();
-                            sm.branch_id = branchUser.branch_id;
-                            sm.branch_name = branchUser.tblBranch.branch_name;
-                            sm.branch_static_ip = branchUser.tblBranch.static_ip;
+                            sm.branch_id = user.branch_id;
+                            sm.branch_name = user.branch_name;
+                            sm.branch_static_ip = user.branch_static_ip;
                         }
                         else
                         {
@@ -121,23 +119,23 @@ namespace qms.Controllers
                         }
                         
 
-                        if (role_name=="Admin")
+                        if (user.role_name == "Admin")
                         {
                             return RedirectToAction("AdminDashboard", "Home");
                         }
-                        else if (role_name == "Branch Admin")
+                        else if (user.role_name == "Branch Admin")
                         {
                             return RedirectToAction("BranchAdminDashboard", "Home");
                         }
-                        else if (role_name == "Token Generator")
+                        else if (user.role_name == "Token Generator")
                         {
                             return RedirectToAction("Create", "TokenQueues");
                         }
-                        else if (role_name == "Service Holder")
+                        else if (user.role_name == "Service Holder")
                         {
                             return RedirectToAction("CounterSelection", "Home");
                         }
-                        else if (role_name == "Display User")
+                        else if (user.role_name == "Display User")
                         {
                             return RedirectToAction("CounterList", "Counters");
                         }
@@ -242,7 +240,7 @@ namespace qms.Controllers
         {
             int branch_id = new SessionManager(Session).branch_id;
             ViewBag.branch_id = new SelectList(dbBranch.GetAllBranch(), "branch_id", "branch_name", branch_id); ///----Kamrul
-            ViewBag.name = new SelectList(db.AspNetRoles.Where(e => e.Name != "Admin"), "name", "name");
+            ViewBag.name = new SelectList(dbRoles.GetAllRoles().Where(e => e.Name != "Admin"), "name", "name");
             return View();
         }
 
@@ -273,10 +271,8 @@ namespace qms.Controllers
                     if (result.Succeeded)
                     {
                         UserManager.AddToRole(user.Id, model.name);
-                        //dbBranchUser.Create(model); ---Kamrul
-                        db.tblBranchUsers.Add(new tblBranchUser() { branch_id = branch_id, user_id = user.Id });
-                        db.SaveChanges();
-
+                        dbBranchUser.Create(new tblBranchUser() { branch_id = branch_id, user_id = user.Id });
+                        
                         return RedirectToAction("Index", "BranchUsers");
                     }
                     AddErrors(result);
@@ -288,7 +284,7 @@ namespace qms.Controllers
             }
 
             ViewBag.branch_id = new SelectList(dbBranch.GetAllBranch(), "branch_id", "branch_name",branch_id); //------Kamrul
-            ViewBag.name = new SelectList(db.AspNetRoles, "name", "name", model.name);
+            ViewBag.name = new SelectList(dbRoles.GetAllRoles(), "name", "name", model.name);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

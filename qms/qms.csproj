@@ -27,6 +27,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,10 +50,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="csc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Compilers.1.0.0\tools\csc.exe</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -142,22 +139,6 @@
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Build.Tasks.CodeAnalysis, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Compilers.1.0.0\tools\Microsoft.Build.Tasks.CodeAnalysis.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.VisualBasic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
@@ -327,6 +308,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="BLL\BLLAspNetRole.cs" />
     <Compile Include="BLL\BLLAspNetUser.cs" />
     <Compile Include="BLL\BLLBranch.cs" />
     <Compile Include="BLL\BLLBranchUsers.cs" />
@@ -339,7 +321,7 @@
     <Compile Include="BLL\BLLServiceType.cs" />
     <Compile Include="BLL\BLLStatus.cs" />
     <Compile Include="BLL\BLLToken.cs" />
-    <Compile Include="BLL\BLLUserRoles.cs" />
+    <Compile Include="BLL\BLLAspNetUserRoles.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiServiceController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
@@ -357,6 +339,7 @@
     <Compile Include="Controllers\ServiceSubTypesController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
     <Compile Include="Controllers\TokenQueuesController.cs" />
+    <Compile Include="DAL\DALAspNetRole.cs" />
     <Compile Include="DAL\DALAspNetUser.cs" />
     <Compile Include="DAL\DALBranch.cs" />
     <Compile Include="DAL\DALBranchUsers.cs" />
@@ -369,7 +352,7 @@
     <Compile Include="DAL\DALServiceType.cs" />
     <Compile Include="DAL\DALStatus.cs" />
     <Compile Include="DAL\DALToken.cs" />
-    <Compile Include="DAL\DALUserRoles.cs" />
+    <Compile Include="DAL\DALAspNetUserRoles.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -462,6 +445,7 @@
     <Compile Include="ViewModels\VMNextToken.cs" />
     <Compile Include="ViewModels\VMServiceDetails.cs" />
     <Compile Include="ViewModels\VMServiceType.cs" />
+    <Compile Include="ViewModels\VMSessionInfo.cs" />
     <Compile Include="ViewModels\VMTokenProgress.cs" />
     <Compile Include="ViewModels\VMTokenQueue.cs" />
     <Compile Include="ViewModels\VM_Customer.cs" />
@@ -764,6 +748,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AspNet.Identity.Oracle\AspNet.Identity.Oracle.csproj">
+      <Project>{26f6ecf9-4369-417b-8cf2-54fa92df3660}</Project>
+      <Name>AspNet.Identity.Oracle</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace qms.DAL
 {
-    public class DALAspNetUser
+    public class DALAspNetUserRoles
     {
         OracleDataManager manager = new OracleDataManager();
         public DataTable GetAllUser()
@@ -19,7 +19,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_AspNetUser_SelectAll");
+                return manager.CallStoredProcedure_Select("USP_AspNetRoles_SelectAll");
             }
             catch (Exception)
             {
@@ -30,16 +30,16 @@ namespace qms.DAL
 
         }
 
-        public DataTable GetSessionInfoByUserName(string userName)
+        public DataTable GetRolesByUserId(string userId)
         {
             try
             {
-                manager.AddParameter(new OracleParameter("P_USER_NAME", userName));
+                manager.AddParameter(new OracleParameter("p_user_id", userId));
                 OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_SessionInfo_SelectByUserId");
+                return manager.CallStoredProcedure_Select("USP_AspNetRoles_SelectByUserId");
             }
             catch (Exception)
             {

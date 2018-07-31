@@ -1,40 +1,51 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qms", "qms\qms.csproj", "{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subra.DBManager", "Subra.DBManager\Subra.DBManager.csproj", "{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.Oracle", "AspNet.Identity.Oracle\AspNet.Identity.Oracle.csproj", "{26F6ECF9-4369-417B-8CF2-54FA92DF3660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Debug|x64.Build.0 = Debug|Any CPU
 		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Release|x64.ActiveCfg = Release|Any CPU
+		{03E2E752-CE62-4FFA-B4F3-037BEF0F2ECE}.Release|x64.Build.0 = Release|Any CPU
 		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Debug|x64.Build.0 = Debug|Any CPU
 		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Release|x64.ActiveCfg = Release|Any CPU
+		{8F03C6F5-45A8-4A62-80AF-DD068C7778A9}.Release|x64.Build.0 = Release|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|x64.ActiveCfg = Debug|x64
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|x64.Build.0 = Debug|x64
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|x64.ActiveCfg = Release|x64
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://192.168.0.9:8080/tfs/erp
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = qms\\qms.csproj
-		SccProjectName1 = qms
-		SccLocalPath1 = qms
-		SccProjectUniqueName2 = Subra.DBManager\\Subra.DBManager.csproj
-		SccProjectName2 = Subra.DBManager
-		SccLocalPath2 = Subra.DBManager
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9EAF0661-5308-4C10-BB2F-93118D1AD328}
 	EndGlobalSection
 EndGlobal

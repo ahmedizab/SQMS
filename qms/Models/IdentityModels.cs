@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
+﻿using AspNet.Identity.Oracle;
+using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace qms.Models
 {
@@ -20,10 +19,10 @@ namespace qms.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : OracleDatabase
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
         }
 

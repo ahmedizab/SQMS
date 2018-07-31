@@ -8,12 +8,20 @@ using System.Web;
 
 namespace qms.BLL
 {
-    public class BLLUserRoles
+    public class BLLAspNetUserRoles
     {
         public List<AspNetRole> GetAllUser()
         {
-            DALUserRoles dal = new DALUserRoles();
+            DALAspNetUserRoles dal = new DALAspNetUserRoles();
             DataTable dt = dal.GetAllUser();
+            return ObjectMappingList(dt);
+        }
+
+
+        public List<AspNetRole> GetRolesByUserId(string userId)
+        {
+            DALAspNetUserRoles dal = new DALAspNetUserRoles();
+            DataTable dt = dal.GetRolesByUserId(userId);
             return ObjectMappingList(dt);
         }
 

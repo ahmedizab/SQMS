@@ -10,7 +10,7 @@ namespace qms.Controllers
 {
     public class ApiServiceController : Controller
     {
-        private qmsEntities db = new qmsEntities();
+        //private qmsEntities db = new qmsEntities();
 
         [Authorize(Roles = "Admin")]
         public JsonResult GetAdminDashboard()
