@@ -20,7 +20,7 @@ namespace qms.DAL
                 manager.AddParameter(param);
 
                 DataTable dtCounter = manager.CallStoredProcedure_Select("USP_DASHBOARD_COUNTERS");
-                DataTable dtStatuses= manager.CallStoredProcedure_Select("USP_DASHBOARD_STATUSES");
+                DataTable dtStatuses = GetBranchAdminDashboardStatus(branch_id);
 
                 dtCounter.TableName = "COUNTERS";
                 dtStatuses.TableName = "STATUSES";
@@ -28,6 +28,27 @@ namespace qms.DAL
                 ds.Tables.Add(dtCounter);
                 ds.Tables.Add(dtStatuses);
                 return ds;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public DataTable GetBranchAdminDashboardStatus(int branch_id)
+        {
+            try
+            {
+                manager = new OracleDataManager();
+                manager.AddParameter(new OracleParameter("P_BRANCH_ID", branch_id));
+                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                param.Direction = ParameterDirection.Output;
+                manager.AddParameter(param);
+
+                return manager.CallStoredProcedure_Select("USP_DASHBOARD_STATUSES");
             }
             catch (Exception)
             {
