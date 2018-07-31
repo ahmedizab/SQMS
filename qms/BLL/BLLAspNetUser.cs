@@ -54,7 +54,7 @@ namespace qms.BLL
                 sessionInfo.user_id = (row["user_id"] == DBNull.Value ? null : row["user_id"].ToString());
                 sessionInfo.user_name = (row["user_name"] == DBNull.Value ? null : row["user_name"].ToString());
                 sessionInfo.role_name = (row["role_name"] == DBNull.Value ? null : row["role_name"].ToString());
-                sessionInfo.branch_id = (row["branch_id"] == DBNull.Value ? 0 : (int)row["branch_id"]);
+                sessionInfo.branch_id = (row["branch_id"] == DBNull.Value ? 0 : Convert.ToInt32(row["branch_id"]));
                 sessionInfo.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
                 sessionInfo.branch_static_ip = (row["branch_static_ip"] == DBNull.Value ? null : row["branch_static_ip"].ToString());
                 return sessionInfo;
