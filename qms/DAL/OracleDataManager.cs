@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.DataAccess.Client;
 using System.Linq;
 using System.Web;
 
@@ -178,15 +178,15 @@ namespace qms.DAL
         public long? CallStoredProcedure_Insert(string storedProcedureName)
         {
             long? pkValue = null;
-            OracleParameter param = new OracleParameter("po_PKValue", OracleType.Number);
+            OracleParameter param = new OracleParameter("po_PKValue", OracleDbType.Decimal);
             param.Direction = ParameterDirection.Output;
             AddParameter(param);
             try
             {
                 CallStoredProcedure(storedProcedureName);
 
-                if (param.Value == DBNull.Value)
-                    pkValue = Convert.ToInt64(param.Value);
+                if (param.Value != DBNull.Value)
+                    pkValue = (long)((Oracle.DataAccess.Types.OracleDecimal)param.Value).Value; 
             }
             catch (Exception)
             {

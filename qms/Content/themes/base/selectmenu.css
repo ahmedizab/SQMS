@@ -39,7 +39,7 @@
 	overflow: hidden;
 	position: relative;
 	text-decoration: none;
-	cursor: pointer;
+	RefCursor: pointer;
 }
 .ui-selectmenu-button span.ui-icon {
 	right: 0.5em;

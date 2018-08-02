@@ -74,6 +74,7 @@ namespace AspNet.Identity.Oracle
             user = (TUser)Activator.CreateInstance(typeof(TUser));
             user.Id = row["ID"];
             user.UserName = row["USERNAME"];
+            user.Hometown = string.IsNullOrEmpty(row["HOMETOWN"]) ? null : row["HOMETOWN"];
             user.PasswordHash = string.IsNullOrEmpty(row["PASSWORDHASH"]) ? null : row["PASSWORDHASH"];
             user.SecurityStamp = string.IsNullOrEmpty(row["SECURITYSTAMP"]) ? null : row["SECURITYSTAMP"];
             user.Email = string.IsNullOrEmpty(row["EMAIL"]) ? null : row["EMAIL"];
@@ -108,6 +109,7 @@ namespace AspNet.Identity.Oracle
                 var user = (TUser)Activator.CreateInstance(typeof(TUser));
                 user.Id = row["ID"];
                 user.UserName = row["USERNAME"];
+                user.Hometown = string.IsNullOrEmpty(row["HOMETOWN"]) ? null : row["HOMETOWN"];
                 user.PasswordHash = string.IsNullOrEmpty(row["PASSWORDHASH"]) ? null : row["PASSWORDHASH"];
                 user.SecurityStamp = string.IsNullOrEmpty(row["SECURITYSTAMP"]) ? null : row["SECURITYSTAMP"];
                 user.Email = string.IsNullOrEmpty(row["EMAIL"]) ? null : row["EMAIL"];
@@ -144,6 +146,7 @@ namespace AspNet.Identity.Oracle
                 var user = (TUser)Activator.CreateInstance(typeof(TUser));
                 user.Id = row["ID"];
                 user.UserName = row["USERNAME"];
+                user.Hometown = string.IsNullOrEmpty(row["HOMETOWN"]) ? null : row["HOMETOWN"];
                 user.PasswordHash = string.IsNullOrEmpty(row["PASSWORDHASH"]) ? null : row["PASSWORDHASH"];
                 user.SecurityStamp = string.IsNullOrEmpty(row["SECURITYSTAMP"]) ? null : row["SECURITYSTAMP"];
                 user.Email = string.IsNullOrEmpty(row["EMAIL"]) ? null : row["EMAIL"];
@@ -217,12 +220,12 @@ namespace AspNet.Identity.Oracle
         /// <returns></returns>
         public int Insert(TUser user)
         {
-            const string commandText = @"INSERT INTO ASPNETUSERS (USERNAME,HOMETOWN, ID, PASSWORDHASH, SECURITYSTAMP,EMAIL,EMAILCONFIRMED,PHONENUMBER,PHONENUMBERCONFIRMED, ACCESSFAILEDCOUNT,LOCKOUTENABLED,LOCKOUTENDDATEUTC,TWOFACTORENABLED)
-                VALUES (:NAME,:HOMETOWN, :USERID, :PWHASH, :SECSTAMP,:EMAIL,:EMAILCONFIRMED,:PHONENUMBER,:PHONENUMBERCONFIRMED,:ACCESSFAILEDCOUNT,:LOCKOUTENABLED,:LOCKOUTENDDATEUTC,:TWOFACTORENABLED)";
+            const string commandText = @"INSERT INTO ASPNETUSERS (USERNAME, HOMETOWN, ID, PASSWORDHASH, SECURITYSTAMP,EMAIL,EMAILCONFIRMED,PHONENUMBER,PHONENUMBERCONFIRMED, ACCESSFAILEDCOUNT,LOCKOUTENABLED,LOCKOUTENDDATEUTC,TWOFACTORENABLED)
+                VALUES (:NAME, :FULLNAME, :USERID, :PWHASH, :SECSTAMP,:EMAIL,:EMAILCONFIRMED,:PHONENUMBER,:PHONENUMBERCONFIRMED,:ACCESSFAILEDCOUNT,:LOCKOUTENABLED,:LOCKOUTENDDATEUTC,:TWOFACTORENABLED)";
             var parameters = new List<OracleParameter>
             {
                 new OracleParameter{ ParameterName = "NAME", Value = user.UserName, OracleDbType = OracleDbType.Varchar2 },
-                new OracleParameter{ ParameterName = "HOMETOWN", Value = user.Hometown, OracleDbType = OracleDbType.Varchar2 },
+                new OracleParameter{ ParameterName = "FULLNAME", Value = user.Hometown, OracleDbType = OracleDbType.Varchar2 },
 
                 new OracleParameter{ ParameterName = "USERID", Value = user.Id, OracleDbType = OracleDbType.Varchar2 },
                 new OracleParameter{ ParameterName = "PWHASH", Value = user.PasswordHash, OracleDbType = OracleDbType.Clob },
@@ -232,7 +235,7 @@ namespace AspNet.Identity.Oracle
                 new OracleParameter{ ParameterName = "PHONENUMBER", Value = user.PhoneNumber, OracleDbType = OracleDbType.Clob },
                 new OracleParameter{ ParameterName = "PHONENUMBERCONFIRMED", Value = user.PhoneNumberConfirmed.ToDecimal(), OracleDbType = OracleDbType.Decimal },
                 new OracleParameter{ ParameterName = "ACCESSFAILEDCOUNT", Value = user.AccessFailedCount, OracleDbType = OracleDbType.Decimal },
-                new OracleParameter{ ParameterName = "LOCKOUTENABLED", Value = user.LockoutEnabled.ToDecimal(), OracleDbType = OracleDbType.Decimal },
+                new OracleParameter{ ParameterName = "LOCKOUTENABLED", Value = 0, OracleDbType = OracleDbType.Decimal },
                 new OracleParameter{ ParameterName = "LOCKOUTENDDATEUTC", Value = user.LockoutEndDateUtc, OracleDbType = OracleDbType.Date },
                 new OracleParameter{ ParameterName = "TWOFACTORENABLED", Value = user.TwoFactorEnabled.ToDecimal(), OracleDbType = OracleDbType.Decimal },
             };

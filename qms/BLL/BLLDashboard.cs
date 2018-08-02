@@ -48,7 +48,7 @@ namespace qms.BLL
             foreach (DataRow row in dt.Rows)
             {
                 VMDashboardBranchAdminCounters dashboard = new VMDashboardBranchAdminCounters();
-                dashboard.counter_no = (row["counter_no"] == DBNull.Value ? null : row["branch_name"].ToString());
+                dashboard.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
                 dashboard.tokens = (row["tokens"] == DBNull.Value ? 0 : Convert.ToInt32(row["tokens"]));
                 dashboard.services = (row["services"] == DBNull.Value ? 0 : Convert.ToInt32(row["services"]));
 
@@ -64,7 +64,7 @@ namespace qms.BLL
             foreach (DataRow row in dt.Rows)
             {
                 VMDashboardBranchAdminStatuses dashboard = new VMDashboardBranchAdminStatuses();
-                dashboard.service_status = (row["counter_no"] == DBNull.Value ? null : row["branch_name"].ToString());
+                dashboard.service_status = (row["service_status"] == DBNull.Value ? null : row["service_status"].ToString());
                 dashboard.tokens = (row["tokens"] == DBNull.Value ? 0 : Convert.ToInt32(row["tokens"]));
 
 

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.DataAccess.Client;
 using System.Linq;
 using System.Web;
 
@@ -17,7 +17,7 @@ namespace qms.DAL
             try
             {
                
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -36,7 +36,7 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("p_Customer_id", id));
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 

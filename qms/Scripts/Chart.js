@@ -11666,7 +11666,7 @@ module.exports = function(Chart) {
 				var fontStyle = valueOrDefault(labelOpts.fontStyle, globalDefault.defaultFontStyle);
 				var fontFamily = valueOrDefault(labelOpts.fontFamily, globalDefault.defaultFontFamily);
 				var labelFont = helpers.fontString(fontSize, fontStyle, fontFamily);
-				var cursor;
+				var RefCursor;
 
 				// Canvas setup
 				ctx.textAlign = 'left';
@@ -11741,13 +11741,13 @@ module.exports = function(Chart) {
 				// Horizontal
 				var isHorizontal = me.isHorizontal();
 				if (isHorizontal) {
-					cursor = {
+					RefCursor = {
 						x: me.left + ((legendWidth - lineWidths[0]) / 2),
 						y: me.top + labelOpts.padding,
 						line: 0
 					};
 				} else {
-					cursor = {
+					RefCursor = {
 						x: me.left + labelOpts.padding,
 						y: me.top + labelOpts.padding,
 						line: 0
@@ -11758,19 +11758,19 @@ module.exports = function(Chart) {
 				helpers.each(me.legendItems, function(legendItem, i) {
 					var textWidth = ctx.measureText(legendItem.text).width;
 					var width = boxWidth + (fontSize / 2) + textWidth;
-					var x = cursor.x;
-					var y = cursor.y;
+					var x = RefCursor.x;
+					var y = RefCursor.y;
 
 					if (isHorizontal) {
 						if (x + width >= legendWidth) {
-							y = cursor.y += itemHeight;
-							cursor.line++;
-							x = cursor.x = me.left + ((legendWidth - lineWidths[cursor.line]) / 2);
+							y = RefCursor.y += itemHeight;
+							RefCursor.line++;
+							x = RefCursor.x = me.left + ((legendWidth - lineWidths[RefCursor.line]) / 2);
 						}
 					} else if (y + itemHeight > me.bottom) {
-						x = cursor.x = x + me.columnWidths[cursor.line] + labelOpts.padding;
-						y = cursor.y = me.top + labelOpts.padding;
-						cursor.line++;
+						x = RefCursor.x = x + me.columnWidths[RefCursor.line] + labelOpts.padding;
+						y = RefCursor.y = me.top + labelOpts.padding;
+						RefCursor.line++;
 					}
 
 					drawLegendBox(x, y, legendItem);
@@ -11782,9 +11782,9 @@ module.exports = function(Chart) {
 					fillText(x, y, legendItem, textWidth);
 
 					if (isHorizontal) {
-						cursor.x += width + (labelOpts.padding);
+						RefCursor.x += width + (labelOpts.padding);
 					} else {
-						cursor.y += itemHeight;
+						RefCursor.y += itemHeight;
 					}
 
 				});

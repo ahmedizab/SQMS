@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.DataAccess.Client;
 using System.Linq;
 using System.Web;
 
@@ -17,7 +17,7 @@ namespace qms.DAL
             try
             {
                 
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -35,7 +35,7 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("p_branch_id", branch_id));
-                OracleParameter param = new OracleParameter("cur", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -53,7 +53,7 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("p_branch_id", branch_id));
-                OracleParameter param = new OracleParameter("cur", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("cur", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -69,19 +69,18 @@ namespace qms.DAL
         {
             try
             {
-                OracleParameter param_token_id = new OracleParameter("po_token_id", OracleType.Number);
+                OracleParameter param_token_id = new OracleParameter("po_token_id", OracleDbType.Decimal);
                 param_token_id.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_token_id);
-                OracleParameter param_token_no = new OracleParameter("po_token_no", OracleType.Number);
+                OracleParameter param_token_no = new OracleParameter("po_token_no", OracleDbType.Decimal);
                 param_token_no.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_token_no);
                 manager.AddParameter(new OracleParameter("p_branch_id", token.branch_id));
                 MapParameters(token);
                 manager.CallStoredProcedure("USP_Token_Insert");
 
-
-                token.token_id = Convert.ToInt64(param_token_id.Value);
-                token.token_no = Convert.ToInt32(param_token_no.Value);
+                token.token_id = (long)((Oracle.DataAccess.Types.OracleDecimal)param_token_id.Value).Value;
+                token.token_no = (int)((Oracle.DataAccess.Types.OracleDecimal)param_token_no.Value).Value;
 
             }
             catch (Exception)

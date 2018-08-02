@@ -6170,7 +6170,7 @@ $.widget( "ui.autocomplete", {
 		if ( !this.isMultiLine || this.menu.element.is( ":visible" ) ) {
 			this._move( keyEvent, event );
 
-			// Prevents moving cursor to beginning/end of the text field in some browsers
+			// Prevents moving RefCursor to beginning/end of the text field in some browsers
 			event.preventDefault();
 		}
 	},
@@ -7576,7 +7576,7 @@ $.extend( Datepicker.prototype, {
 			target.disabled = false;
 			inst.trigger.filter( "button" ).
 				each( function() { this.disabled = false; } ).end().
-				filter( "img" ).css( { opacity: "1.0", cursor: "" } );
+				filter( "img" ).css( { opacity: "1.0", RefCursor: "" } );
 		} else if ( nodeName === "div" || nodeName === "span" ) {
 			inline = $target.children( "." + this._inlineClass );
 			inline.children().removeClass( "ui-state-disabled" );
@@ -7604,7 +7604,7 @@ $.extend( Datepicker.prototype, {
 			target.disabled = true;
 			inst.trigger.filter( "button" ).
 				each( function() { this.disabled = true; } ).end().
-				filter( "img" ).css( { opacity: "0.5", cursor: "default" } );
+				filter( "img" ).css( { opacity: "0.5", RefCursor: "default" } );
 		} else if ( nodeName === "div" || nodeName === "span" ) {
 			inline = $target.children( "." + this._inlineClass );
 			inline.children().addClass( "ui-state-disabled" );
@@ -7918,7 +7918,7 @@ $.extend( Datepicker.prototype, {
 		$.datepicker._lastInput = input;
 		$.datepicker._setDateFromField( inst );
 
-		if ( $.datepicker._inDialog ) { // hide cursor
+		if ( $.datepicker._inDialog ) { // hide RefCursor
 			input.value = "";
 		}
 		if ( !$.datepicker._pos ) { // position below input
@@ -9395,7 +9395,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 
 		// Only check for mouseups outside the document if you've moved inside the document
 		// at least once. This prevents the firing of mouseup in the case of IE<9, which will
-		// fire a mousemove event if content is placed under the cursor. See #7778
+		// fire a mousemove event if content is placed under the RefCursor. See #7778
 		// Support: IE <9
 		if ( this._mouseMoved ) {
 
@@ -9554,8 +9554,8 @@ $.widget( "ui.draggable", $.ui.mouse, {
 		axis: false,
 		connectToSortable: false,
 		containment: false,
-		cursor: "auto",
-		cursorAt: false,
+		RefCursor: "auto",
+		RefCursorAt: false,
 		grid: false,
 		handle: false,
 		helper: "original",
@@ -9709,8 +9709,8 @@ $.widget( "ui.draggable", $.ui.mouse, {
 		this.originalPageX = event.pageX;
 		this.originalPageY = event.pageY;
 
-		//Adjust the mouse offset relative to the helper if "cursorAt" is supplied
-		( o.cursorAt && this._adjustOffsetFromHelper( o.cursorAt ) );
+		//Adjust the mouse offset relative to the helper if "RefCursorAt" is supplied
+		( o.RefCursorAt && this._adjustOffsetFromHelper( o.RefCursorAt ) );
 
 		//Set a containment if given in the options
 		this._setContainment();
@@ -10480,20 +10480,20 @@ $.ui.plugin.add( "draggable", "connectToSortable", {
 	}
 } );
 
-$.ui.plugin.add( "draggable", "cursor", {
+$.ui.plugin.add( "draggable", "RefCursor", {
 	start: function( event, ui, instance ) {
 		var t = $( "body" ),
 			o = instance.options;
 
-		if ( t.css( "cursor" ) ) {
-			o._cursor = t.css( "cursor" );
+		if ( t.css( "RefCursor" ) ) {
+			o._RefCursor = t.css( "RefCursor" );
 		}
-		t.css( "cursor", o.cursor );
+		t.css( "RefCursor", o.RefCursor );
 	},
 	stop: function( event, ui, instance ) {
 		var o = instance.options;
-		if ( o._cursor ) {
-			$( "body" ).css( "cursor", o._cursor );
+		if ( o._RefCursor ) {
+			$( "body" ).css( "RefCursor", o._RefCursor );
 		}
 	}
 } );
@@ -11093,7 +11093,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 
 	_mouseStart: function( event ) {
 
-		var curleft, curtop, cursor,
+		var curleft, curtop, RefCursor,
 			o = this.options,
 			el = this.element;
 
@@ -11140,8 +11140,8 @@ $.widget( "ui.resizable", $.ui.mouse, {
 			o.aspectRatio :
 			( ( this.originalSize.width / this.originalSize.height ) || 1 );
 
-		cursor = $( ".ui-resizable-" + this.axis ).css( "cursor" );
-		$( "body" ).css( "cursor", cursor === "auto" ? this.axis + "-resize" : cursor );
+		RefCursor = $( ".ui-resizable-" + this.axis ).css( "RefCursor" );
+		$( "body" ).css( "RefCursor", RefCursor === "auto" ? this.axis + "-resize" : RefCursor );
 
 		this._addClass( "ui-resizable-resizing" );
 		this._propagate( "start", event );
@@ -11225,7 +11225,7 @@ $.widget( "ui.resizable", $.ui.mouse, {
 			}
 		}
 
-		$( "body" ).css( "cursor", "auto" );
+		$( "body" ).css( "RefCursor", "auto" );
 
 		this._removeClass( "ui-resizable-resizing" );
 
@@ -15225,8 +15225,8 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		axis: false,
 		connectWith: false,
 		containment: false,
-		cursor: "auto",
-		cursorAt: false,
+		RefCursor: "auto",
+		RefCursorAt: false,
 		dropOnEmpty: true,
 		forcePlaceholderSize: false,
 		forceHelperSize: false,
@@ -15423,8 +15423,8 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		this.originalPageX = event.pageX;
 		this.originalPageY = event.pageY;
 
-		//Adjust the mouse offset relative to the helper if "cursorAt" is supplied
-		( o.cursorAt && this._adjustOffsetFromHelper( o.cursorAt ) );
+		//Adjust the mouse offset relative to the helper if "RefCursorAt" is supplied
+		( o.RefCursorAt && this._adjustOffsetFromHelper( o.RefCursorAt ) );
 
 		//Cache the former DOM position
 		this.domPosition = {
@@ -15446,15 +15446,15 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			this._setContainment();
 		}
 
-		if ( o.cursor && o.cursor !== "auto" ) { // cursor option
+		if ( o.RefCursor && o.RefCursor !== "auto" ) { // RefCursor option
 			body = this.document.find( "body" );
 
 			// Support: IE
-			this.storedCursor = body.css( "cursor" );
-			body.css( "cursor", o.cursor );
+			this.storedRefCursor = body.css( "RefCursor" );
+			body.css( "RefCursor", o.RefCursor );
 
 			this.storedStylesheet =
-				$( "<style>*{ cursor: " + o.cursor + " !important; }</style>" ).appendTo( body );
+				$( "<style>*{ RefCursor: " + o.RefCursor + " !important; }</style>" ).appendTo( body );
 		}
 
 		if ( o.opacity ) { // opacity option
@@ -16670,8 +16670,8 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		}
 
 		//Do what was originally in plugins
-		if ( this.storedCursor ) {
-			this.document.find( "body" ).css( "cursor", this.storedCursor );
+		if ( this.storedRefCursor ) {
+			this.document.find( "body" ).css( "RefCursor", this.storedRefCursor );
 			this.storedStylesheet.remove();
 		}
 		if ( this._storedOpacity ) {

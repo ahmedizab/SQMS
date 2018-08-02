@@ -46,10 +46,10 @@ namespace qms.BLL
             int service_id = dal.Insert(servicedetail);
             servicedetail.service_id = service_id;
         }
-        public void CancelToken(long service_id)
+        public int CancelToken(long token_id)
         {
             DALServiceDetail dal = new DALServiceDetail();
-            dal.CancelToken(service_id);
+            return dal.CancelToken(token_id);
 
         }
         internal List<VMServiceDetails> ObjectMappingListVM(DataTable dt)

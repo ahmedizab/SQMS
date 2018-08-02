@@ -14,7 +14,7 @@
 	padding: 0;
 	line-height: normal;
 	margin-right: .1em;
-	cursor: pointer;
+	RefCursor: pointer;
 	vertical-align: middle;
 	text-align: center;
 	overflow: visible; /* removes extra width in IE */

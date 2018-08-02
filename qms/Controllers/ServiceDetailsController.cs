@@ -148,9 +148,10 @@ namespace qms.Controllers
                 DisplayManager dm = new DisplayManager();
                 model.service_datetime = DateTime.Now;
                 model.end_time = DateTime.Now;
+                model.user_id = sm.user_id;
+                model.counter_id = sm.counter_id;
                 if (ModelState.IsValid)
                 {
-
                     dbManager.Create(model);
                 }
                 // if (!String.IsNullOrEmpty(sm.branch_static_ip))
@@ -165,6 +166,7 @@ namespace qms.Controllers
 
             }
         }
+
         //public JsonResult Done(VMServiceDetails model)
         //{
         //    SessionManager sm = new SessionManager(Session);
@@ -258,6 +260,7 @@ namespace qms.Controllers
         //POST: ServiceDetails/Edit/5
         //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         private string ConvertDate(string DateTime)
         {
             string[] dattime = DateTime.Split(' ');
@@ -485,30 +488,28 @@ namespace qms.Controllers
                 return Json(new { Success = false, ErrorMessage = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
         [HttpPost]
         public JsonResult CancelTokenNo(long tokenID)
         {
             try
             {
 
-                tblTokenQueue tokenObj = new tblTokenQueue();
-                tokenObj = dbtoken.GetAllToken().Where(x => x.token_id == tokenID).FirstOrDefault();
-                tokenObj.service_status_id = 4;
-                tokenObj.cancel_time = DateTime.Now;
-                dbManager.CancelToken(tokenID);
-                string tNo = Convert.ToString(tokenObj.token_no);
 
-                SessionManager sm = new SessionManager(Session);
+                int token_no = dbManager.CancelToken(tokenID);
+
+                //SessionManager sm = new SessionManager(Session);
                 //DisplayManager dm = new DisplayManager();
                 //if (!String.IsNullOrEmpty(sm.branch_static_ip))
                 //    dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
 
-                return Json(new { Success = true, Message = "Service Canceled for Token No #" + tNo }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Message = "Service Canceled for Token No #" + token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0') }, JsonRequestBehavior.AllowGet);
 
 
 
             }
-            catch
+            catch(Exception ex)
             {
                 return Json(new { Success = false, ErrorMessage = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
             }
@@ -683,7 +684,6 @@ namespace qms.Controllers
                 //db.Entry(tokenDetail).State = EntityState.Modified;
                 //db.SaveChanges();
 
-                tblTokenQueue tblTokenQueue = dbtoken.GetAllToken().Where(a => a.token_id == token_id).FirstOrDefault();
                 tblCustomer customerDetails = dbCustomer.GetAll().Where(a => a.contact_no == contact_no).FirstOrDefault();
 
                 if (customerDetails != null)
@@ -700,30 +700,22 @@ namespace qms.Controllers
                         {
                             issues = item.issues,
                             solutions = item.solutions,
-                            service_datetime = item.service_datetime,
-                            customer_name = item.tblCustomer.customer_name,
-                            address = item.tblCustomer.address
+                            service_datetime = item.service_datetime
                         };
                         customerlist.Add(VMServiceDetails);
                     }
 
 
-                    return Json(new { Success = true, Message = customerlist }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = true, Message = customerlist, customerDetails = customerDetails }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    var customer = new
-                    {
-                        mobile_no = tblTokenQueue.contact_no,
-                        customer_name = "",
-                        address = ""
-                    };
-                    return Json(new { Success = true, Message = customer }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = false, Message = "", customerDetails = "" }, JsonRequestBehavior.AllowGet);
                 }
 
 
             }
-            catch
+            catch(Exception ex)
             {
                 return Json(new { Success = false, ErrorMessage = "Problem with getting Customer Information!" }, JsonRequestBehavior.AllowGet);
             }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.DataAccess.Client;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +14,7 @@ namespace qms.DAL
             try
             {
                 OracleDataManager manager = new OracleDataManager();
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 

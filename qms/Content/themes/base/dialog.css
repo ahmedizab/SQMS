@@ -56,7 +56,7 @@
 }
 .ui-dialog .ui-dialog-buttonpane button {
 	margin: .5em .4em .5em 0;
-	cursor: pointer;
+	RefCursor: pointer;
 }
 .ui-dialog .ui-resizable-se {
 	width: 12px;
@@ -66,5 +66,5 @@
 	background-position: 16px 16px;
 }
 .ui-draggable .ui-dialog-titlebar {
-	cursor: move;
+	RefCursor: move;
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OracleClient;
+using Oracle.DataAccess.Client;
 using System.Linq;
 using System.Web;
 
@@ -15,7 +15,7 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("P_BRANCH_ID", branch_id));
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -44,7 +44,7 @@ namespace qms.DAL
             {
                 manager = new OracleDataManager();
                 manager.AddParameter(new OracleParameter("P_BRANCH_ID", branch_id));
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -63,7 +63,7 @@ namespace qms.DAL
         {
             try
             {
-                OracleParameter param = new OracleParameter("po_cursor", OracleType.Cursor);
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 

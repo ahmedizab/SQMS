@@ -181,13 +181,13 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  cursor: pointer;
+  RefCursor: pointer;
   -webkit-appearance: button;
 }
 
 button[disabled],
 html input[disabled] {
-  cursor: default;
+  RefCursor: default;
 }
 
 input[type="checkbox"],
@@ -641,7 +641,7 @@ dd {
 
 abbr[title],
 abbr[data-original-title] {
-  cursor: help;
+  RefCursor: help;
   border-bottom: 1px dotted #999999;
 }
 
@@ -1744,7 +1744,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-  cursor: not-allowed;
+  RefCursor: not-allowed;
   background-color: #eeeeee;
 }
 
@@ -1771,7 +1771,7 @@ textarea.form-control {
   display: inline;
   margin-bottom: 0;
   font-weight: normal;
-  cursor: pointer;
+  RefCursor: pointer;
 }
 
 .radio input[type="radio"],
@@ -1794,7 +1794,7 @@ textarea.form-control {
   margin-bottom: 0;
   font-weight: normal;
   vertical-align: middle;
-  cursor: pointer;
+  RefCursor: pointer;
 }
 
 .radio-inline + .radio-inline,
@@ -1815,7 +1815,7 @@ fieldset[disabled] .radio,
 fieldset[disabled] .radio-inline,
 fieldset[disabled] .checkbox,
 fieldset[disabled] .checkbox-inline {
-  cursor: not-allowed;
+  RefCursor: not-allowed;
 }
 
 .input-sm {
@@ -2007,7 +2007,7 @@ textarea.input-lg {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  cursor: pointer;
+  RefCursor: pointer;
   border: 1px solid transparent;
   border-radius: 4px;
   -webkit-user-select: none;
@@ -2041,7 +2041,7 @@ textarea.input-lg {
 .btn[disabled],
 fieldset[disabled] .btn {
   pointer-events: none;
-  cursor: not-allowed;
+  RefCursor: not-allowed;
   opacity: 0.65;
   filter: alpha(opacity=65);
   -webkit-box-shadow: none;
@@ -2297,7 +2297,7 @@ fieldset[disabled] .btn-info.active {
 .btn-link {
   font-weight: normal;
   color: #428bca;
-  cursor: pointer;
+  RefCursor: pointer;
   border-radius: 0;
 }
 
@@ -3300,7 +3300,7 @@ input[type="button"].btn-block {
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
   text-decoration: none;
-  cursor: not-allowed;
+  RefCursor: not-allowed;
   background-color: transparent;
   background-image: none;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
@@ -3835,7 +3835,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li.disabled > a:focus {
   color: #999999;
   text-decoration: none;
-  cursor: not-allowed;
+  RefCursor: not-allowed;
   background-color: transparent;
 }
 
@@ -3881,7 +3881,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #555555;
-  cursor: default;
+  RefCursor: default;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-bottom-color: transparent;
@@ -4692,7 +4692,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pagination > .active > span:focus {
   z-index: 2;
   color: #ffffff;
-  cursor: default;
+  RefCursor: default;
   background-color: #428bca;
   border-color: #428bca;
 }
@@ -4702,7 +4702,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
   color: #999999;
-  cursor: not-allowed;
+  RefCursor: not-allowed;
   background-color: #ffffff;
   border-color: #dddddd;
 }
@@ -4804,7 +4804,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .pager .disabled > a:focus,
 .pager .disabled > span {
   color: #999999;
-  cursor: not-allowed;
+  RefCursor: not-allowed;
   background-color: #ffffff;
 }
 
@@ -4825,7 +4825,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .label[href]:focus {
   color: #ffffff;
   text-decoration: none;
-  cursor: pointer;
+  RefCursor: pointer;
 }
 
 .label:empty {
@@ -4909,7 +4909,7 @@ a.badge:hover,
 a.badge:focus {
   color: #ffffff;
   text-decoration: none;
-  cursor: pointer;
+  RefCursor: pointer;
 }
 
 .btn .badge {
@@ -5587,14 +5587,14 @@ a.list-group-item:focus {
 .close:focus {
   color: #000000;
   text-decoration: none;
-  cursor: pointer;
+  RefCursor: pointer;
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
 
 button.close {
   padding: 0;
-  cursor: pointer;
+  RefCursor: pointer;
   background: transparent;
   border: 0;
   -webkit-appearance: none;
@@ -6154,7 +6154,7 @@ body.modal-open,
   height: 10px;
   margin: 1px;
   text-indent: -999px;
-  cursor: pointer;
+  RefCursor: pointer;
   border: 1px solid #ffffff;
   border-radius: 10px;
 }

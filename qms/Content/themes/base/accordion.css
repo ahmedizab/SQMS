@@ -10,7 +10,7 @@
  */
 .ui-accordion .ui-accordion-header {
 	display: block;
-	cursor: pointer;
+	RefCursor: pointer;
 	position: relative;
 	margin: 2px 0 0 0;
 	padding: .5em .5em .5em .7em;

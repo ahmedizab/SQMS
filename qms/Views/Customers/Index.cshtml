@@ -19,8 +19,8 @@
             <div class="col-md-3">
                 <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
             </div>
-            </div>
-       
+        </div>
+
 
         <div class="col-md-12 scrollbar table-scroll">
 
@@ -58,9 +58,9 @@
                             @Html.DisplayFor(modelItem => item.customer_type_name)
                         </td>
                         @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.customer_id })
+                                @Html.ActionLink("Edit", "Edit", new { id = item.customer_id })
 
-                        </td>*@
+                            </td>*@
                     </tr>
                 }
 
@@ -69,17 +69,6 @@
     </div>
 
 </div>
-<script>
-    function FilterTable() {
-        index = -1;
-        inp = $('#filterBox').val();
-        $("#data:visible tr:not(:has(>th))").each(function () {
-            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-        $('#Hedding').show();
-    }
-</script>
+@section scripts{
+    <script src="~/Scripts/sqms/customer.js"></script>
+}

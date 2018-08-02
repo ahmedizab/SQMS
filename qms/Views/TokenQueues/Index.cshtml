@@ -75,24 +75,24 @@
             </div>
             @*<div class="col-md-3" style="margin-bottom :10px;">
 
-                <select name="service_status" class="form-control" id="service_status">
-                    <option value="">All Service</option>
-                    @foreach (var item in ViewBag.service_status)
-                    {
-                        if (item.service_status == ViewBag.userBranchId)
+                    <select name="service_status" class="form-control" id="service_status">
+                        <option value="">All Service</option>
+                        @foreach (var item in ViewBag.service_status)
                         {
-                            <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                            if (item.service_status == ViewBag.userBranchId)
+                            {
+                                <option value="@item.branch_id" selected="selected">@item.branch_name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.branch_id">@item.branch_name</option>
+                            }
+
                         }
-                        else
-                        {
-                            <option value="@item.branch_id">@item.branch_name</option>
-                        }
 
-                    }
+                    </select>
 
-                </select>
-
-            </div>*@
+                </div>*@
             <div class="col-md-2"></div>
             <div class="col-md-3">
                 <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
@@ -112,19 +112,19 @@
                         @Html.DisplayName("Creation Time")
                     </th>
                     @*<th>
-                    @Html.DisplayName("Service Time")
-                </th>*@
+                            @Html.DisplayName("Service Time")
+                        </th>*@
 
 
                     <th>
                         @Html.DisplayName("Contact No")
                     </th>
                     @*<th>
-                    @Html.DisplayName("Counter")
-                </th>*@
+                            @Html.DisplayName("Counter")
+                        </th>*@
                     @*<th>
-                    @Html.DisplayName("User Name")
-                </th>*@
+                            @Html.DisplayName("User Name")
+                        </th>*@
                     <th>
                         @Html.DisplayName("Service Status")
                     </th>
@@ -148,33 +148,33 @@
                             @*@Html.HiddenFor(modelItem => item.tblBranch.branch_name)*@
                         </td>
                         @*<td>
-                        @if (item.cancel_time.HasValue)
-                        {
-                            @Html.DisplayFor(modelItem => item.cancel_time)
-                        }
-                        else if(item.tblServiceDetails.Any())
-                        {
-                            @Html.DisplayFor(modelItem => item.tblServiceDetails.FirstOrDefault().service_datetime)
-                        }
+                                @if (item.cancel_time.HasValue)
+                                {
+                                    @Html.DisplayFor(modelItem => item.cancel_time)
+                                }
+                                else if(item.tblServiceDetails.Any())
+                                {
+                                    @Html.DisplayFor(modelItem => item.tblServiceDetails.FirstOrDefault().service_datetime)
+                                }
 
-                    </td>*@
+                            </td>*@
 
 
                         <td>
-                          @Html.DisplayFor(modelItem => item.contact_no)
+                            @Html.DisplayFor(modelItem => item.contact_no)
                         </td>
-                        
+
                         @*<td>
-                        @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
-                    </td>*@
+                                @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+                            </td>*@
                         <td>
-                            
+
                             @Html.DisplayFor(modelItem => item.service_status)
                         </td>
                         <td>
                             @*<button class="btn btn-lg btn-color" id="save_btn" >
-                            @Html.ActionLink("SMS", "Sms","TokenQueues", new { tokenId = item.token_id })
-                        </button>*@
+                                    @Html.ActionLink("SMS", "Sms","TokenQueues", new { tokenId = item.token_id })
+                                </button>*@
 
                             @*<button class="btn btn-color" id="save_btn" onclick="return sms('@Html.DisplayFor(modelItem => item.contact_no)','@Html.DisplayFor(modelItem => item.tokenNoFormated)')">SMS</button>*@
                             <button class="btn btn-color" id="save_btn" onclick="return sms('@Html.DisplayFor(modelItem => item.contact_no)','@Html.DisplayFor(modelItem => item.token_no)')">SMS</button>
@@ -187,9 +187,9 @@
 
                         </td>
                         @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id=item.token_id })
+                                @Html.ActionLink("Edit", "Edit", new { id=item.token_id })
 
-                    </td>*@
+                            </td>*@
                     </tr>
 
 
@@ -198,116 +198,12 @@
 
 
             </table>
-            
+
         </div>
-       
+
     </div>
 </div>
-<script>
+@section scripts{
+    <script src="~/Scripts/sqms/token-queue-index.js"></script>
 
-    function FilterTable() {
-        index = -1;
-        inp = $('#filterBox').val();
-        $("#data:visible tr:not(:has(>th))").each(function () {
-            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-        $('#Hedding').show();
-    }
-
-    $(document).ready(function () {
-        inp = $("#branch_name option:selected").text();
-        if (inp == "All Branch") {
-            $("#branch_name").attr('disabled', false);
-        }
-        else $("#branch_name").attr('disabled', true);
-
-        FilterTable2();
-        $("#branch_name").change(function () {
-            // var selectedBranch = $("#branch_name option:selected").text();
-            FilterTable2();
-
-        });
-    });
-
-    function FilterTable2() {
-        index = -1;
-        inp = $("#branch_name option:selected").text();
-        if (inp == "All Branch") {
-            inp = "";
-        }
-        $("#data:visible tr:not(:has(>th))").each(function () {
-            if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-        $('#Hedding').show();
-    };
-    function GetList() {
-
-        var date = $('#txtAsOnDate').val();
-
-        if (date == "") {
-            ShowModalMessage("Please select a date");
-            return;
-        }
-
-        var URL = '/SQMS/TokenQueues/GetList/?date=' + date;
-        $.get(URL, function (data) {
-
-            $("#data").html('');
-            $("#data").html(data);
-        });
-    };
-
-    function sms(mobileNo, tokenNo) {
-
-        
-        //var con = JSON.stringify(contactNo);
-        $.ajax({
-            url: '/SQMS/TokenQueues/SMSSend',
-            type: 'POST',
-            dataType: 'json',
-            data: { mobileNo: mobileNo, tokenNo: tokenNo },
-            success: function (data) {
-                $("#message").html("Message sent");
-                //  $("#service_name").empty();
-            }
-        });
-    };
-
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-
-        document.body.innerHTML = printContents;
-
-        window.print();
-
-        document.body.innerHTML = originalContents;
-    }
-
-    function printToken(id) {
-        //var contactNo = $("#save_btn").val();
-        var tokenNo = id//$("#hidtokenNo").val();
-        //var con = JSON.stringify(contactNo);
-        $.ajax({
-            url: '/SQMS/TokenQueues/Print',
-            type: 'POST',
-            dataType: 'json',
-            data: { tokenNo: tokenNo },
-            success: function (data) {
-                $("#date").text(data.Date);
-                $("#printTokenId").text(data.Message);
-                printDiv('printableArea');
-                //  $("#service_name").empty();
-            }
-        });
-    };
-
-</script>
+}
