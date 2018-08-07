@@ -13,11 +13,36 @@ namespace qms.DAL
     {
         OracleDataManager manager = new OracleDataManager();
 
-        public DataTable GetAll()
+        public DataTable GetAllCurrentDate(int? branch_id, string user_id)
         {
             try
             {
-                OracleDataManager manager = new OracleDataManager();
+                manager.AddParameter(new OracleParameter() { ParameterName = "branch_id", Value = branch_id });
+                manager.AddParameter(new OracleParameter() { ParameterName = "user_id", Value = user_id });
+
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                param.Direction = ParameterDirection.Output;
+                manager.AddParameter(param);
+
+                return manager.CallStoredProcedure_Select("USP_ServiceDetail_SelectCDate");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+
+        public DataTable GetAllServices(int? branch_id, string user_id)
+        {
+            try
+            {
+                manager.AddParameter(new OracleParameter() { ParameterName = "branch_id", Value = branch_id });
+                manager.AddParameter(new OracleParameter() { ParameterName = "user_id", Value = user_id });
+
                 OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
@@ -32,11 +57,32 @@ namespace qms.DAL
 
 
         }
+
+        public DataTable GetByCustomerID(long customer_id)
+        {
+            try
+            {
+                manager.AddParameter(new OracleParameter() { ParameterName = "P_CUSTOMER_ID", Value = customer_id });
+
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                param.Direction = ParameterDirection.Output;
+                manager.AddParameter(param);
+
+                return manager.CallStoredProcedure_Select("USP_ServiceDetail_SelectByCId");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
         public DataTable GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address)
         {
             try
             {
-                OracleDataManager manager = new OracleDataManager();
                 manager.AddParameter(new OracleParameter("P_BRANCH_ID", branch_id));
                 manager.AddParameter(new OracleParameter("P_COUNTER_ID", counter_id));
                 manager.AddParameter(new OracleParameter("P_USER_ID", userid));
@@ -89,7 +135,6 @@ namespace qms.DAL
         {
             try
             {
-                OracleDataManager manager = new OracleDataManager();
                 manager.AddParameter(new OracleParameter("p_token_id", token_id));
 
                 return (int) manager.CallStoredProcedure_Insert("USP_Token_Cancel");

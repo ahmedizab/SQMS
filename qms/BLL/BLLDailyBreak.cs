@@ -1,5 +1,6 @@
 ﻿using qms.DAL;
 using qms.Models;
+using qms.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,11 +11,11 @@ namespace qms.BLL
 {
     public class BLLDailyBreak
     {
-        public List<tblDailyBreak> GetAll()
+        public List<VMDailyBreak> GetAll(int? branch_id, string user_id)
         {
-            DALCounters dal = new DALCounters();
-            DataTable dt = dal.GetAll();
-            return ObjectMappingList(dt);
+            DALDailyBreak dal = new DALDailyBreak();
+            DataTable dt = dal.GetAll(branch_id, user_id);
+            return ObjectMappingListVM(dt);
         }
 
         public tblDailyBreak GetById(int id)
@@ -65,11 +66,32 @@ namespace qms.BLL
             {
                 tblDailyBreak dailyBreak = new tblDailyBreak();
                 dailyBreak.counter_id = Convert.ToInt32(row["counter_id"] == DBNull.Value ? 0 : row["counter_id"]);
-                dailyBreak.break_type_id = Convert.ToInt32(row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
-                dailyBreak.start_time = Convert.ToDateTime(row["location"] == DBNull.Value ? null : row["location"].ToString());
-                dailyBreak.user_id = (row["branch_id"] == DBNull.Value ? null : row["branch_id"].ToString());
-                dailyBreak.end_time = Convert.ToDateTime(row["branch_id"] == DBNull.Value ? null : row["branch_id"].ToString());
-                dailyBreak.remarks = (row["branch_id"] == DBNull.Value ? null : row["branch_id"].ToString());
+                dailyBreak.break_type_id = Convert.ToInt32(row["break_type_id"] == DBNull.Value ? null : row["break_type_id"].ToString());
+                dailyBreak.start_time = Convert.ToDateTime(row["start_time"] == DBNull.Value ? null : row["start_time"].ToString());
+                dailyBreak.user_id = (row["user_id"] == DBNull.Value ? null : row["user_id"].ToString());
+                dailyBreak.end_time = Convert.ToDateTime(row["end_time"] == DBNull.Value ? null : row["end_time"].ToString());
+                dailyBreak.remarks = (row["remarks"] == DBNull.Value ? null : row["remarks"].ToString());
+
+                list.Add(dailyBreak);
+
+            }
+            return list;
+        }
+
+        internal List<VMDailyBreak> ObjectMappingListVM(DataTable dt)
+        {
+            List<VMDailyBreak> list = new List<VMDailyBreak>();
+            foreach (DataRow row in dt.Rows)
+            {
+                VMDailyBreak dailyBreak = new VMDailyBreak();
+                dailyBreak.daily_break_id = Convert.ToInt32(row["daily_break_id"] == DBNull.Value ? 0 : row["daily_break_id"]);
+                dailyBreak.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
+                dailyBreak.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
+                dailyBreak.user_full_name = (row["hometown"] == DBNull.Value ? null : row["hometown"].ToString());
+                dailyBreak.break_type_name = (row["break_type_name"] == DBNull.Value ? null : row["break_type_name"].ToString());
+                dailyBreak.start_time = Convert.ToDateTime(row["start_time"] == DBNull.Value ? null : row["start_time"].ToString());
+                if(row["end_time"] != DBNull.Value)dailyBreak.end_time = Convert.ToDateTime(row["end_time"].ToString());
+                dailyBreak.remarks = (row["remarks"] == DBNull.Value ? null : row["remarks"].ToString());
 
                 list.Add(dailyBreak);
 

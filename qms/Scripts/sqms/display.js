@@ -51,9 +51,11 @@ function videoEndHandler(e) {
 }
 
 $(function () {
+    $.support.cors = true;
     // Declare a proxy to reference the hub.
+    //var connection = $.hubConnection("http://114.31.10.21:9078/signalr", { useDefaultPath: false });
     var notifications = $.connection.notifyDisplay;
-
+    //$.connection.hub.url = "http://114.31.10.21:9078/signalr";
     //debugger;
     // Create a function that the hub can call to broadcast messages.
     notifications.client.updateMessages = function (text, branch_id) {

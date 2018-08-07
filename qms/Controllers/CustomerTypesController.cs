@@ -8,27 +8,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using qms.Models;
+using qms.BLL;
 
 namespace qms.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CustomerTypesController : Controller
     {
-        private qmsEntities db = new qmsEntities();
+        private BLLCustomerType db = new BLLCustomerType();
 
         // GET: CustomerTypes
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.tblCustomerTypes.ToListAsync());
+            return View(db.GetAll());
         }
 
         // GET: CustomerTypes/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblCustomerType tblCustomerType = await db.tblCustomerTypes.FindAsync(id);
+            tblCustomerType tblCustomerType = db.GetById(id.Value);
             if (tblCustomerType == null)
             {
                 return HttpNotFound();
@@ -47,12 +49,11 @@ namespace qms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "customer_type_id,customer_type_name")] tblCustomerType tblCustomerType)
+        public ActionResult Create([Bind(Include = "customer_type_id,customer_type_name,priority")] tblCustomerType tblCustomerType)
         {
             if (ModelState.IsValid)
             {
-                db.tblCustomerTypes.Add(tblCustomerType);
-                await db.SaveChangesAsync();
+                db.Create(tblCustomerType);
                 return RedirectToAction("Index");
             }
 
@@ -60,13 +61,13 @@ namespace qms.Controllers
         }
 
         // GET: CustomerTypes/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblCustomerType tblCustomerType = await db.tblCustomerTypes.FindAsync(id);
+            tblCustomerType tblCustomerType =  db.GetById(id.Value);
             if (tblCustomerType == null)
             {
                 return HttpNotFound();
@@ -79,25 +80,24 @@ namespace qms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "customer_type_id,customer_type_name")] tblCustomerType tblCustomerType)
+        public ActionResult Edit([Bind(Include = "customer_type_id,customer_type_name,priority")] tblCustomerType tblCustomerType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tblCustomerType).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.Edit(tblCustomerType);
                 return RedirectToAction("Index");
             }
             return View(tblCustomerType);
         }
 
         // GET: CustomerTypes/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tblCustomerType tblCustomerType = await db.tblCustomerTypes.FindAsync(id);
+            tblCustomerType tblCustomerType = db.GetById(id.Value);
             if (tblCustomerType == null)
             {
                 return HttpNotFound();
@@ -108,11 +108,9 @@ namespace qms.Controllers
         // POST: CustomerTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            tblCustomerType tblCustomerType = await db.tblCustomerTypes.FindAsync(id);
-            db.tblCustomerTypes.Remove(tblCustomerType);
-            await db.SaveChangesAsync();
+            db.Remove(id);
             return RedirectToAction("Index");
         }
 
@@ -120,7 +118,7 @@ namespace qms.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                db = null;
             }
             base.Dispose(disposing);
         }

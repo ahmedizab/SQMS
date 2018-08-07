@@ -47,6 +47,7 @@ namespace qms.BLL
         {
 
             tblBreakType breakType = new tblBreakType();
+            breakType.break_type_id = Convert.ToInt32(row["break_type_id"] == DBNull.Value ? 0 : row["break_type_id"]);
             breakType.break_type_name = (row["break_type_name"] == DBNull.Value ? null : row["break_type_name"].ToString());
             breakType.break_type_short_name = (row["break_type_short_name"] == DBNull.Value ? null : row["break_type_short_name"].ToString());
             breakType.duration = Convert.ToInt32(row["duration"] == DBNull.Value ? null : row["duration"].ToString());
@@ -63,12 +64,12 @@ namespace qms.BLL
             foreach (DataRow row in dt.Rows)
             {
                 tblBreakType breakType = new tblBreakType();
-                breakType.break_type_id = Convert.ToInt32(row["counter_id"] == DBNull.Value ? 0 : row["counter_id"]);
-                breakType.break_type_name = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
-                breakType.break_type_short_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
-                breakType.duration = Convert.ToInt32(row["location"] == DBNull.Value ? null : row["location"].ToString());
-                breakType.start_time = Convert.ToDateTime(row["location"] == DBNull.Value ? null : row["location"].ToString());
-                breakType.end_time = Convert.ToDateTime(row["location"] == DBNull.Value ? null : row["location"].ToString());
+                breakType.break_type_id = Convert.ToInt32(row["break_type_id"] == DBNull.Value ? 0 : row["break_type_id"]);
+                breakType.break_type_name = (row["break_type_name"] == DBNull.Value ? null : row["break_type_name"].ToString());
+                breakType.break_type_short_name = (row["break_type_short_name"] == DBNull.Value ? null : row["break_type_short_name"].ToString());
+                breakType.duration = Convert.ToInt32(row["duration"] == DBNull.Value ? null : row["duration"].ToString());
+                breakType.start_time = Convert.ToDateTime(row["start_time"] == DBNull.Value ? null : row["start_time"].ToString());
+                breakType.end_time = Convert.ToDateTime(row["end_time"] == DBNull.Value ? null : row["end_time"].ToString());
 
 
                 list.Add(breakType);

@@ -37,19 +37,26 @@
         <div class="row" style="text-align:center">
             <div class="col-md-2" style="text-align:center">
                 <button type="submit" onclick="NewServiceNo()" class="btn-squere-xl  btn-color marzin-bottom" id="newService_btn">
-                    <span><i class="fa fa-cogs"></i></span> Service
-                </button>
-                
-                <button class="btn-squere-xl btn-color marzin-bottom">
-                    
-                    <a href="@Url.Action("Index", "ServiceDetails")" title="Service List">
-                        <span><i class="fa fa-list"></i></span>
-                        Service List
-                    </a>
+                    <span><i class="fa fa-bullhorn"></i></span> New Service
                 </button>
 
+                <button class="btn-squere-xl btn-color marzin-bottom">
+                    <a href="@Url.Action("Index", "ServiceDetails")" title="Manual Call">
+                        <span><i class="fa fa-user-plus"></i></span>
+                        Manual Call
+                    </a>
+                </button>
                 <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
-                    <span><i class="fa fa-check-circle"></i></span>Done
+                    <span><i class="fa fa-cart-arrow-down"></i></span>Service Transfer
+                </button>
+                <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
+                    <span><i class="fa fa-list"></i></span>Skipped List
+                </button>
+                <button class="btn-squere-xl btn-color marzin-bottom">
+                    <a href="@Url.Action("Create", "DailyBreaks")" title="Take A Break">
+                        <span><i class="fa fa-coffee"></i></span>
+                        Take A Break
+                    </a>
                 </button>
             </div>
             <div class="col-md-6" style="text-align:center">
@@ -121,16 +128,21 @@
             </div>
 
             <div class="col-md-2" style="text-align:center">
-
                 <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
                     <span><i class="fa fa-chevron-circle-right"></i></span>Done & Next
                 </button>
-
-                <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
-                    <span><i class="fa fa-times-circle"></i></span>Cancel
+                <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
+                    <span><i class="fa fa-check-circle"></i></span>Done
                 </button>
+
                 <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
-                    <span><i class="fa fa-angle-double-right"></i></span>Cancel & Next
+                    <span><i class="fa fa-angle-double-right"></i></span>Skip & Next
+                </button>
+                <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
+                    <span><i class="fa fa-times-circle"></i></span>Skip
+                </button>
+                <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
+                    <span><i class="fa fa-check-square"></i></span>Re-Assign
                 </button>
             </div>
         </div>

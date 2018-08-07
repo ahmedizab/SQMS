@@ -1,15 +1,16 @@
 ﻿using System;
+using Microsoft.Owin.Cors;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.DataProtection;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using qms.Models;
 using qms.Providers;
+using System.Web.Cors;
+using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 
 namespace qms
 {
@@ -70,24 +71,31 @@ namespace qms
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
-            // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            var policy = new CorsPolicy()
+            {
+                AllowAnyHeader = true,
+                AllowAnyMethod = true,
+                SupportsCredentials = true
+            };
 
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            policy.Origins.Add("http://114.31.10.21:9078"); //be sure to include the port:
+                                                            //example: "http://localhost:8081"
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseCors(new CorsOptions
+            {
+                PolicyProvider = new CorsPolicyProvider
+                {
+                    PolicyResolver = context => Task.FromResult(policy)
+                }
+            });
+
+            app.MapSignalR();
+            //var hubConfiguration = new HubConfiguration();
+            //hubConfiguration.EnableDetailedErrors = true;
+            //hubConfiguration.EnableJavaScriptProxies = false;
+            //app.MapSignalR("http://114.31.10.21:9078/signalr", hubConfiguration);
+
         }
     }
 }

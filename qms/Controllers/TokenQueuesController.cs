@@ -18,6 +18,7 @@ using System.Data.SqlClient;
 using Microsoft.Reporting.WebForms;
 using System.IO;
 using System.Web.Configuration;
+using qms.BLL;
 
 namespace qms.Controllers
 {
@@ -53,7 +54,7 @@ namespace qms.Controllers
             ViewBag.userBranchId = sm.branch_id;
             //var tblTokenQueues = db.tblTokenQueues.Include(i => i.tblCounter).Include(i => i.tblServiceDetails);
             //string token_id = tokenObj.token_id.ToString();
-            return View(dbManager.GetAll());
+            return View(dbManager.GetByBranchId(sm.branch_id));
             //return View(await tblTokenQueues.OrderByDescending(o=>o.token_id).ToListAsync());
         }
 
@@ -166,8 +167,8 @@ namespace qms.Controllers
             dbManager.Create(tokenObj);
             string subString = "Token No is  #";
             string token_id = tokenObj.token_id.ToString();
-            string token_no = tokenObj.token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0');
-            string message = subString + tokenObj.token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0');
+            string token_no = tokenObj.token_no_formated;
+            string message = subString + tokenObj.token_no_formated;
             return Json(new { Success = true, Message = message, tokenId = token_id, tokenNo = token_no,  msisdn = mobile }, JsonRequestBehavior.AllowGet);
         }
 
@@ -274,9 +275,9 @@ namespace qms.Controllers
             string msgText = System.Configuration.ConfigurationManager.AppSettings.Get("msgText");
             try
             {
-                DALSMSManager smsManager = new DALSMSManager();
+                BLLToken tokenManager = new BLLToken();
 
-                smsManager.SendSMS(mobileNo, string.Format(msgText, tokenNo));
+                tokenManager.SendSMS(mobileNo, string.Format(msgText, tokenNo));
                 return Json(new { Success = true, Message = "SMS Saved Succesfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

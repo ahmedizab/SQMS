@@ -52,7 +52,7 @@ body {
 }
 
 .btn-squere-xl i.fa {
-    font-size: 53px;
+    font-size: 30px;
     margin-bottom: 12px;
     padding: 0 20px;
 }
@@ -82,8 +82,8 @@ body {
 }
 
 .btn-squere-xl {
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     padding: 10px 16px;
     font-size: 14px;
     line-height: 1.33;

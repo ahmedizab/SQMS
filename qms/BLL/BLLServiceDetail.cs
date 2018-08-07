@@ -11,18 +11,26 @@ namespace qms.BLL
 {
     public class BLLServiceDetail
     {
-        public List<VMServiceDetails> GetAll()
+        public List<VMServiceDetails> GetAllCurrentDate(int? branch_id, string user_id)
         {
             DALServiceDetail dal = new DALServiceDetail();
-            DataTable dt = dal.GetAll();
+            DataTable dt = dal.GetAllCurrentDate(branch_id, user_id);
             return ObjectMappingListVM(dt);
         }
-        public List<tblServiceDetail> GetAllService()
+        public List<tblServiceDetail> GetAllService(int? branch_id, string user_id)
         {
             DALServiceDetail dal = new DALServiceDetail();
-            DataTable dt = dal.GetAll();
+            DataTable dt = dal.GetAllServices(branch_id, user_id);
             return ObjectMappingList(dt);
         }
+
+        public List<tblServiceDetail> GetByCustomerID(long customer_id)
+        {
+            DALServiceDetail dal = new DALServiceDetail();
+            DataTable dt = dal.GetByCustomerID(customer_id);
+            return ObjectMappingList(dt);
+        }
+
         public List<tblServiceSubType> GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address)
         {
 
@@ -62,6 +70,7 @@ namespace qms.BLL
                 servicedetail.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
                 servicedetail.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
                 servicedetail.UserName = (row["UserName"] == DBNull.Value ? null : row["UserName"].ToString());
+                servicedetail.service_datetime = Convert.ToDateTime(row["service_datetime"] == DBNull.Value ? null : row["service_datetime"].ToString());
                 servicedetail.start_time = Convert.ToDateTime(row["start_time"] == DBNull.Value ? null : row["start_time"].ToString());
                 servicedetail.end_time = Convert.ToDateTime(row["end_time"] == DBNull.Value ? null : row["end_time"].ToString());
                 servicedetail.customer_name = (row["customer_name"] == DBNull.Value ? null : row["customer_name"].ToString());

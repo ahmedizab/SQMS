@@ -7,19 +7,13 @@
         </a>
         <ul class="dropdown-menu">
             <li>@Html.ActionLink("Security", "Index", "BranchUsers", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Service Types", "Index", "ServiceTypes", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Services", "Index", "ServiceSubTypes", new { area = "" }, null)</li>
-            @*<li>@Html.ActionLink("Breaks", "Index", "BreakTypes", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Customer Types", "Index", "CustomerTypes", new { area = "" }, null)</li>*@
-           
             <li>@Html.ActionLink("Counters", "Index", "Counters", new { area = "" }, null)</li>
         </ul>
     </li>
-    <li>@Html.ActionLink("Customer", "Index", "Customers", new { area = "" }, null)</li>
-    <li>@Html.ActionLink("Token", "Index", "TokenQueues", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Customers", "Index", "Customers", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Tokens", "Index", "TokenQueues", new { area = "" }, null)</li>
     <li>@Html.ActionLink("Daily Services", "Index", "ServiceDetails", new { area = "" }, null)</li>
-    @*<li>@Html.ActionLink("Daily Breaks", "Index", "DailyBreaks", new { area = "" }, null)</li>
-    <li>@Html.ActionLink("Reports", "Index", "Report", new { area = "" }, null)</li>*@
-    <li>@Html.ActionLink("Counter List", "CounterList", "Counters", new { area = "" }, new { target = "_blank" })</li>
+    <li>@Html.ActionLink("Daily Breaks", "Index", "DailyBreaks", new { area = "" }, null)</li>
+    @*<li>@Html.ActionLink("Reports", "Index", "Report", new { area = "" }, null)</li>*@
 </ul>
 

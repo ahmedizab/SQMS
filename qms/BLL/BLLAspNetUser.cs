@@ -18,6 +18,15 @@ namespace qms.BLL
             return ObjectMappingList(dt);
         }
 
+        public AspNetUser GetUserBySecurityCode(string securityToken)
+        {
+            DALAspNetUser dal = new DALAspNetUser();
+            DataTable dt = dal.GetUserBySecurityCode(securityToken);
+            if (dt.Rows.Count > 0)
+                return ObjectMapping(dt.Rows[0]);
+            else return null;
+        }
+
         public VMSessionInfo GetSessionInfoByUserName(string userName)
         {
             DALAspNetUser dal = new DALAspNetUser();
@@ -25,6 +34,28 @@ namespace qms.BLL
             return ObjectMappingSession(dt);
         }
 
+        public void AddLoginInfo(AspNetUserLogin loginInfo)
+        {
+            DALAspNetUser dal = new DALAspNetUser();
+            dal.InsertLoginInfo(loginInfo);
+        }
+
+        public void DeleteLoginInfo(string loginProvider)
+        {
+            DALAspNetUser dal = new DALAspNetUser();
+            dal.DeleteLoginInfo(loginProvider);
+        }
+
+        internal AspNetUser ObjectMapping(DataRow row)
+        {
+            AspNetUser user = new AspNetUser();
+            user.Id = (row["Id"] == DBNull.Value ? null : row["Id"].ToString());
+            user.PhoneNumber = (row["PhoneNumber"] == DBNull.Value ? null : row["PhoneNumber"].ToString());
+            user.UserName = (row["UserName"] == DBNull.Value ? null : row["UserName"].ToString());
+            user.Email = (row["Email"] == DBNull.Value ? null : row["Email"].ToString());
+            user.Hometown = (row["Hometown"] == DBNull.Value ? null : row["Hometown"].ToString());
+            return user;
+        }
 
         internal List<AspNetUser> ObjectMappingList(DataTable dt)
         {

@@ -43,5 +43,29 @@ namespace qms.ViewModels
             }
         }
 
+        public string start_time_string
+        {
+            get
+            {
+                return start_time.ToString("hh:mm tt");
+            }
+        }
+        public string end_time_string
+        {
+            get
+            {
+                return end_time.ToString("hh:mm tt");
+            }
+        }
+
+
+        public int duration
+        {
+            get
+            {
+                return (end_time - start_time).Minutes;
+            }
+        }
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<qms.Models.tblDailyBreak>
+﻿@model IEnumerable<qms.ViewModels.VMDailyBreak>
 @{
     ViewBag.Title = "Daily Break List";
 }
@@ -36,16 +36,16 @@
             <table class="table table-hover table-bordered" id="data">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.tblCounter.tblBranch.branch_name)
+                        @Html.DisplayNameFor(model => model.branch_name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.tblCounter.counter_no)
+                        @Html.DisplayNameFor(model => model.counter_no)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AspNetUser.Hometown)
+                        @Html.DisplayNameFor(model => model.user_full_name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.break_type_id)
+                        @Html.DisplayNameFor(model => model.break_type_name)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.start_time)
@@ -54,7 +54,7 @@
                         @Html.DisplayNameFor(model => model.end_time)
                     </th>
                     <th>
-                        Interval
+                        @Html.DisplayNameFor(model => model.duration)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.remarks)
@@ -65,16 +65,16 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.tblCounter.tblBranch.branch_name)
+                            @Html.DisplayFor(modelItem => item.branch_name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.tblCounter.counter_no)
+                            @Html.DisplayFor(modelItem => item.counter_no)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.AspNetUser.Hometown)
+                            @Html.DisplayFor(modelItem => item.user_full_name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.tblBreakType.break_type_name)
+                            @Html.DisplayFor(modelItem => item.break_type_name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.start_time)
@@ -82,7 +82,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.end_time)
                         </td>
-                        <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.duration)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.remarks)
                         </td>

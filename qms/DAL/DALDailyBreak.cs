@@ -11,10 +11,13 @@ namespace qms.DAL
     public class DALDailyBreak
     {
         OracleDataManager manager = new OracleDataManager();
-        public DataTable GetAll()
+        public DataTable GetAll(int? branch_id, string user_id)
         {
             try
             {
+                manager.AddParameter(new OracleParameter() { ParameterName = "branch_id", Value = branch_id });
+                manager.AddParameter(new OracleParameter() { ParameterName = "user_id", Value = user_id });
+
 
                 OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;

@@ -29,6 +29,46 @@ namespace qms.DAL
                 throw;
             }
         }
+
+        public DataTable GetSkipped(int? branch_id, string user_id)
+        {
+
+            try
+            {
+                manager.AddParameter(new OracleParameter() { ParameterName = "branch_id", Value = branch_id });
+                manager.AddParameter(new OracleParameter() { ParameterName = "user_id", Value = user_id });
+
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                param.Direction = ParameterDirection.Output;
+                manager.AddParameter(param);
+
+                return manager.CallStoredProcedure_Select("USP_Token_SelectAll");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public DataTable GetByBranchId(int branch_id)
+        {
+
+            try
+            {
+                manager.AddParameter(new OracleParameter() { ParameterName = "P_branch_id", Value = branch_id });
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                param.Direction = ParameterDirection.Output;
+                manager.AddParameter(param);
+
+                return manager.CallStoredProcedure_Select("USP_TOKEN_SelectByBranchId");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public DataTable GetNextTokenList(int branch_id)
         {
 
@@ -88,6 +128,7 @@ namespace qms.DAL
                 throw;
             }
         }
+        
         private void MapParameters(tblTokenQueue token)
         {
             manager.AddParameter(new OracleParameter("p_service_type_id", token.service_type_id));

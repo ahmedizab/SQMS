@@ -82,7 +82,7 @@ namespace qms.Utility
                 int display_next = nextTokenList.FirstOrDefault().display_next;
                 foreach (VMNextToken token in nextTokenList.Take(display_next))
                 {
-                    sb.Append(token.token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0') + ", ");
+                    sb.Append(token.token_no_formated + ", ");
                 }
             }
 

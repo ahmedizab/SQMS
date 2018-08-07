@@ -18,6 +18,14 @@ namespace qms.BLL
             DataTable dt = dal.GetAll();
             return ObjectMappingList(dt);
         }
+
+        public List<VMTokenQueue> GetByBranchId(int branch_id)
+        {
+            DALToken dal = new DALToken();
+            DataTable dt = dal.GetByBranchId(branch_id);
+            return ObjectMappingList(dt);
+        }
+
         public List<tblTokenQueue> GetAllToken()
         {
             DALToken dal = new DALToken();
@@ -47,6 +55,7 @@ namespace qms.BLL
                 token.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
                 token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
                 token.service_date = Convert.ToDateTime(row["service_date"] == DBNull.Value ? null : row["service_date"].ToString());
+                token.service_status_id = Convert.ToInt16(row["service_status_id"] == DBNull.Value ? 0 : row["service_status_id"]);
                 token.service_status = (row["service_status"] == DBNull.Value ? null : row["service_status"].ToString());
                
 
@@ -97,7 +106,7 @@ namespace qms.BLL
                 VMTokenProgress token = new VMTokenProgress();
                 
                 token.token_no = (row["token_no"] == DBNull.Value ? null : row["token_no"].ToString());
-                token.token_no = (token.token_no == "ON" ? token.token_no : token.token_no.PadLeft(ApplicationSetting.PaddingLeft, '0'));
+                token.token_no = (token.token_no == "ON" ? token.token_no : token.token_no_formated);
 
                 token.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
                
@@ -109,11 +118,38 @@ namespace qms.BLL
             return list;
         }
 
+        //internal List<VMTokenSkipped> ObjectMappingList_SkippedList(DataTable dt)
+        //{
+        //    List<VMTokenSkipped> list = new List<VMTokenSkipped>();
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        VMTokenSkipped token = new VMTokenSkipped();
+
+        //        token.token_id = Convert.ToInt32(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
+        //        token.token_no = Convert.ToInt32(row["token_no"] == DBNull.Value ? null : row["token_no"].ToString());
+        //        token.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
+        //        token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
+        //        token.service_date = Convert.ToDateTime(row["service_date"] == DBNull.Value ? null : row["service_date"].ToString());
+        //        token.service_status_id = Convert.ToInt16(row["service_status_id"] == DBNull.Value ? 0 : row["service_status_id"]);
+        //        token.service_status = (row["service_status"] == DBNull.Value ? null : row["service_status"].ToString());
+
+        //        list.Add(token);
+
+        //    }
+        //    return list;
+        //}
+
 
         public void Create(tblTokenQueue token)
         {
             DALToken dal = new DALToken();
             dal.Insert(token);
+        }
+
+        public void SendSMS(string msisdn, string message)
+        {
+            DALSMSManager dal = new DALSMSManager();
+            dal.SendSMS(msisdn, message);
         }
     }
 }

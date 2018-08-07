@@ -22,7 +22,9 @@ namespace qms.Models
     
         public int customer_type_id { get; set; }
         public string customer_type_name { get; set; }
-    
+
+        public int priority { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCustomer> tblCustomers { get; set; }
     }

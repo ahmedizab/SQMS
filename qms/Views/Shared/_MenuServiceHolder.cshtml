@@ -5,9 +5,8 @@
     if (sm.counter_id > 0)
     {
         <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Customer", "Index", "Customers", new { area = "" }, null)</li>
-            <li>@Html.ActionLink("Daily Services", "Create", "ServiceDetails", new { area = "" }, null)</li>
-            @*<li>@Html.ActionLink("Daily Breaks", "Index", "DailyBreaks", new { area = "" }, null)</li>*@
+            <li>@Html.ActionLink("Daily Services", "Index", "ServiceDetails", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Daily Breaks", "Index", "DailyBreaks", new { area = "" }, null)</li>
         </ul>
     }
 }

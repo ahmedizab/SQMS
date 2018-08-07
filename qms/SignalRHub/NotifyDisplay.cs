@@ -51,6 +51,11 @@ namespace qms.SignalRHub
             if (token_no == "null")
             {
                 context.Clients.All.updateMessages("", branch_id);
+
+                context.Clients.All.broadCustMessage(new BroadcustMessage() {
+                    branch_id = branch_id,
+                    text = ""
+                });
             }
             else
             {
@@ -60,11 +65,23 @@ namespace qms.SignalRHub
 
                 //AudioManager.TextToMP3(text, branch_id);
                 context.Clients.All.updateMessages(text, branch_id);
-                
+                context.Clients.All.broadCustMessage(new BroadcustMessage()
+                {
+                    branch_id = branch_id,
+                    text = text
+                });
+
             }
         }
 
         
 
     }
+
+    public class BroadcustMessage
+    {
+        public int branch_id;
+        public String text;
+    }
+
 }

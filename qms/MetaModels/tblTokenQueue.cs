@@ -19,7 +19,7 @@ namespace qms.Models
         //    }
         //}
 
-        public string tokenNoFormated
+        public string token_no_formated
         {
             get
             {

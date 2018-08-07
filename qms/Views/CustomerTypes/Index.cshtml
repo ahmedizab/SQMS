@@ -1,53 +1,43 @@
 ﻿@model IEnumerable<qms.Models.tblCustomerType>
-
 @{
-    //Layout = null;
-    ViewBag.Title = "";
+    ViewBag.Title = "Customer Type";
 }
 
-<!DOCTYPE html>
+<div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Customer Type > List</h4>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <h4 class="page-head-line">Cusomer Type Name </h4>
-            <button class="btn btn-color">
-                @Html.ActionLink("Create New", "Create")
-            </button>
-            <div class="col-md-12 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">
+        <button class="btn btn-color" style="margin-bottom : 10px;">
+            @Html.ActionLink("Create New Customer Type", "Create")
+        </button>
+        <div class="col-md-12 scrollbar table-scroll">
+            <table class="table table-hover table-bordered" id="data">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Cusomer Type Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Priority")
+                    </th>
+                    <th></th>
+                </tr>
 
-                <table class="table table-hover table-bordered" id="data">
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            @*@Html.DisplayNameFor(model => model.customer_type_name)*@
-                            @*@Html.DisplayName("Cusomer Type Name")*@
-                        </th>
-                        <th></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_type_name)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.priority)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.customer_type_id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.customer_type_id })
+                        </td>
                     </tr>
+                }
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.customer_type_name)
-                            </td>
-                            <td></td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.customer_type_id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.customer_type_id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.customer_type_id })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-                </div>
-            </div>
+            </table>
         </div>
-</body>
-</html>
+
+    </div>
+</div>

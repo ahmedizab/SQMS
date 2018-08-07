@@ -11,7 +11,7 @@ using qms.Models;
 
 namespace qms.Controllers
 {
-    [Authorize(Roles = "Admin,Branch Admin")]
+    [Authorize(Roles = "Admin")]
     public class BreakTypesController : Controller
     {
         //private qmsEntities db = new qmsEntities();

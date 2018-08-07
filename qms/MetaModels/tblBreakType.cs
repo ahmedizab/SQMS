@@ -9,6 +9,14 @@ namespace qms.Models
     [MetadataType(typeof(BreakTypeMeta))]
     public partial class tblBreakType
     {
+
+        public string break_name_with_duration
+        {
+            get
+            {
+                return break_type_name + " (" + duration.ToString() + " minutes)";
+            }
+        }
     }
 
     public class BreakTypeMeta

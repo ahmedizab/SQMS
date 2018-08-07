@@ -30,14 +30,27 @@ namespace qms.Controllers
 
             SessionManager sm = new SessionManager(Session);
             ViewBag.userBranchId = sm.branch_id;
-            ViewBag.Interval = dbManager.GetAll();
+            //ViewBag.Interval = dbManager.GetAll();
 
 
-
-
-            //var tblDailyBreaks = db.tblDailyBreaks.Include(t => t.AspNetUser).Include(t => t.tblBreakType);
-           
-            return View(dbManager.GetAll());
+            int? branch_id;
+            string user_id;
+            if(User.IsInRole("Admin"))
+            {
+                branch_id = null;
+                user_id = null;
+            }
+            else if (User.IsInRole("Branch Admin"))
+            {
+                branch_id = sm.branch_id;
+                user_id = null;
+            }
+            else
+            {
+                branch_id = null;
+                user_id = sm.user_id;
+            }
+            return View(dbManager.GetAll(branch_id, user_id));
 
         }
 
@@ -59,8 +72,10 @@ namespace qms.Controllers
         // GET: DailyBreaks/Create
         public ActionResult Create()
         {
-            ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown");
-            ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_type_name");
+            SessionManager sm = new SessionManager(Session);
+            ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", sm.user_id);
+            
+            ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_name_with_duration");
             return View();
         }
 
@@ -83,8 +98,10 @@ namespace qms.Controllers
             catch (Exception ex)
             {
                 ViewBag.error_message = ex.Message;
-                ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", tblDailyBreak.user_id);
-                ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_type_short_name", tblDailyBreak.break_type_id);
+                SessionManager sm = new SessionManager(Session);
+                ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", sm.user_id);
+
+                ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_name_with_duration");
                 return View(tblDailyBreak);
             }
                

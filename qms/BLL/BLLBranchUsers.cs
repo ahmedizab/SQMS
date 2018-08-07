@@ -26,6 +26,7 @@ namespace qms.BLL
             {
                 VMBranchLogin branchuser = new VMBranchLogin();
                 branchuser.user_branch_id = Convert.ToInt32(row["user_branch_id"] == DBNull.Value ? 0 : row["user_branch_id"]);
+                branchuser.branch_id = Convert.ToInt32(row["branch_id"] == DBNull.Value ? 0 : row["branch_id"]);
                 branchuser.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
                 branchuser.Hometown = (row["Hometown"] == DBNull.Value ? null : row["Hometown"].ToString());
                 branchuser.UserName = (row["UserName"] == DBNull.Value ? null : row["UserName"].ToString());

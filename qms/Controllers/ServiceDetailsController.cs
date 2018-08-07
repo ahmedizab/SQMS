@@ -38,9 +38,27 @@ namespace qms.Controllers
 
             SessionManager sm = new SessionManager(Session);
             ViewBag.userBranchId = sm.branch_id;
-            return View(dbManager.GetAll());
-            //var tblServiceDetails = db.tblServiceDetails.Include(t => t.tblCustomer).Include(t => t.tblTokenQueue).Include(x=>x.tblTokenQueue.AspNetUser).Include(x=>x.tblTokenQueue.tblBranch).Include(x=>x.tblTokenQueue.tblCounter);
-            //return View(await tblServiceDetails.ToListAsync());
+
+            int? branch_id;
+            string user_id;
+            if (User.IsInRole("Admin"))
+            {
+                branch_id = null;
+                user_id = null;
+            }
+            else if (User.IsInRole("Branch Admin"))
+            {
+                branch_id = sm.branch_id;
+                user_id = null;
+            }
+            else
+            {
+                branch_id = null;
+                user_id = sm.user_id;
+            }
+
+            return View(dbManager.GetAllCurrentDate(branch_id, user_id));
+
         }
 
         // GET: ServiceDetails/Details/5
@@ -691,7 +709,7 @@ namespace qms.Controllers
                     //List<tblTokenQueue> previousHistoryList = new List<tblTokenQueue>();
                     //var previousHistoryList = db.tblTokenQueues.Where(a => a.contact_no == contact_no).Include(x=>x.tblServiceDetails).ToList();
 
-                    List<tblServiceDetail> previousHistoryList = dbManager.GetAllService().Where(x => x.customer_id == customerDetails.customer_id).ToList();
+                    List<tblServiceDetail> previousHistoryList = dbManager.GetByCustomerID(customerDetails.customer_id);
                     List<VMServiceDetails> customerlist = new List<VMServiceDetails>();
 
                     foreach (tblServiceDetail item in previousHistoryList)

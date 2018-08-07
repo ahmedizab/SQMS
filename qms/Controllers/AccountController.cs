@@ -153,6 +153,73 @@ namespace qms.Controllers
                     return View(model);
             }
         }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult OuterLogin(string username, string password)
+        {
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            try
+            {
+                var result = SignInManager.PasswordSignIn(username, password, false, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        {
+                            SessionManager sm = new SessionManager(Session);
+                            VMSessionInfo user = dbUser.GetSessionInfoByUserName(username); //-------Kamrul
+
+                            string loginProvider = Guid.NewGuid().ToString();
+                            string securityToken = Cryptography.Encrypt(loginProvider, true);
+                            AspNetUserLogin login = new AspNetUserLogin()
+                            {
+                                LoginProvider = loginProvider,
+                                ProviderKey = securityToken,
+                                UserId = user.user_id
+                            };
+                            dbUser.AddLoginInfo(login);
+
+                            
+                            sm.user_name = user.user_name;
+                            sm.user_id = user.user_id;
+                            if (user.branch_id > 0)
+                            {
+                                sm.branch_id = user.branch_id;
+                                sm.branch_name = user.branch_name;
+                                sm.branch_static_ip = user.branch_static_ip;
+                            }
+                            else
+                            {
+                                sm.branch_id = 0;
+                            }
+
+                            
+
+                            return Json(new { success = true, message = "login success", securityToken = securityToken }, JsonRequestBehavior.AllowGet);
+
+                        }
+                    case SignInStatus.LockedOut:
+                        return Json(new { success = false, message = "User is locked, please contact to admin" }, JsonRequestBehavior.AllowGet);
+                    case SignInStatus.RequiresVerification:
+                        return Json(new { success = false, message = "User is not verified, please contact to admin" }, JsonRequestBehavior.AllowGet);
+                    case SignInStatus.Failure:
+                        return Json(new { success = false, message = "Invalid login attemp" }, JsonRequestBehavior.AllowGet);
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return Json(new { success = false, message = "Invalid login attempt" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Invalid login attempt" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
         public ActionResult BLogin(string returnUrl)
         {
 
@@ -514,6 +581,30 @@ namespace qms.Controllers
             sm.Close();
             return RedirectToAction("Login", "Account");
         }
+
+
+        [HttpPost]
+        public JsonResult OuterLogOff(string securityToken)
+        {
+            try
+            {
+                ApiManager.ValidUserBySecurityToken(securityToken);
+                string loginProvider = Cryptography.Decrypt(securityToken, true);
+                dbUser.DeleteLoginInfo(loginProvider);
+                
+                return Json(new { success = true, message = "Log out success" }, JsonRequestBehavior.AllowGet);
+                throw new Exception("Invalid security token");
+
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
 
         //
         // GET: /Account/ExternalLoginFailure

@@ -8,9 +8,10 @@ using System.Web;
 
 namespace qms.DAL
 {
-    public class DALCounters
+    public class DALCustomerType
     {
         OracleDataManager manager = new OracleDataManager();
+
         public DataTable GetAll()
         {
             try
@@ -19,24 +20,26 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_Counters_SelectAll");
+                return manager.CallStoredProcedure_Select("USP_CustomerType_SelectAll");
             }
             catch (Exception)
             {
 
                 throw;
             }
+           
+            
         }
         public DataTable GetById(int id)
         {
             try
             {
-                manager.AddParameter(new OracleParameter("p_Counter_id", id));
+                manager.AddParameter(new OracleParameter("p_Customer_type_id", id));
                 OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_Counters_Edit");
+                return manager.CallStoredProcedure_Select("USP_CustomerType_Edit");
             }
             catch (Exception)
             {
@@ -47,18 +50,18 @@ namespace qms.DAL
 
         }
         /// <summary>
-        /// Call only for New Service Type Insert
-        /// Return service_type_id
+        /// Call only for New Customer Type Insert
+        /// Return Customer_type_id
         /// </summary>
-        /// <param name="serviceType">Service Type Object</param>
-        /// <returns>Return service_type_id</returns>
-        public int Insert(tblCounter counter)
+        /// <param name="CustomerType">Customer Type Object</param>
+        /// <returns>Return Customer_type_id</returns>
+        public int Insert(tblCustomerType CustomerType)
         {
             try
             {
-                MapParameters(counter);
-                long? counter_id = manager.CallStoredProcedure_Insert("USP_Counters_Insert");
-                if (counter_id.HasValue) return (int)counter_id.Value;
+                MapParameters(CustomerType);
+                long? Customer_type_id = manager.CallStoredProcedure_Insert("USP_CustomerType_Insert");
+                if (Customer_type_id.HasValue) return (int) Customer_type_id.Value;
                 else return 0;
             }
             catch (Exception)
@@ -67,13 +70,13 @@ namespace qms.DAL
             }
         }
 
-        public void Update(tblCounter counter)
+        public void Update(tblCustomerType CustomerType)
         {
             try
             {
-                manager.AddParameter(new OracleParameter("p_Counter_id", counter.counter_id));
-                MapParameters(counter);
-                manager.CallStoredProcedure_Update("USP_Counters_Update");
+                manager.AddParameter(new OracleParameter("p_Customer_type_id", CustomerType.customer_type_id));
+                MapParameters(CustomerType);
+                manager.CallStoredProcedure_Update("USP_CustomerType_Update");
             }
             catch (Exception)
             {
@@ -81,21 +84,18 @@ namespace qms.DAL
             }
         }
 
-        private void MapParameters(tblCounter counter)
+        private void MapParameters(tblCustomerType CustomerType)
         {
-            manager.AddParameter(new OracleParameter("p_counter_no", counter.counter_no));
-            manager.AddParameter(new OracleParameter("p_branch_id", counter.branch_id));
-            manager.AddParameter(new OracleParameter("p_location", counter.location));
-           
-
+            manager.AddParameter(new OracleParameter("p_Customer_type_name", CustomerType.customer_type_name));
+            manager.AddParameter(new OracleParameter("p_priority", CustomerType.priority));
         }
         public void Delete(int id)
         {
             try
             {
-                manager.AddParameter(new OracleParameter("p_Counter_id", id));
-
-                manager.CallStoredProcedure_Update("USP_Counters_Delete");
+                manager.AddParameter(new OracleParameter("p_Customer_type_id", id));
+                
+                manager.CallStoredProcedure_Update("USP_CustomerType_Delete");
             }
             catch (Exception)
             {
