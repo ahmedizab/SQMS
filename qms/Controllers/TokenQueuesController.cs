@@ -58,6 +58,49 @@ namespace qms.Controllers
             //return View(await tblTokenQueues.OrderByDescending(o=>o.token_id).ToListAsync());
         }
 
+        // GET: TokenQueues
+        [Authorize]
+        public ActionResult Skipped()
+        {
+            ViewBag.branchList = dbBranch.GetAllBranch();
+            
+
+            SessionManager sm = new SessionManager(Session);
+            
+            ViewBag.userBranchId = sm.branch_id;
+
+            int? branch_id;
+            string user_id;
+            if (User.IsInRole("Admin"))
+            {
+                branch_id = null;
+                user_id = null;
+            }
+            else if (User.IsInRole("Branch Admin"))
+            {
+                branch_id = sm.branch_id;
+                user_id = null;
+            }
+            else
+            {
+                branch_id = null;
+                user_id = sm.user_id;
+            }
+
+            return View(dbManager.GetSkipped(branch_id, user_id));
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ReInitiate(long token_id)
+        {
+
+                dbManager.ReInitiate(token_id);
+                return RedirectToAction("Skipped");
+
+            
+        }
+
         // GET: TokenQueues/Details/5
         //[Authorize(Roles = "Admin, Branch Admin")]
         //public async Task<ActionResult> Details(long? id)

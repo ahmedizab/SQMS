@@ -610,6 +610,7 @@
     <Content Include="Scripts\sqms\daily-break.js" />
     <Content Include="Scripts\sqms\dashboard-admin.js" />
     <Content Include="Scripts\sqms\dashboard-branch.js" />
+    <Content Include="Scripts\sqms\date.js" />
     <Content Include="Scripts\sqms\display.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -699,7 +700,7 @@
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\ServiceDetails\Index.cshtml" />
-    <Content Include="Views\Counters\CounterListBck.cshtml" />
+    <Content Include="Views\Counters\Display.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\ServiceDetails\Create.cshtml" />
     <Content Include="Views\ServiceDetails\Edit.cshtml" />
@@ -757,6 +758,7 @@
     <Content Include="Views\CustomerTypes\Edit.cshtml" />
     <Content Include="Views\CustomerTypes\Index.cshtml" />
     <Content Include="Views\TokenQueues\_LayoutToken.cshtml" />
+    <Content Include="Views\TokenQueues\Skipped.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

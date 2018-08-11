@@ -40,17 +40,19 @@
                     <span><i class="fa fa-bullhorn"></i></span> New Service
                 </button>
 
-                <button class="btn-squere-xl btn-color marzin-bottom">
-                    <a href="@Url.Action("Index", "ServiceDetails")" title="Manual Call">
-                        <span><i class="fa fa-user-plus"></i></span>
-                        Manual Call
-                    </a>
+
+                <button type="submit" onclick="ManualCall()" class="btn-squere-xl  btn-color marzin-bottom" id="manual_call_btn">
+                    <span><i class="fa fa-user-plus"></i></span>Manual Call
                 </button>
-                <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
+                <button type="submit" onclick="Transfer()" class="btn-squere-xl  btn-color marzin-bottom" id="Transfer_btn">
                     <span><i class="fa fa-cart-arrow-down"></i></span>Service Transfer
                 </button>
-                <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
-                    <span><i class="fa fa-list"></i></span>Skipped List
+
+                <button class="btn-squere-xl btn-color marzin-bottom">
+                    <a href="@Url.Action("Skipped", "TokenQueues")" title="Skipped List">
+                        <span><i class="fa fa-list"></i></span>
+                        Skipped List
+                    </a>
                 </button>
                 <button class="btn-squere-xl btn-color marzin-bottom">
                     <a href="@Url.Action("Create", "DailyBreaks")" title="Take A Break">
@@ -78,52 +80,25 @@
                         </td>
                     </tr>
                     <tr>
-                        @*<td>Services</td>*@
                         <td>@Html.DropDownList("service_sub_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Services" })</td>
                     </tr>
                     <tr>
-                        @*<td>Mobile No</td>*@
                         <td>@Html.TextBoxFor(m => m.contact_no, new { @class = "form-control Next", @id = "txtContact", @placeholder = "Mobile No" }) @Html.ValidationMessageFor(m => m.contact_no)</td>
                         <td><button class="btn btn-color" onclick="GetCustomerInformation()">GO</button></td>
                     </tr>
                     <tr>
-                        @*<td>Customer Name</td>*@
                         <td>@Html.TextBoxFor(m => m.customer_name, new { @class = "form-control Next", @id = "txtName", @placeholder = "Customer Name" }) @Html.ValidationMessageFor(m => m.customer_name)</td>
                     </tr>
                     <tr>
-                        @*<td>Address</td>*@
                         <td>@Html.TextBoxFor(m => m.address, new { @class = "form-control Next", @id = "txtAddress", @placeholder = "Address" }) @Html.ValidationMessageFor(m => m.address)</td>
                     </tr>
                     <tr>
-                        @*<td>Issues</td>*@
                         <td>@Html.TextAreaFor(m => m.issues, new { @class = "form-control Next", @id = "txtIssues", @row = "5", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
                     </tr>
                     <tr>
-                        @*<td>Solutions</td>*@
                         <td>@Html.TextAreaFor(m => m.solutions, new { @class = "form-control Next", @id = "txtsolutions", @row = "5", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
                     </tr>
-                    @*<tr>
-                            <td>
-                                <button type="submit" onclick="Save()" class="btn btn-lg btn-primary btn-block" id="save_btn">
-                                        Done
-                                    </button>
-                            </td>
-                            <td>
-                                <button type="submit" onclick="SaveNext()" class="btn btn-lg btn-primary btn-block" id="saveNext_btn">
-                                        Done & Next
-                                    </button>
-                            </td>
-                            <td>
-                                <button type="submit" onclick="CancelNext()" class="btn btn-lg btn-danger" id="cancelNext_btn">
-                                        Cancel & Next
-                                    </button>
-                            </td>
-                            <td>
-                                <button type="submit" onclick="Cancel()" class="btn btn-lg btn-danger" id="cancel_btn">
-                                        Cancel
-                                    </button>
-                            </td>
-                        </tr>*@
+
                 </table>
             </div>
 
@@ -141,8 +116,8 @@
                 <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
                     <span><i class="fa fa-times-circle"></i></span>Skip
                 </button>
-                <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
-                    <span><i class="fa fa-check-square"></i></span>Re-Assign
+                <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
+                    <span><i class="fa fa-plus-square"></i></span>Add Service
                 </button>
             </div>
         </div>
@@ -167,6 +142,7 @@
 </div>
 
 @section scripts{
+    <script src="~/Scripts/sqms/date.js"></script>
     <script src="~/Scripts/sqms/service-details.js"></script>
-    
+
 }

@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SQMS::Counter Display</title>
+    <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+    <link rel="stylesheet" type="text/css" href="~/Content/display/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/display/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/display/css/imagehover.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/display/css/style.css">
+    <!-- =======================================================
+      Theme Name: Mentor
+      Theme URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+      Author: BootstrapMade.com
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/respond.js"></script>
+    <script src="~/Scripts/responsivevoice.src.js"></script>
+    @*<script src="http://code.responsivevoice.org/responsivevoice.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.1/css/font-awesome.min.css" />*@
+
+
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    @*<script src="http://114.31.10.21:9078/signalr/hubs"></script>*@
+    <script src="~/Scripts/sqms/global.js"></script>
+</head>
+
+<body>
+    <!--main-->
+
+    <section class="back">
+        <div class=".container-fluid">
+            <div class="row">
+                <input id="branch_id" type="hidden" value="@ViewBag.branch_id" />
+                <input id="welcome" type="hidden" value="@ViewBag.dispalyWelcome" />
+                <div id="divCurrentTokens" class="col-md-3 re">
+
+                    <div class="col-sm-6 bg-color-head"><h2 style="text-align:center">Counter</h2></div>
+                    <div class="col-sm-5 bg-color-head"><h2 style="text-align:center">Token</h2></div>
+
+
+                </div>
+
+                <!--<div class="col-md-8"><iframe width="100%" height="935" src="https://www.youtube.com/embed/2ndlEdzV1Xc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>-->
+
+
+                <div class="col-md-9">
+                    @*<iframe width="100%" height="950" src="https://www.youtube.com/embed/2ndlEdzV1Xc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>*@
+                    <video id="myVideo" width="100%" height="100%" style="padding:0px;" muted loop="true" autoplay>
+                        <source src="@Url.Content(ViewBag.dispalyVideo)" type="video/mp4" width="100%" height="100%" style="margin:0px; padding:0px;">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ main-->
+    <!--Feature-->
+    <section>
+        
+
+        <div class="container-fluid">
+            <div class="row" style="padding-top:10px">
+                <div class="col-md-12 bg-color-full"><h2 id="nextToken">Next Token: </h2></div>
+                <div class="col-md-12 bg-color-full">
+                    <div class="col-sm-1">
+                        <div id="logo-title">
+                            <img src="~/Content/display/images/logo.png" alt="Home">
+                        </div>
+                    </div>
+                    <div class="col-sm-11" style="left:-40px">
+                        <h4><marquee style="height:50px">@ViewBag.dispalyFooterAdd</marquee></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="~/Scripts/sqms/display.js"></script>
+</body>
+</html>

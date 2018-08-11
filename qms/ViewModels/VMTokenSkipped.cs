@@ -19,8 +19,13 @@ namespace qms.ViewModels
             }
         }
         public System.DateTime service_date { get; set; }
+        public int service_status_id { get; set; }
         public string service_status { get; set; }
+        public string contact_no { get; set; }
         public string counter_no { get; set; }
+        public string customer_name { get; set; }
         public string user_full_name { get; set; }
+        public System.DateTime cancel_time { get; set; }
+        
     }
 }

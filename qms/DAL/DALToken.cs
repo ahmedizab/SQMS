@@ -35,14 +35,14 @@ namespace qms.DAL
 
             try
             {
-                manager.AddParameter(new OracleParameter() { ParameterName = "branch_id", Value = branch_id });
-                manager.AddParameter(new OracleParameter() { ParameterName = "user_id", Value = user_id });
+                manager.AddParameter(new OracleParameter() { ParameterName = "P_branch_id", Value = branch_id });
+                manager.AddParameter(new OracleParameter() { ParameterName = "P_USER_ID", Value = user_id });
 
                 OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_Token_SelectAll");
+                return manager.CallStoredProcedure_Select("USP_TOKEN_SelectSkipped");
             }
             catch (Exception)
             {
@@ -128,7 +128,24 @@ namespace qms.DAL
                 throw;
             }
         }
-        
+
+        public void ReInitiate(long token_id)
+        {
+            try
+            {
+                
+                manager.AddParameter(new OracleParameter("P_token_id", token_id));
+                manager.CallStoredProcedure("USP_TOKEN_RE_INITIATE");
+
+               
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private void MapParameters(tblTokenQueue token)
         {
             manager.AddParameter(new OracleParameter("p_service_type_id", token.service_type_id));

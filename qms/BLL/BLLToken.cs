@@ -19,6 +19,13 @@ namespace qms.BLL
             return ObjectMappingList(dt);
         }
 
+        public List<VMTokenSkipped> GetSkipped(int? branch_id, string user_id)
+        {
+            DALToken dal = new DALToken();
+            DataTable dt = dal.GetSkipped(branch_id, user_id);
+            return ObjectMappingList_SkippedList(dt);
+        }
+
         public List<VMTokenQueue> GetByBranchId(int branch_id)
         {
             DALToken dal = new DALToken();
@@ -50,7 +57,7 @@ namespace qms.BLL
             foreach (DataRow row in dt.Rows)
             {
                 VMTokenQueue token = new VMTokenQueue();
-                token.token_id = Convert.ToInt32(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
+                token.token_id = Convert.ToInt64(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
                 token.token_no = Convert.ToInt32(row["token_no"] == DBNull.Value ? null : row["token_no"].ToString());
                 token.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
                 token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
@@ -70,7 +77,7 @@ namespace qms.BLL
             foreach (DataRow row in dt.Rows)
             {
                 tblTokenQueue token = new tblTokenQueue();
-                token.token_id = Convert.ToInt32(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
+                token.token_id = Convert.ToInt64(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
                 token.token_no = Convert.ToInt32(row["token_no"] == DBNull.Value ? null : row["token_no"].ToString());
                 
                 token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
@@ -89,7 +96,7 @@ namespace qms.BLL
             foreach (DataRow row in dt.Rows)
             {
                 VMNextToken token = new VMNextToken();
-                token.token_no = Convert.ToInt32(row["token_no"] == DBNull.Value ? null : row["token_no"]);
+                token.token_no = Convert.ToInt64(row["token_no"] == DBNull.Value ? null : row["token_no"]);
                 token.display_next = Convert.ToInt32(row["display_next"] == DBNull.Value ? null : row["display_next"]);
                 token.static_ip = (row["static_ip"] == DBNull.Value ? null : row["static_ip"].ToString());
 
@@ -118,32 +125,42 @@ namespace qms.BLL
             return list;
         }
 
-        //internal List<VMTokenSkipped> ObjectMappingList_SkippedList(DataTable dt)
-        //{
-        //    List<VMTokenSkipped> list = new List<VMTokenSkipped>();
-        //    foreach (DataRow row in dt.Rows)
-        //    {
-        //        VMTokenSkipped token = new VMTokenSkipped();
+        internal List<VMTokenSkipped> ObjectMappingList_SkippedList(DataTable dt)
+        {
+            List<VMTokenSkipped> list = new List<VMTokenSkipped>();
+            foreach (DataRow row in dt.Rows)
+            {
+                VMTokenSkipped token = new VMTokenSkipped();
 
-        //        token.token_id = Convert.ToInt32(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
-        //        token.token_no = Convert.ToInt32(row["token_no"] == DBNull.Value ? null : row["token_no"].ToString());
-        //        token.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
-        //        token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
-        //        token.service_date = Convert.ToDateTime(row["service_date"] == DBNull.Value ? null : row["service_date"].ToString());
-        //        token.service_status_id = Convert.ToInt16(row["service_status_id"] == DBNull.Value ? 0 : row["service_status_id"]);
-        //        token.service_status = (row["service_status"] == DBNull.Value ? null : row["service_status"].ToString());
+                token.token_id = Convert.ToInt64(row["token_id"] == DBNull.Value ? 0 : row["token_id"]);
+                token.token_no = Convert.ToInt32(row["token_no"] == DBNull.Value ? null : row["token_no"].ToString());
+                token.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
+                token.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
+                token.service_date = Convert.ToDateTime(row["service_date"] == DBNull.Value ? null : row["service_date"].ToString());
+                token.service_status_id = Convert.ToInt16(row["service_status_id"] == DBNull.Value ? 0 : row["service_status_id"]);
+                token.service_status = (row["service_status"] == DBNull.Value ? null : row["service_status"].ToString());
+                token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
+                token.customer_name = (row["customer_name"] == DBNull.Value ? null : row["customer_name"].ToString());
+                token.cancel_time = Convert.ToDateTime(row["cancel_time"] == DBNull.Value ? null : row["cancel_time"].ToString());
+                token.user_full_name = (row["HOMETOWN"] == DBNull.Value ? null : row["HOMETOWN"].ToString());
 
-        //        list.Add(token);
+                list.Add(token);
 
-        //    }
-        //    return list;
-        //}
+            }
+            return list;
+        }
 
 
         public void Create(tblTokenQueue token)
         {
             DALToken dal = new DALToken();
             dal.Insert(token);
+        }
+
+        public void ReInitiate(long token_id)
+        {
+            DALToken dal = new DALToken();
+            dal.ReInitiate(token_id);
         }
 
         public void SendSMS(string msisdn, string message)

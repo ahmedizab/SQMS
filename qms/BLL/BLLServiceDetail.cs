@@ -42,6 +42,24 @@ namespace qms.BLL
 
             return serviceSubTypeList;
         }
+        public List<tblServiceSubType> CallManualToken(int branch_id, int counter_id, string userid, int token_no, out long token_id, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address)
+        {
+
+            DALServiceDetail dal = new DALServiceDetail();
+            DataTable dt = dal.CallManualToken(branch_id, counter_id, userid, token_no, out token_id, out contact_no, out service_type, out start_time, out customer_name, out address);
+
+            if (dt.Rows.Count == 0) throw new Exception("Token number is not found or not free to call");
+
+            BLLServiceSubType serviceSubTypeManager = new BLLServiceSubType();
+            List<tblServiceSubType> serviceSubTypeList = serviceSubTypeManager.ObjectMappingListTBL(dt);
+
+            return serviceSubTypeList;
+        }
+        public void Transfer(int branch_id, string counter_no, long token_id)
+        {
+            DALServiceDetail dal = new DALServiceDetail();
+            dal.Transfer(branch_id, counter_no, token_id);
+        }
         public void GetNextTokenList(int token_id)
         {
             DALServiceDetail dal = new DALServiceDetail();
@@ -54,6 +72,14 @@ namespace qms.BLL
             int service_id = dal.Insert(servicedetail);
             servicedetail.service_id = service_id;
         }
+
+        public void AddService(VMServiceDetails servicedetail)
+        {
+            DALServiceDetail dal = new DALServiceDetail();
+            int service_id = dal.AddService(servicedetail);
+            servicedetail.service_id = service_id;
+        }
+
         public int CancelToken(long token_id)
         {
             DALServiceDetail dal = new DALServiceDetail();
