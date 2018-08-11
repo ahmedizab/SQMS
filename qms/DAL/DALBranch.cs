@@ -35,11 +35,11 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("p_branch_id", id));
-                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                OracleParameter param = new OracleParameter("po_cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_Branch_Edit");
+                return manager.CallStoredProcedure_Select("USP_Branch_SelectList_ById");
             }
             catch (Exception)
             {

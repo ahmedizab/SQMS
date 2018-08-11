@@ -39,7 +39,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_BranchUser_Edit");
+                return manager.CallStoredProcedure_Select("USP_BranchUser_SelectList_ById");
             }
             catch (Exception)
             {

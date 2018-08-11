@@ -16,7 +16,7 @@ namespace qms.DAL
         {
             try
             {
-                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                OracleParameter param = new OracleParameter("po_cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -39,7 +39,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_CustomerType_Edit");
+                return manager.CallStoredProcedure_Select("USP_CustomerType_List_ById");
             }
             catch (Exception)
             {

@@ -14,7 +14,7 @@ namespace qms.Utility
 {
     public class DisplayManager
     {
-        private qmsEntities db = new qmsEntities();
+       
         private BLL.BLLToken dbManager = new BLL.BLLToken();
         public void CreateTextFile(int branch_id, string static_ip)
         {

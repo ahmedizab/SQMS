@@ -37,7 +37,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_BreakType_Edit");
+                return manager.CallStoredProcedure_Select("USP_BreakType_SelectList_ById");
             }
             catch (Exception)
             {

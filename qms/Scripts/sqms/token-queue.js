@@ -44,7 +44,7 @@ function Save() {
             $("#mobileNo").val(data.msisdn);
 
             $("#date").text(data.Date);
-            voidMsisdn();  // 2018-07-20
+             // 2018-07-20
 
             //  $("#service_name").empty();
         }
@@ -65,7 +65,10 @@ function sms() {
         data: { mobileNo: mobileNo, tokenNo: tokenNo },
         success: function (data) {
             if (data.Success == true)
+                {
                 $("#message").html("Message sent");
+                voidMsisdn();
+            }
             else
                 $("#message").html(data.Message);
             //  $("#service_name").empty();

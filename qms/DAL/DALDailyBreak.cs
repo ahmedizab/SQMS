@@ -19,7 +19,7 @@ namespace qms.DAL
                 manager.AddParameter(new OracleParameter() { ParameterName = "user_id", Value = user_id });
 
 
-                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                OracleParameter param = new OracleParameter("po_cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -40,7 +40,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_DailyBreak_Edit");
+                return manager.CallStoredProcedure_Select("USP_DailyBreak_SelectList_ById");
             }
             catch (Exception)
             {

@@ -5,7 +5,7 @@
 }
 <div class="container">
     <div class="row">
-        <h4 class="page-head-line">Service Type > Create</h4>
+        <h4 class="page-head-line">Customer Type > Create</h4>
         @*<div class="col-md-2"></div>*@
         <div class="col-md-5">
 
@@ -37,18 +37,13 @@
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-8">
                             <input type="submit" value="Create" class="btn btn-color" />
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Back to List", "Index")
+                            </button>
                         </div>
                     </div>
                 </div>
             }
-        </div>
-    </div>
-
-    <div class="row">
-        <div>
-            <button class="btn btn-color">
-                @Html.ActionLink("Back to List", "Index")
-            </button>
         </div>
     </div>
 

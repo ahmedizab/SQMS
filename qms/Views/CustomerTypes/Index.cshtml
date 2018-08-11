@@ -30,8 +30,13 @@
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.priority)</td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.customer_type_id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.customer_type_id })
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.customer_type_id })
+                            </button>
+                            <button class="btn btn-color">
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.customer_type_id })
+                            </button>
                         </td>
                     </tr>
                 }

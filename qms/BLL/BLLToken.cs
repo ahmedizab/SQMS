@@ -55,7 +55,7 @@ namespace qms.BLL
                 token.branch_name = (row["branch_name"] == DBNull.Value ? null : row["branch_name"].ToString());
                 token.contact_no = (row["contact_no"] == DBNull.Value ? null : row["contact_no"].ToString());
                 token.service_date = Convert.ToDateTime(row["service_date"] == DBNull.Value ? null : row["service_date"].ToString());
-                token.service_status_id = Convert.ToInt16(row["service_status_id"] == DBNull.Value ? 0 : row["service_status_id"]);
+                
                 token.service_status = (row["service_status"] == DBNull.Value ? null : row["service_status"].ToString());
                
 

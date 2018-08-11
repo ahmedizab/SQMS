@@ -67,8 +67,16 @@ function sms(mobileNo, tokenNo) {
         type: 'POST',
         dataType: 'json',
         data: { mobileNo: mobileNo, tokenNo: tokenNo },
-        success: function (data) {
-            $("#message").html("Message sent");
+        
+            success: function (data) {
+                if (data.Success == true)
+                {
+                    $("#message").html("Message sent");
+                    
+                }
+                else
+                    $("#message").html(data.Message);
+            
             //  $("#service_name").empty();
         }
     });

@@ -4,27 +4,36 @@
     ViewBag.Title = "Service Type Delete";
 }
     
-    <div>
-        <h4>Service Type > Delete</h4>
+    <div class="container">
+    <div class="row">
+        <h4 class="page-head-line">Service Type > Delete</h4>
         <hr />
-        <h3>Are you sure you want to delete this?</h3>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.service_type_name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.service_type_name)
-            </dd>
-    
-        </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
+        <div class="col-lg-offset-3 col-md-6">
+            <h3>Are you sure you want to delete this?</h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.service_type_name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.service_type_name)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-lg-offset-1 form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-color" />
+                    <button class="btn btn-color">
+                        @Html.ActionLink("Back to List", "Index")
+                    </button>
+                </div>
+            }
+        </div>
     </div>
+</div>
+<br />
+

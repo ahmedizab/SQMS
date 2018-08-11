@@ -136,6 +136,8 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("p_token_id", token_id));
+                //OracleParameter param = new OracleParameter("po_PKValue", OracleDbType.RefCursor);
+                //param.Direction = ParameterDirection.Output;
 
                 return (int) manager.CallStoredProcedure_Insert("USP_Token_Cancel");
             }

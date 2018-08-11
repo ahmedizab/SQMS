@@ -49,8 +49,8 @@
                     @*@Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })*@
                     @*@Html.Label("Priority Type", htmlAttributes: new { @class = "control-label col-md-2" })*@
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.tblCustomerType.customer_type_id, new { htmlAttributes = new { @class = "form-control" } })
-                        @*@Html.DropDownList("customer_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Priority Type" })*@
+                        @*@Html.EditorFor(model => model.tblCustomerType.customer_type_id, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.DropDownList("customer_type_id", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.tblCustomerType.customer_type_id, "", new { @class = "text-danger" })
                     </div>
                 </div>

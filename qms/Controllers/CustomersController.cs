@@ -18,6 +18,8 @@ namespace qms.Controllers
     {
 
         private BLL.BLLCustomer dbManager = new BLL.BLLCustomer();
+        private BLL.BLLCustomerType dbCustomerType = new BLL.BLLCustomerType();
+
         // GET: Customers
         public ActionResult Index()
         {
@@ -77,6 +79,7 @@ namespace qms.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.type_id = new SelectList(dbCustomerType.GetAll(), "Customer_type_id", "CUSTOMER_TYPE_NAME", tblCustomer.customer_type_id);
             return View(tblCustomer);
         }
 
@@ -92,6 +95,7 @@ namespace qms.Controllers
                 dbManager.Edit(tblCustomer);
                 return RedirectToAction("Index");
             }
+            ViewBag.type_id = new SelectList(dbCustomerType.GetAll(), "Customer_type_id", "CUSTOMER_TYPE_NAME", tblCustomer.customer_type_id);
             return View(tblCustomer);
         }
 

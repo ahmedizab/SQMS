@@ -41,8 +41,12 @@
                             @Html.DisplayFor(modelItem => item.max_duration)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.service_sub_type_id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.service_sub_type_id })
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.service_sub_type_id })
+                            </button>
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.service_sub_type_id })
+                            </button>
                         </td>
                     </tr>
                 }

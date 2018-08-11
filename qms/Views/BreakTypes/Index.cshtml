@@ -54,8 +54,12 @@
                             @Html.DisplayFor(modelItem => item.duration)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.break_type_id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.break_type_id })
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.break_type_id })
+                            </button>
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Delete", "Delete", new { id = item.break_type_id })
+                            </button>
                         </td>
                     </tr>
                 }

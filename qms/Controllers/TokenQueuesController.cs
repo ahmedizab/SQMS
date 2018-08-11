@@ -169,6 +169,7 @@ namespace qms.Controllers
             string token_id = tokenObj.token_id.ToString();
             string token_no = tokenObj.token_no_formated;
             string message = subString + tokenObj.token_no_formated;
+            NotifyDisplay.SendMessages(branchId, "null", "null");
             return Json(new { Success = true, Message = message, tokenId = token_id, tokenNo = token_no,  msisdn = mobile }, JsonRequestBehavior.AllowGet);
         }
 

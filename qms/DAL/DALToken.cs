@@ -17,7 +17,7 @@ namespace qms.DAL
             try
             {
                 
-                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                OracleParameter param = new OracleParameter("po_cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -75,7 +75,7 @@ namespace qms.DAL
             try
             {
                 manager.AddParameter(new OracleParameter("p_branch_id", branch_id));
-                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                OracleParameter param = new OracleParameter("PO_CURSOR", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
@@ -109,6 +109,8 @@ namespace qms.DAL
         {
             try
             {
+               
+                
                 OracleParameter param_token_id = new OracleParameter("po_token_id", OracleDbType.Decimal);
                 param_token_id.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_token_id);

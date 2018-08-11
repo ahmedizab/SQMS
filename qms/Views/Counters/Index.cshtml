@@ -65,7 +65,9 @@
                             @Html.DisplayFor(modelItem => item.branch_name)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.counter_id })
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.counter_id })
+                            </button>
 
                         </td>
                     </tr>

@@ -39,7 +39,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_ServiceSubType_Edit");
+                return manager.CallStoredProcedure_Select("USP_ServiceSubType_List_ById");
             }
             catch (Exception)
             {
@@ -74,8 +74,9 @@ namespace qms.DAL
         {
             try
             {
-                manager.AddParameter(new OracleParameter("p_servicesub_type_id", servicesubType.service_sub_type_id));
                 MapParameters(servicesubType);
+                manager.AddParameter(new OracleParameter("p_servicesub_type_id", servicesubType.service_sub_type_id));
+               
                 manager.CallStoredProcedure_Update("USP_ServiceSubType_Update");
             }
             catch (Exception)

@@ -15,7 +15,7 @@ namespace qms.DAL
             try
             {
 
-                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                OracleParameter param = new OracleParameter("po_cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 

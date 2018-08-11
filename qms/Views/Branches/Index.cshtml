@@ -66,7 +66,9 @@
                             @Html.DisplayFor(modelItem => item.static_ip)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.branch_id })
+                            <button class="btn btn-color">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.branch_id })
+                            </button>
 
                         </td>
                     </tr>

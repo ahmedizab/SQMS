@@ -36,7 +36,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_Counters_Edit");
+                return manager.CallStoredProcedure_Select("USP_Counters_SelectList_ById");
             }
             catch (Exception)
             {
@@ -71,8 +71,9 @@ namespace qms.DAL
         {
             try
             {
-                manager.AddParameter(new OracleParameter("p_Counter_id", counter.counter_id));
                 MapParameters(counter);
+                manager.AddParameter(new OracleParameter("p_Counter_id", counter.counter_id));
+                
                 manager.CallStoredProcedure_Update("USP_Counters_Update");
             }
             catch (Exception)
@@ -83,10 +84,11 @@ namespace qms.DAL
 
         private void MapParameters(tblCounter counter)
         {
+            
+            manager.AddParameter(new OracleParameter("p_location", counter.location));
             manager.AddParameter(new OracleParameter("p_counter_no", counter.counter_no));
             manager.AddParameter(new OracleParameter("p_branch_id", counter.branch_id));
-            manager.AddParameter(new OracleParameter("p_location", counter.location));
-           
+
 
         }
         public void Delete(int id)
