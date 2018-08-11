@@ -61,21 +61,7 @@ namespace qms.Controllers
 
         }
 
-        // GET: ServiceDetails/Details/5
-        //public async Task<ActionResult> Details(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    tblServiceDetail tblServiceDetail = await db.tblServiceDetails.FindAsync(id);
-        //    if (tblServiceDetail == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(tblServiceDetail);
-        //}
-
+   
 
 
         public ActionResult Create()
@@ -88,74 +74,7 @@ namespace qms.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[Authorize(Roles = "Branch Admin, Service Holder")]
-        //public JsonResult Create(VMServiceDetails model)
-        //{
-        //    try
-        //    {
-        //        model.service_datetime = DateTime.Now;
-        //        model.end_time = DateTime.Now;
-        //        tblCustomer cusObj = new tblCustomer();
-        //        tblCustomer cusObjold = db.tblCustomers.Where(x => x.contact_no == model.contact_no).FirstOrDefault();
-        //        if (cusObjold == null)
-        //        {
-        //            cusObj.customer_name = model.customer_name;
-        //            cusObj.address = model.address;
-        //            cusObj.contact_no = model.contact_no;
-        //            cusObj.customer_type_id = 1;
-        //            db.tblCustomers.Add(cusObj);
-        //        }
-        //        else
-        //            cusObj = cusObjold;
-
-        //        long tid = Convert.ToInt64(model.token_id);
-
-        //        tblTokenQueue tokenobj = new tblTokenQueue();
-        //        tokenobj = db.tblTokenQueues.Where(x => x.token_id == tid).FirstOrDefault();
-        //        tokenobj.service_status_id = 3;
-
-        //        if (tokenobj.contact_no == "")
-        //        {
-        //            tokenobj.contact_no = model.contact_no;
-        //        }
-
-        //        try
-        //        {
-
-        //            tblServiceDetail serObj = new tblServiceDetail();
-
-        //            serObj.customer_id = cusObj.customer_id;
-        //            serObj.service_datetime = serObj.end_time = DateTime.Now;
-        //            serObj.start_time = model.start_time;
-
-        //            serObj.service_sub_type_id = model.service_sub_type_id;
-        //            serObj.issues = model.issues;
-        //            serObj.solutions = model.solutions;
-        //            serObj.token_id = Convert.ToInt64(model.token_id);
-        //            db.tblServiceDetails.Add(serObj);
-        //            db.SaveChanges();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return Json(new { Success = false, ErrorMessage = "Sorry! Error: " + ex.InnerException }, JsonRequestBehavior.AllowGet);
-        //        }
-
-        //        SessionManager sm = new SessionManager(Session);
-        //        DisplayManager dm = new DisplayManager();
-        //        if (!String.IsNullOrEmpty(sm.branch_static_ip))
-        //            dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
-
-        //        return Json(new { Success = true, Message = "Customer Service Information updated on Server" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return Json(new { Success = false, ErrorMessage = "Problem with Information updated, Please Try Again! Error: "+ex.Message }, JsonRequestBehavior.AllowGet);
-
-        //    }
-
-        //}
+        
         [HttpPost]
         [Authorize(Roles = "Branch Admin, Service Holder")]
         public JsonResult Create(VMServiceDetails model)
@@ -180,278 +99,39 @@ namespace qms.Controllers
             catch (Exception ex)
             {
 
-                return Json(new { Success = false, ErrorMessage = "Problem with Information updated, Please Try Again! Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Message = "Problem with Information updated, Please Try Again! Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
 
             }
         }
 
-        //public JsonResult Done(VMServiceDetails model)
-        //{
-        //    SessionManager sm = new SessionManager(Session);
-        //    int branchId = sm.branch_id;
-        //    int counterid = sm.counter_id;
-        //    string counter_no = sm.counter_no;
-        //    try
-        //    {
-        //        model.service_datetime = DateTime.Now;
-        //        model.end_time = DateTime.Now;
-        //        tblCustomer cusObj = new tblCustomer();
-        //        tblCustomer cusObjold = db.tblCustomers.Where(x => x.contact_no == model.contact_no).FirstOrDefault();
-        //        if (cusObjold == null)
-        //        {
-        //            cusObj.customer_name = model.customer_name;
-        //            cusObj.address = model.address;
-        //            cusObj.contact_no = model.contact_no;
-        //            cusObj.customer_type_id = 1;
-        //            db.tblCustomers.Add(cusObj);
-        //        }
-        //        else
-        //            cusObj = cusObjold;
-
-        //        long tid = Convert.ToInt64(model.token_id);
-
-        //        tblTokenQueue tokenobj = new tblTokenQueue();
-        //        tokenobj = db.tblTokenQueues.Where(x => x.token_id == tid).FirstOrDefault();
-        //        tokenobj.service_status_id = 3;
-
-        //        if (tokenobj.contact_no == "")
-        //        {
-        //            tokenobj.contact_no = model.contact_no;
-        //        }
-
-        //        try
-        //        {
-
-        //            tblServiceDetail serObj = new tblServiceDetail();
-
-        //            serObj.customer_id = cusObj.customer_id;
-        //            serObj.service_datetime = serObj.end_time = DateTime.Now;
-        //            serObj.start_time = model.start_time;
-
-        //            serObj.service_sub_type_id = model.service_sub_type_id;
-        //            serObj.issues = model.issues;
-        //            serObj.solutions = model.solutions;
-        //            serObj.token_id = Convert.ToInt64(model.token_id);
-        //            db.tblServiceDetails.Add(serObj);
-        //            db.SaveChanges();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return Json(new { Success = false, ErrorMessage = "Sorry! Error: " + ex.InnerException }, JsonRequestBehavior.AllowGet);
-        //        }
-
-
-        //        DisplayManager dm = new DisplayManager();
-        //        if (!String.IsNullOrEmpty(sm.branch_static_ip))
-        //            dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
-        //        NotifyDisplay.SendMessages(branchId, counter_no, "ON");
-        //        return Json(new { Success = true, Message = "Customer Service Information updated on Server" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        return Json(new { Success = false, ErrorMessage = "Problem with Information updated, Please Try Again! Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
-
-        //    }
-
-        //}
-
-
-        //GET: ServiceDetails/Edit/5
-        //public ActionResult Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    tblServiceDetail tblServiceDetail = db.tblServiceDetails.Include(a => a.tblCustomer).Where(a => a.service_id == id).FirstOrDefault();
-        //    if (tblServiceDetail == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    //ViewBag.counter_id = new SelectList(db.tblCounters, "counter_id", "counter_no", tblServiceDetail.counter_id);
-        //    ViewBag.customer_id = new SelectList(db.tblCustomers, "customer_id", "customer_name", tblServiceDetail.customer_id);
-        //    ViewBag.token_id = new SelectList(db.tblTokenQueues, "token_id", "contact_no", tblServiceDetail.token_id);
-        //    return View(tblServiceDetail);
-        //}
-
-        //POST: ServiceDetails/Edit/5
-        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        private string ConvertDate(string DateTime)
+        [HttpPost]
+        [Authorize(Roles = "Branch Admin, Service Holder")]
+        public JsonResult AddService(VMServiceDetails model)
         {
-            string[] dattime = DateTime.Split(' ');
-            return dattime[0];
+            try
+            {
+                SessionManager sm = new SessionManager(Session);
+                DisplayManager dm = new DisplayManager();
+                model.service_datetime = DateTime.Now;
+                model.end_time = DateTime.Now;
+                model.user_id = sm.user_id;
+                model.counter_id = sm.counter_id;
+                if (ModelState.IsValid)
+                {
+                    dbManager.AddService(model);
+                }
+                // if (!String.IsNullOrEmpty(sm.branch_static_ip))
+                //dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
+
+                return Json(new { Success = true, Message = "Customer Service Information updated on Server" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { Success = false, Message = "Problem with Information updated, Please Try Again! Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "service_id,token_id,customer_id,customer_name,issues,solutions,service_datetime")] tblServiceDetail tblServiceDetail)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(tblServiceDetail).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    //ViewBag.counter_id = new SelectList(db.tblCounters, "counter_id", "counter_no", tblServiceDetail.counter_id);
-        //    ViewBag.customer_id = new SelectList(dbCustomer.GetAll(), "customer_id", "customer_name", tblServiceDetail.customer_id);
-        //    ViewBag.token_id = new SelectList(dbtoken.GetAll(), "token_id", "contact_no", tblServiceDetail.token_id);
-
-        //    return View(tblServiceDetail);
-        //}
-
-        //GET: ServiceDetails/Delete/5
-        //public async Task<ActionResult> Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    tblServiceDetail tblServiceDetail = await db.tblServiceDetails.FindAsync(id);
-        //    if (tblServiceDetail == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(tblServiceDetail);
-        //}
-
-        //// POST: ServiceDetails/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(long id)
-        //{
-        //    tblServiceDetail tblServiceDetail = await db.tblServiceDetails.FindAsync(id);
-        //    db.tblServiceDetails.Remove(tblServiceDetail);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //[HttpPost]
-        //public JsonResult NewTokenNo()
-        //{
-        //    try
-        //    {
-        //        tblTokenQueue tblTokenQueueObj = new tblTokenQueue();
-
-        //        SessionManager sm = new SessionManager(Session);
-        //        int branchId = sm.branch_id;
-        //        int counterid = sm.counter_id;
-        //        string counter_no = sm.counter_no;
-        //        string user_id = sm.user_id;
-
-        //        //checking is there any token at counter, which was in progress but not completed
-        //        tblTokenQueueObj =   db.tblTokenQueues
-        //                                .Where(x => 
-        //                                    x.branch_id == branchId 
-        //                                    && x.counter_id == counterid 
-        //                                    && x.service_status_id == 2
-        //                                    && x.service_date.Day == DateTime.Now.Day
-        //                                    && x.service_date.Month == DateTime.Now.Month
-        //                                    && x.service_date.Year == DateTime.Now.Year
-        //                                 ).FirstOrDefault();
-        //        if (tblTokenQueueObj == null)
-        //        {
-
-        //            tblTokenQueueObj = db.tblTokenQueues
-        //                                    .Where(a =>
-        //                                        a.branch_id == branchId 
-        //                                        && a.service_status_id == 1
-        //                                        && a.service_date.Day == DateTime.Now.Day
-        //                                        && a.service_date.Month == DateTime.Now.Month
-        //                                        && a.service_date.Year == DateTime.Now.Year
-        //                                    ).FirstOrDefault();
-        //            if (tblTokenQueueObj != null)
-        //            {
-        //                tblTokenQueueObj.service_status_id = 2;
-
-        //                db.Entry(tblTokenQueueObj).State = EntityState.Modified;
-        //                db.SaveChanges();
-        //            }
-        //            //DisplayManager dm = new Utility.DisplayManager();
-        //            //if (!String.IsNullOrEmpty(sm.branch_static_ip))
-        //            //    dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
-        //        }
-
-        //        if (tblTokenQueueObj != null)
-        //        {
-
-        //            tblTokenQueueObj.counter_id = counterid;
-        //            tblTokenQueueObj.user_id = User.Identity.GetUserId();
-        //            db.SaveChanges();
-
-        //            tblDailyBreak dailyBreak = db.tblDailyBreaks.Where(b => b.user_id == user_id && b.end_time.HasValue==false).FirstOrDefault();
-        //            if (dailyBreak != null)
-        //            {
-        //                dailyBreak.end_time = DateTime.Now;
-        //                db.Entry(dailyBreak).State = EntityState.Modified;
-        //                db.SaveChanges();
-        //            }
-
-        //            //DisplayManager dm = new DisplayManager();
-        //            //if (!String.IsNullOrEmpty(sm.branch_static_ip))
-        //            //    dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
-
-        //            tblCustomer customerDetails = db.tblCustomers.Where(a => a.contact_no == tblTokenQueueObj.contact_no).FirstOrDefault();
-
-        //            var services = new SelectList(db.tblServiceSubTypes.Where(s => s.service_type_id == tblTokenQueueObj.service_type_id), "service_sub_type_id", "service_sub_type_name"); 
-
-        //            if (customerDetails != null)
-        //            {
-        //                var customer = new
-        //                {
-        //                    token = tblTokenQueueObj.token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0'),
-        //                    start_time = DateTime.Now.ToString("dd-MMM-yyyy HH:mm"),
-        //                    tokenid = tblTokenQueueObj.token_id,
-        //                    mobile_no = customerDetails.contact_no,
-        //                    serviceType = tblTokenQueueObj.tblServiceType.service_type_name,
-        //                    customer_name = customerDetails.customer_name,
-        //                    address = customerDetails.address
-        //                };
-        //                db.SaveChanges();
-        //                NotifyDisplay.SendMessages(branchId, counter_no, tblTokenQueueObj.token_no.ToString());
-        //                return Json(new { Success = true, Message = customer, Services=services }, JsonRequestBehavior.AllowGet);
-        //            }
-        //            else
-        //            {
-        //                var customer = new
-        //                {
-        //                    token = tblTokenQueueObj.token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0'),
-        //                    start_time = DateTime.Now.ToString("dd-MMM-yyyy HH:mm"),
-        //                    tokenid = tblTokenQueueObj.token_id,
-        //                    serviceType = tblTokenQueueObj.tblServiceType.service_type_name,
-        //                    mobile_no = tblTokenQueueObj.contact_no,
-        //                    customer_name = "",
-        //                    address = ""
-        //                };
-        //                NotifyDisplay.SendMessages(branchId, counter_no, tblTokenQueueObj.token_no.ToString());
-        //                return Json(new { Success = true, Message = customer, Services = services }, JsonRequestBehavior.AllowGet);
-        //            }
-
-
-        //        }
-        //        else
-        //        {
-        //            NotifyDisplay.SendMessages(branchId, counter_no, "null");
-        //            return Json(new { Success = false, EMessage = "No token for new service!" }, JsonRequestBehavior.AllowGet);
-        //        }
-
-
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return Json(new { Success = false, ErrorMessage = ex.Message }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
 
 
 
@@ -472,7 +152,7 @@ namespace qms.Controllers
 
                 var serviceList = dbManager.GetNewToken(branchId, counterid, user_id, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address);
 
-                if (serviceList != null)
+                if (serviceList.Count>0)
                 {
                     var services = new SelectList(serviceList, "service_sub_type_id", "service_sub_type_name");
 
@@ -496,14 +176,66 @@ namespace qms.Controllers
                 else
                 {
                     NotifyDisplay.SendMessages(branchId, counter_no, "null");
-                    return Json(new { Success = false, EMessage = "No token for new service!" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = false, Message = "No token for new service!" }, JsonRequestBehavior.AllowGet);
                 }
 
 
             }
             catch (Exception ex)
             {
-                return Json(new { Success = false, ErrorMessage = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CallManualTokenNo(string token_no_string)
+        {
+            try
+            {
+                SessionManager sm = new SessionManager(Session);
+                int branchId = sm.branch_id;
+                int counterid = sm.counter_id;
+                string counter_no = sm.counter_no;
+                string user_id = sm.user_id;
+                long token_id;
+                int token_no=Convert.ToInt32(token_no_string);
+                string contact_no, service_type, customer_name, address;
+                DateTime start_time;
+
+                var serviceList = dbManager.CallManualToken(branchId, counterid, user_id, token_no, out token_id, out contact_no, out service_type, out start_time, out customer_name, out address);
+
+                if (serviceList.Count > 0)
+                {
+                    var services = new SelectList(serviceList, "service_sub_type_id", "service_sub_type_name");
+
+
+                    var customer = new
+                    {
+                        token = token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0'),
+                        start_time = start_time.ToString("dd-MMM-yyyy HH:mm"),
+                        tokenid = token_id,
+                        serviceType = service_type,
+                        mobile_no = contact_no,
+                        customer_name = customer_name,
+                        address = address
+                    };
+                    NotifyDisplay.SendMessages(branchId, counter_no, token_no.ToString());
+                    return Json(new { Success = true, Message = customer, Services = services }, JsonRequestBehavior.AllowGet);
+
+
+
+                }
+                else
+                {
+                    NotifyDisplay.SendMessages(branchId, counter_no, "null");
+                    return Json(new { Success = false, Message = "No token for new service!" }, JsonRequestBehavior.AllowGet);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -529,7 +261,41 @@ namespace qms.Controllers
             }
             catch(Exception ex)
             {
-                return Json(new { Success = false, ErrorMessage = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Message = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Transfer(long token_id, string counter_no)
+        {
+            try
+            {
+
+                SessionManager sm = new SessionManager(Session);
+
+                dbManager.Transfer(sm.branch_id, counter_no, token_id);
+
+                //SessionManager sm = new SessionManager(Session);
+                //DisplayManager dm = new DisplayManager();
+                //if (!String.IsNullOrEmpty(sm.branch_static_ip))
+                //    dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
+
+                return Json(new { Success = true, Message = "Service transfered to counter #" + counter_no + ", customer must wait for calling" }, JsonRequestBehavior.AllowGet);
+
+
+
+            }
+            catch(Oracle.DataAccess.Client.OracleException ex)
+            {
+                if (ex.Number == 20001)
+                    return Json(new { Success = false, Message = "Counter not found" }, JsonRequestBehavior.AllowGet);
+                else
+                    return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -558,7 +324,7 @@ namespace qms.Controllers
         //    }
         //    catch
         //    {
-        //        return Json(new { Success = false, ErrorMessage = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
+        //        return Json(new { Success = false, Message = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
         //    }
         //}
         //[HttpPost]
@@ -586,7 +352,7 @@ namespace qms.Controllers
         //    }
         //    catch
         //    {
-        //        return Json(new { Success = false, ErrorMessage = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
+        //        return Json(new { Success = false, Message = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
         //    }
         //}
         //[HttpPost]
@@ -676,14 +442,14 @@ namespace qms.Controllers
         //        }
         //        else
         //        {
-        //            return Json(new { Success = false, EMessage = "No token for new service!" }, JsonRequestBehavior.AllowGet);
+        //            return Json(new { Success = false, Message = "No token for new service!" }, JsonRequestBehavior.AllowGet);
         //        }
 
 
         //    }
         //    catch (Exception ex)
         //    {
-        //        return Json(new { Success = false, ErrorMessage = ex.Message }, JsonRequestBehavior.AllowGet);
+        //        return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
         //    }
         //}
 
@@ -735,7 +501,7 @@ namespace qms.Controllers
             }
             catch(Exception ex)
             {
-                return Json(new { Success = false, ErrorMessage = "Problem with getting Customer Information!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Message = "Problem with getting Customer Information!" }, JsonRequestBehavior.AllowGet);
             }
         }
         //public ActionResult GetList(DateTime date)

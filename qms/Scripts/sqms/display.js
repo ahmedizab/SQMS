@@ -122,7 +122,7 @@ function textToTalk(text) {
 function getAllMessages() {
     var branch_id = $('#branch_id').val();
     $.ajax({
-        url: '../Counters/GetDisplayInfo?branch_id=' + branch_id,
+        url: '../../Counters/GetDisplayInfo?branch_id=' + branch_id,
         //contentType: 'application/html ; charset:utf-8',
         type: 'GET',
         //dataType: 'html'
@@ -141,7 +141,7 @@ function getAllMessages() {
         else {
             alert(result.errorMsg);
         }
-    }).error(function () {
-        alert("Error");
+    }).error(function (XMLHttpRequest, textStatus, errorThrown) {
+        alert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
     });
 }

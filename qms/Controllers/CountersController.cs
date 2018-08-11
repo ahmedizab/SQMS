@@ -40,22 +40,7 @@ namespace qms.Controllers
             //return View(await tblCounters.ToListAsync());
         }
 
-        // GET: Counters/Details/5
-        [Authorize(Roles = "Admin, Branch Admin")]
-        //public async Task<ActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    tblCounter tblCounter = await db.tblCounters.FindAsync(id);
-        //    if (tblCounter == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(tblCounter);
-        //}
-
+       
         // GET: Counters/Create
         [Authorize(Roles = "Admin, Branch Admin")]
         public ActionResult Create()
@@ -187,63 +172,28 @@ namespace qms.Controllers
             return RedirectToAction("Index");
         }
 
-        //[Authorize(Roles = "Admin, Branch Admin, Display User")]
-        [Authorize(Roles = "Branch Admin, Display User")]
-        public ActionResult Display()
+        
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Display(int id)
         {
-            SessionManager sm = new SessionManager(Session);
-            int branch_id = sm.branch_id;
-            ViewBag.branch_id = sm.branch_id;
+            ViewBag.branch_id = id;
             ViewBag.dispalyFooterAdd = ApplicationSetting.dispalyFooterAdd;
             ViewBag.dispalyWelcome = ApplicationSetting.dispalyWelcome;
             ViewBag.dispalyVideo = ApplicationSetting.dispalyVideo;
             return View();
         }
 
-        //[HttpPost, ActionName("Display")]
-        //[Authorize(Roles = "Admin, Branch Admin, Display User")]
-        //[AllowAnonymous]
-        //public JsonResult Display(string text="Welcome to Smart QMS")
-        //{
-        //    //SpeechSynthesizer sp = new SpeechSynthesizer();
-        //    //sp.Volume = 100;
-        //    //sp.SpeakAsync(text);
-        //    //return Json(new { Success = true, EMessage = "Success" }, JsonRequestBehavior.AllowGet);
+        
 
-        //    GoogleCredential credentials = GoogleCredential.FromFile(Path.Combine(Server.MapPath("~"), "SmartQueue-c6126eb496a7.json"));
-
-        //    TextToSpeechClient client = TextToSpeechClient.Create(credentials);
-
-        //    SynthesizeSpeechResponse response = client.SynthesizeSpeech(
-        //        new SynthesisInput()
-        //        {
-        //            Text = text
-        //        },
-        //        new VoiceSelectionParams()
-        //        {
-        //            LanguageCode = "en-US",
-        //            Name = "en-US-Wavenet-C"
-        //        },
-        //        new AudioConfig()
-        //        {
-        //            AudioEncoding = AudioEncoding.Mp3
-        //        }
-        //    );
-
-        //    string speechFile = Path.Combine(Server.MapPath("~/Voices"), "Welcome.mp3");
-
-        //    System.IO.File.WriteAllBytes(speechFile, response.AudioContent);
-
-        //    return Json(new { Success = true, EMessage = "Success" }, JsonRequestBehavior.AllowGet);
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                dbManager=null;
+                dbBranch = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }
