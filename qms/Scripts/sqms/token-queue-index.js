@@ -33,7 +33,7 @@ function FilterTable2() {
         inp = "";
     }
     $("#data:visible tr:not(:has(>th))").each(function () {
-        if ($(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+        if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
             $(this).show();
         } else {
             $(this).hide();

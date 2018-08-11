@@ -241,7 +241,7 @@ function Cancel() {
                 $("#hidtokenNo").val('');
                 $("#txtServiceType").val('');
                 $("#start_time").val('');
-
+                
                 if (confirm(data.Message + ", Do you want to call new token for service?")) {
                     NewServiceNo();
                 }
@@ -468,7 +468,7 @@ function Save() {
     }
 
     $.ajax({
-        url: '../ServiceDetails/Create',
+        url: '../ServiceDetails/Done',
         type: 'POST',
         dataType: 'json',
         data: { model: data0 },
@@ -483,7 +483,7 @@ function Save() {
             $("#historyDiv").hide();
             $("#txtServiceType").val('');
             $("#start_time").val('');
-
+            $("#hidtokenNo").val('');
 
         }
     });

@@ -84,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>@Html.TextBoxFor(m => m.contact_no, new { @class = "form-control Next", @id = "txtContact", @placeholder = "Mobile No" }) @Html.ValidationMessageFor(m => m.contact_no)</td>
-                        <td><button class="btn btn-color" onclick="GetCustomerInformation()">GO</button></td>
+                        <td><button class="btn btn-color" onclick="GetCustomerInformation()">History</button></td>
                     </tr>
                     <tr>
                         <td>@Html.TextBoxFor(m => m.customer_name, new { @class = "form-control Next", @id = "txtName", @placeholder = "Customer Name" }) @Html.ValidationMessageFor(m => m.customer_name)</td>
@@ -93,10 +93,10 @@
                         <td>@Html.TextBoxFor(m => m.address, new { @class = "form-control Next", @id = "txtAddress", @placeholder = "Address" }) @Html.ValidationMessageFor(m => m.address)</td>
                     </tr>
                     <tr>
-                        <td>@Html.TextAreaFor(m => m.issues, new { @class = "form-control Next", @id = "txtIssues", @row = "5", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
+                        <td>@Html.TextAreaFor(m => m.issues, 5, 20, new { @class = "form-control Next", @id = "txtIssues", @row = "10", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
                     </tr>
                     <tr>
-                        <td>@Html.TextAreaFor(m => m.solutions, new { @class = "form-control Next", @id = "txtsolutions", @row = "5", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
+                        <td>@Html.TextAreaFor(m => m.solutions,7,20, new { @class = "form-control Next", @id = "txtsolutions", @row = "10", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
                     </tr>
 
                 </table>
@@ -122,7 +122,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="historyDiv" class="col-md-6">
+            <div id="historyDiv" class="col-md-offset-2 col-md-6">
                 <h4>Previous Service History</h4>
                 <table class="table table-hover">
                     <thead>
