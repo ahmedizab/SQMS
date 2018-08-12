@@ -45,7 +45,8 @@ namespace qms.Controllers
         [Authorize(Roles = "Admin, Branch Admin")]
         public ActionResult Create()
         {
-            ViewBag.branch_id = new SelectList(dbBranch.GetAllBranch(), "branch_id", "branch_name");
+            int branch_id = new SessionManager(Session).branch_id;
+            ViewBag.branch_id = new SelectList(dbBranch.GetAllBranch(), "branch_id", "branch_name", branch_id);
             return View();
         }
 
@@ -91,6 +92,7 @@ namespace qms.Controllers
         [Authorize(Roles = "Admin, Branch Admin")]
         public ActionResult Create([Bind(Include = "counter_id,branch_id,counter_no,location")] tblCounter tblCounter)
         {
+            int branch_id = new SessionManager(Session).branch_id;
             if (ModelState.IsValid)
             {
                 dbManager.Create(tblCounter);

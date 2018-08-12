@@ -36,7 +36,7 @@ namespace qms.DAL
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
 
-                return manager.CallStoredProcedure_Select("USP_Counters_SelectList_ById");
+                return manager.CallStoredProcedure_Select("USP_Counters_List_ById");
             }
             catch (Exception)
             {

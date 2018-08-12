@@ -19,7 +19,7 @@
                     <th>
                         @Html.DisplayName("Priority")
                     </th>
-                    <th></th>
+                    @*<th></th>*@
                 </tr>
 
                 @foreach (var item in Model)
@@ -29,7 +29,7 @@
                             @Html.DisplayFor(modelItem => item.customer_type_name)
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.priority)</td>
-                        <td>
+                        @*<td>
                             <button class="btn btn-color">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.customer_type_id })
                             </button>
@@ -37,7 +37,7 @@
 
                                 @Html.ActionLink("Delete", "Delete", new { id = item.customer_type_id })
                             </button>
-                        </td>
+                        </td>*@
                     </tr>
                 }
 

@@ -48,7 +48,7 @@ namespace qms.SignalRHub
         {
             
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<NotifyDisplay>();
-            if (token_no == "null")
+            if (token_no == "")
             {
                 context.Clients.All.updateMessages("", branch_id);
 

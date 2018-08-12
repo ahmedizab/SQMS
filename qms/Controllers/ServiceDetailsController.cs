@@ -103,7 +103,37 @@ namespace qms.Controllers
 
             }
         }
+        [HttpPost]
+        [Authorize(Roles = "Branch Admin, Service Holder")]
+        public JsonResult Done(VMServiceDetails model)
+        {
+            try
+            {
+                SessionManager sm = new SessionManager(Session);
+                DisplayManager dm = new DisplayManager();
+                int branchId = sm.branch_id;
+                
+                string counter_no = sm.counter_no;
+                model.service_datetime = DateTime.Now;
+                model.end_time = DateTime.Now;
+                model.user_id = sm.user_id;
+                model.counter_id = sm.counter_id;
+                if (ModelState.IsValid)
+                {
+                    dbManager.Create(model);
+                }
+                // if (!String.IsNullOrEmpty(sm.branch_static_ip))
+                //dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
+                NotifyDisplay.SendMessages(branchId, counter_no, "");
+                return Json(new { Success = true, Message = "Customer Service Information updated on Server" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
 
+                return Json(new { Success = false, Message = "Problem with Information updated, Please Try Again! Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
         [HttpPost]
         [Authorize(Roles = "Branch Admin, Service Holder")]
         public JsonResult AddService(VMServiceDetails model)
