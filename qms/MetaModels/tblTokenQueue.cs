@@ -15,7 +15,7 @@ namespace qms.Models
             get
             {
                 if (CallTime.HasValue)
-                    return (CallTime.Value - service_date).Minutes;
+                    return (int)(CallTime.Value - service_date).TotalMinutes;
                 else return null;
 
             }

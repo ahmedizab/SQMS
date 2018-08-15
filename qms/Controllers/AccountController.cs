@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using qms.BLL;
 using qms.Models;
 using qms.Utility;
 using qms.ViewModels;
@@ -196,9 +197,11 @@ namespace qms.Controllers
                                 sm.branch_id = 0;
                             }
 
-                            
+                            BLLServiceType dbServiceType = new BLLServiceType();
 
-                            return Json(new { success = true, message = "login success", securityToken = securityToken }, JsonRequestBehavior.AllowGet);
+                            var serviceList = dbServiceType.GetAll().Select(s=> new { s.service_type_id, s.service_type_name }).ToList();
+
+                            return Json(new { success = true, message = "login success", securityToken = securityToken, serviceList = serviceList }, JsonRequestBehavior.AllowGet);
 
                         }
                     case SignInStatus.LockedOut:
@@ -584,6 +587,7 @@ namespace qms.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult OuterLogOff(string securityToken)
         {
             try
@@ -593,9 +597,16 @@ namespace qms.Controllers
                 dbUser.DeleteLoginInfo(loginProvider);
                 
                 return Json(new { success = true, message = "Log out success" }, JsonRequestBehavior.AllowGet);
-                throw new Exception("Invalid security token");
+                //throw new Exception("Invalid security token");
 
 
+            }
+            catch (Oracle.DataAccess.Client.OracleException ex)
+            {
+                if (ex.Number == 20001)
+                    return Json(new { success = false, message = "Invalid security token" }, JsonRequestBehavior.AllowGet);
+                else
+                    return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
