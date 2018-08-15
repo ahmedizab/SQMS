@@ -43,7 +43,6 @@ namespace qms.Controllers
 
 
 
-
         [HttpPost]
         public JsonResult GetAllBranches()
         {
@@ -113,7 +112,7 @@ namespace qms.Controllers
                 string token_no = tokenObj.token_no_formated;
                 string date = Convert.ToString(DateTime.Now);
 
-                return Json(new { Success = true, tokenNo = token_no }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, tokenNo = token_no }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -132,11 +131,11 @@ namespace qms.Controllers
                 BLLToken tokenManager = new BLLToken();
 
                 tokenManager.SendSMS(mobile, string.Format(msgText, tokenNo));
-                return Json(new { Success = true, message = "SMS Saved Succesfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "SMS Saved Succesfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { Success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

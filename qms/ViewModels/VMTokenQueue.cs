@@ -23,7 +23,15 @@ namespace qms.ViewModels
             }
         }
         public System.DateTime service_date { get; set; }
-        public System.DateTime creation_time { get; set; }
+        
+
+        public string creation_time
+        {
+            get
+            {
+                return service_date.ToString("dd-MMM-yy hh:mm tt");
+            }
+        }
 
         public short service_status_id { get; set; }
         public string service_status { get; set; }

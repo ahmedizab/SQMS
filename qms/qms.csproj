@@ -485,6 +485,7 @@
     <Content Include="Content\display\css\style.css" />
     <Content Include="Content\display\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\display\images\logo.png" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\queue.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -602,6 +603,9 @@
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Chart.bundle.min.js" />
     <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\modal\jquery-1.12.4.js" />
+    <Content Include="Scripts\modal\jquery-ui.js" />
+    <Content Include="Scripts\modal\modal.js" />
     <Content Include="Scripts\sqms\branch-login.js" />
     <Content Include="Scripts\sqms\branch-user.js" />
     <Content Include="Scripts\sqms\branch.js" />

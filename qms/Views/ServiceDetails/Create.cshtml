@@ -10,6 +10,7 @@
 
 <div class="container">
     <div class="row">
+        <input type="hidden" id="hiduserId" name="hidUser" />
         <div class="page-head-line" style="position:relative; font-weight:bold; padding-bottom:3px">
             <div style="position:relative; float:left">
                 <h4>Customer Service > Create Service </h4>
@@ -41,7 +42,7 @@
                 </button>
 
 
-                <button type="submit" onclick="ManualCall()" class="btn-squere-xl  btn-color marzin-bottom" id="manual_call_btn" data-toggle="modal" data-target="#myModal">
+                <button type="submit" onclick="ManualCall()" class="btn-squere-xl  btn-color marzin-bottom" id="manual_call_btn">
                     <span><i class="fa fa-user-plus"></i></span>Call Token
                 </button>
                 <button type="submit" onclick="Transfer()" class="btn-squere-xl  btn-color marzin-bottom" id="Transfer_btn">
@@ -51,10 +52,10 @@
                 <button class="btn-squere-xl btn-color marzin-bottom">
                     <a href="@Url.Action("Skipped", "TokenQueues")" title="Skipped List">
                         <span><i class="fa fa-list"></i></span>
-                         Missing List
+                        Missing List
                     </a>
                 </button>
-                
+
             </div>
             <div class="col-md-7" style="text-align:center">
 
@@ -79,10 +80,10 @@
                                 <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })
                                 </div>
-                                
+
                                 <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.waitingtime, new { @class = "form-control Next", @id = "txtWtTime", @placeholder = "Waiting Time" })
-                            </div>
+                                </div>
                                 <div style="clear:both"></div>
                             </div>
                         </td>
@@ -97,7 +98,7 @@
                     <tr>
                         <td>@Html.TextBoxFor(m => m.customer_name, new { @class = "form-control Next", @id = "txtName", @placeholder = "Customer Name" }) @Html.ValidationMessageFor(m => m.customer_name)</td>
                     </tr>
-                    
+
                     @*<tr>
                        <td class="form-control Next">Generation Time</td>
                         <td>@Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @id = "txtgnTime", @placeholder = "Generation Time" })</td>
@@ -108,7 +109,7 @@
                     </tr>
                     <tr>
                         <td class="form-control Next">Waiting Time</td>
-                       
+
                     </tr>*@
 
                     <tr>
@@ -118,7 +119,7 @@
                         <td>@Html.TextAreaFor(m => m.issues, 5, 20, new { @class = "form-control Next", @id = "txtIssues", @row = "10", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
                     </tr>
                     <tr>
-                        <td>@Html.TextAreaFor(m => m.solutions,7,20, new { @class = "form-control Next", @id = "txtsolutions", @row = "10", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
+                        <td>@Html.TextAreaFor(m => m.solutions, 7, 20, new { @class = "form-control Next", @id = "txtsolutions", @row = "10", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
                     </tr>
 
                 </table>
@@ -185,26 +186,20 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="modal fade" id="myModalSave" role="dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close"  data-dissmiss="modal">&times;</button>
-                <h2 class="modal-title">Modal</h2>
-            </div>
-            <div class="modal-body">
-                <p>Current service will finish and next service will start automatically for this customer. Do you want to continue?"</p>
-            </div>
-            <div class="modal-footer">
-                <button onclick="AddService()">Close</button>
-            </div>
 
-        </div>
+<div id="dialog-message" title="Information">
+    <div id="body">
+        
     </div>
 </div>
+
 @section scripts{
+
+    <script src="~/Scripts/modal/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/modal/jquery-ui.js"></script>
+    <script src="~/Scripts/modal/modal.js"></script>
+
     <script src="~/Scripts/sqms/date.js"></script>
-<script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/sqms/service-details.js"></script>
 
 }
