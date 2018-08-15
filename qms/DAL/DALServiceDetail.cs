@@ -79,7 +79,7 @@ namespace qms.DAL
 
         }
 
-        public DataTable GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address)
+        public DataTable GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address, out DateTime generate_time)
         {
             try
             {
@@ -108,6 +108,9 @@ namespace qms.DAL
                 OracleParameter param_ADDRESS = new OracleParameter("PO_ADDRESS", OracleDbType.Varchar2, 250);
                 param_ADDRESS.Direction = ParameterDirection.Output;
                 manager.AddParameter(param_ADDRESS);
+                OracleParameter param_SERVICE_TIME = new OracleParameter("PO_SERVICE_DATE", OracleDbType.Date);
+                param_SERVICE_TIME.Direction = ParameterDirection.Output;
+                manager.AddParameter(param_SERVICE_TIME);
                 OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
                 param.Direction = ParameterDirection.Output;
                 manager.AddParameter(param);
@@ -121,7 +124,9 @@ namespace qms.DAL
                     service_type = param_SERVICE_TYPE.Value.ToString();
                     start_time = ((Oracle.DataAccess.Types.OracleDate)param_START_TIME.Value).Value;
                     customer_name = (((Oracle.DataAccess.Types.OracleString)param_CUSTOMER_NAME.Value).IsNull == true ? "" : param_CUSTOMER_NAME.Value.ToString());
+                    
                     address = (((Oracle.DataAccess.Types.OracleString)param_ADDRESS.Value).IsNull == true ? "" : param_ADDRESS.Value.ToString());
+                    generate_time = ((Oracle.DataAccess.Types.OracleDate)param_SERVICE_TIME.Value).Value;
                 }
                 else
                 {
@@ -132,6 +137,7 @@ namespace qms.DAL
                     start_time = DateTime.Now;
                     customer_name = null;
                     address = null;
+                    generate_time = DateTime.Now; 
                 }
                 return dt;
             }

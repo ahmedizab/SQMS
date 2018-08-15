@@ -178,9 +178,9 @@ namespace qms.Controllers
                 long token_id;
                 int token_no;
                 string contact_no, service_type, customer_name, address;
-                DateTime start_time;
+                DateTime start_time, generate_time;
 
-                var serviceList = dbManager.GetNewToken(branchId, counterid, user_id, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address);
+                var serviceList = dbManager.GetNewToken(branchId, counterid, user_id, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address,out generate_time);
 
                 if (serviceList.Count>0)
                 {
@@ -194,7 +194,10 @@ namespace qms.Controllers
                         tokenid = token_id,
                         serviceType = service_type,
                         mobile_no = contact_no,
-                        customer_name = customer_name,
+                        generate_time = generate_time.ToString("dd-MMM-yyyy HH:mm"),
+                        call_time= start_time.ToString("dd-MMM-yyyy HH:mm"),
+                        waitingtime = (start_time - generate_time).Minutes,
+                    customer_name = customer_name,
                         address = address
                     };
                     NotifyDisplay.SendMessages(branchId, counter_no, token_no.ToString());
@@ -205,7 +208,7 @@ namespace qms.Controllers
                 }
                 else
                 {
-                    NotifyDisplay.SendMessages(branchId, counter_no, "null");
+                    NotifyDisplay.SendMessages(branchId, counter_no, "");
                     return Json(new { Success = false, Message = "No token for new service!" }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -257,7 +260,7 @@ namespace qms.Controllers
                 }
                 else
                 {
-                    NotifyDisplay.SendMessages(branchId, counter_no, "null");
+                    NotifyDisplay.SendMessages(branchId, counter_no, "");
                     return Json(new { Success = false, Message = "No token for new service!" }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -290,6 +293,36 @@ namespace qms.Controllers
 
             }
             catch(Exception ex)
+            {
+                return Json(new { Success = false, Message = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Cancel(long tokenID)
+        {
+            try
+            {
+                SessionManager sm = new SessionManager(Session);
+                DisplayManager dm = new DisplayManager();
+                int branchId = sm.branch_id;
+
+                string counter_no = sm.counter_no;
+
+                int token_no = dbManager.CancelToken(tokenID);
+
+                //SessionManager sm = new SessionManager(Session);
+                //DisplayManager dm = new DisplayManager();
+                //if (!String.IsNullOrEmpty(sm.branch_static_ip))
+                //    dm.CreateTextFile(sm.branch_id, sm.branch_static_ip);
+                NotifyDisplay.SendMessages(branchId, counter_no, "");
+
+                return Json(new { Success = true, Message = "Service Canceled for Token No #" + token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0') }, JsonRequestBehavior.AllowGet);
+
+
+
+            }
+            catch (Exception ex)
             {
                 return Json(new { Success = false, Message = "Problem with getting new service!" }, JsonRequestBehavior.AllowGet);
             }

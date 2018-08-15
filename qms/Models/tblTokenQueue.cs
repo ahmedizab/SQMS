@@ -30,7 +30,8 @@ namespace qms.Models
         public Nullable<int> counter_id { get; set; }
         public string user_id { get; set; }
         public Nullable<System.DateTime> cancel_time { get; set; }
-    
+        public Nullable<System.DateTime> CallTime { get; set; }
+
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual tblBranch tblBranch { get; set; }
         public virtual tblCounter tblCounter { get; set; }

@@ -31,6 +31,8 @@ namespace qms.ViewModels
 
         public string customer_name { get; set; }
         public System.DateTime service_datetime { get; set; }
+        public System.DateTime call_time { get; set; }
+        public System.DateTime generate_time { get; set; }
 
         public System.DateTime start_time { get; set; }
 
@@ -57,7 +59,13 @@ namespace qms.ViewModels
                 return end_time.ToString("hh:mm tt");
             }
         }
-
+        public int waitingtime
+        {
+            get
+            {
+                return (call_time - generate_time).Minutes;
+            }
+        }
 
         public int duration
         {

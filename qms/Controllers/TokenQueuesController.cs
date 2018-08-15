@@ -94,13 +94,32 @@ namespace qms.Controllers
         [HttpGet]
         public ActionResult ReInitiate(long token_id)
         {
+            SessionManager sm = new SessionManager(Session);
+            int branchId = sm.branch_id;
 
-                dbManager.ReInitiate(token_id);
-                return RedirectToAction("Skipped");
+            string counter_no = sm.counter_no;
+
+            dbManager.ReInitiate(token_id);
+            NotifyDisplay.SendMessages(branchId, counter_no, "");
+            return RedirectToAction("Skipped");
 
             
         }
+        [Authorize]
+        [HttpGet]
+        public ActionResult AssignToMe(long token_id)
+        {
+            SessionManager sm = new SessionManager(Session);
+            int branchId = sm.branch_id;
+            int counter_id = sm.counter_id;
+            string counter_no = sm.counter_no;
 
+            dbManager.AssignToMe(token_id,counter_id);
+            NotifyDisplay.SendMessages(branchId, counter_no, "");
+            return RedirectToAction("Skipped");
+
+
+        }
         // GET: TokenQueues/Details/5
         //[Authorize(Roles = "Admin, Branch Admin")]
         //public async Task<ActionResult> Details(long? id)
@@ -212,7 +231,7 @@ namespace qms.Controllers
             string token_id = tokenObj.token_id.ToString();
             string token_no = tokenObj.token_no_formated;
             string message = subString + tokenObj.token_no_formated;
-            NotifyDisplay.SendMessages(branchId, "null", "null");
+            NotifyDisplay.SendMessages(branchId, "", "");
             return Json(new { Success = true, Message = message, tokenId = token_id, tokenNo = token_no,  msisdn = mobile }, JsonRequestBehavior.AllowGet);
         }
 

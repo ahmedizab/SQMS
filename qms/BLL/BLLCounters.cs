@@ -31,10 +31,10 @@ namespace qms.BLL
                 return ObjectMapping(dt.Rows[0]);
             else return null;
         }
-        public void Create(tblCounter counter)
+        public void Create(tblCounter counter, int branch_id)
         {
             DALCounters dal = new DALCounters();
-            int counter_id = dal.Insert(counter);
+            int counter_id = dal.Insert(counter, branch_id);
             counter.counter_id = counter_id;
         }
         public void Edit(tblCounter counter)

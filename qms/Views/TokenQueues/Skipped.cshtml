@@ -118,7 +118,9 @@
                             <a href="@Url.Action("ReInitiate", "TokenQueues", new { token_id = @Html.DisplayFor(modelItem => item.token_id) })" class="btn btn-color" title="Re-initiate">
                                 Re-initiate
                             </a>
-                        
+                        <a href="@Url.Action("AssignToMe", "TokenQueues", new { token_id = @Html.DisplayFor(modelItem => item.token_id) })" class="btn btn-color" title="Re-initiate">
+                            Assign To Me
+                        </a>
                         
                     </td>
 

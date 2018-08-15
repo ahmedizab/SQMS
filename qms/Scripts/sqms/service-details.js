@@ -27,7 +27,7 @@ function NewServiceNo() {
             if (data.Success == true) {
                 $("#update-message").html('');
                 $("#update-message").html(data.Message.token);
-                $("#start_time").val(data.Message.start_time);
+                $("#start_time").val('');
                 $("#start_time").prop('disabled', true);
                 $("#txtServiceType").val(data.Message.serviceType);
                 $("#txtServiceType").prop('disabled', true);
@@ -36,6 +36,12 @@ function NewServiceNo() {
                 if (data.Message.mobile_no != "") {
 
                     $("#txtContact").val(data.Message.mobile_no);
+                    $("#txtCallTime").val(data.Message.call_time);
+                    $("#txtCallTime").prop('disabled', true);
+                    $("#txtgnTime").val(data.Message.generate_time);
+                    $("#txtgnTime").prop('disabled', true);
+                    $("#txtWtTime").val(data.Message.waitingtime);
+                    $("#txtWtTime").prop('disabled', true);
                     $("#txtName").val(data.Message.customer_name);
                     $("#txtAddress").val(data.Message.address);
                     //GetCustomerInformation(); // 2018-07-20
@@ -191,7 +197,7 @@ function Cancel() {
     var token = $("#hidtokenNo").val();
 
     $.ajax({
-        url: "../ServiceDetails/CancelTokenNo",
+        url: "../ServiceDetails/Cancel",
         type: 'POST',
         dataType: "json",
         data: { tokenID: token },

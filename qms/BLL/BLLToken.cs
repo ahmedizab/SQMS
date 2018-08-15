@@ -162,7 +162,11 @@ namespace qms.BLL
             DALToken dal = new DALToken();
             dal.ReInitiate(token_id);
         }
-
+        public void AssignToMe(long token_id,int counter_id)
+        {
+            DALToken dal = new DALToken();
+            dal.AssignToMe(token_id,counter_id);
+        }
         public void SendSMS(string msisdn, string message)
         {
             DALSMSManager dal = new DALSMSManager();

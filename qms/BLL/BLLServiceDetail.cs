@@ -31,11 +31,11 @@ namespace qms.BLL
             return ObjectMappingList(dt);
         }
 
-        public List<tblServiceSubType> GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address)
+        public List<tblServiceSubType> GetNewToken(int branch_id, int counter_id, string userid, out long token_id, out int token_no, out string contact_no, out string service_type, out DateTime start_time, out string customer_name, out string address, out DateTime generate_time)
         {
 
             DALServiceDetail dal = new DALServiceDetail();
-            DataTable dt = dal.GetNewToken(branch_id, counter_id, userid, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address);
+            DataTable dt = dal.GetNewToken(branch_id, counter_id, userid, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address, out generate_time);
 
             BLLServiceSubType serviceSubTypeManager = new BLLServiceSubType();
             List<tblServiceSubType> serviceSubTypeList = serviceSubTypeManager.ObjectMappingListTBL(dt);

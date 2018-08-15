@@ -37,31 +37,26 @@
         <div class="row" style="text-align:center">
             <div class="col-md-2" style="text-align:center">
                 <button type="submit" onclick="NewServiceNo()" class="btn-squere-xl  btn-color marzin-bottom" id="newService_btn">
-                    <span><i class="fa fa-bullhorn"></i></span> New Service
+                    <span><i class="fa fa-bullhorn"></i></span> Recall
                 </button>
 
 
-                <button type="submit" onclick="ManualCall()" class="btn-squere-xl  btn-color marzin-bottom" id="manual_call_btn">
-                    <span><i class="fa fa-user-plus"></i></span>Manual Call
+                <button type="submit" onclick="ManualCall()" class="btn-squere-xl  btn-color marzin-bottom" id="manual_call_btn" data-toggle="modal" data-target="#myModal">
+                    <span><i class="fa fa-user-plus"></i></span>Call Token
                 </button>
                 <button type="submit" onclick="Transfer()" class="btn-squere-xl  btn-color marzin-bottom" id="Transfer_btn">
-                    <span><i class="fa fa-cart-arrow-down"></i></span>Service Transfer
+                    <span><i class="fa fa-cart-arrow-down"></i></span>Counter Transfer
                 </button>
 
                 <button class="btn-squere-xl btn-color marzin-bottom">
                     <a href="@Url.Action("Skipped", "TokenQueues")" title="Skipped List">
                         <span><i class="fa fa-list"></i></span>
-                        Skipped List
+                         Missing List
                     </a>
                 </button>
-                <button class="btn-squere-xl btn-color marzin-bottom">
-                    <a href="@Url.Action("Create", "DailyBreaks")" title="Take A Break">
-                        <span><i class="fa fa-coffee"></i></span>
-                        Take A Break
-                    </a>
-                </button>
+                
             </div>
-            <div class="col-md-6" style="text-align:center">
+            <div class="col-md-7" style="text-align:center">
 
                 <table class="table table-striped">
                     <tr>
@@ -70,11 +65,24 @@
                         <td>
                             <div style="position:relative">
                                 <div style="position:relative; float:left">
-                                    @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = "Start Time" })
+                                    @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = " Service Start Time" })
                                 </div>
                                 <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.service_type_name, new { @class = "form-control Next", @id = "txtServiceType", @placeholder = "Service Type" })
                                 </div>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div style="position:relative">
+                                <div style="position:relative; float:left">
+                                    @Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @placeholder = "Generation Time", @id = "txtgnTime" })
+                                </div>
+                                <div style="position:relative; float:right">
+                                    @Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })
+                                </div>
+                                
+                                <div style="position:relative; float:right">
+                                    @Html.TextBoxFor(m => m.waitingtime, new { @class = "form-control Next", @id = "txtWtTime", @placeholder = "Waiting Time" })
+                            </div>
                                 <div style="clear:both"></div>
                             </div>
                         </td>
@@ -89,6 +97,20 @@
                     <tr>
                         <td>@Html.TextBoxFor(m => m.customer_name, new { @class = "form-control Next", @id = "txtName", @placeholder = "Customer Name" }) @Html.ValidationMessageFor(m => m.customer_name)</td>
                     </tr>
+                    
+                    @*<tr>
+                       <td class="form-control Next">Generation Time</td>
+                        <td>@Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @id = "txtgnTime", @placeholder = "Generation Time" })</td>
+                    </tr>
+                    <tr>
+                        <td class="form-control Next">Call Time</td>
+                        <td>@Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })</td>
+                    </tr>
+                    <tr>
+                        <td class="form-control Next">Waiting Time</td>
+                       
+                    </tr>*@
+
                     <tr>
                         <td>@Html.TextBoxFor(m => m.address, new { @class = "form-control Next", @id = "txtAddress", @placeholder = "Address" }) @Html.ValidationMessageFor(m => m.address)</td>
                     </tr>
@@ -104,20 +126,26 @@
 
             <div class="col-md-2" style="text-align:center">
                 <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
-                    <span><i class="fa fa-chevron-circle-right"></i></span>Done & Next
+                    <span><i class="fa fa-chevron-circle-right"></i></span>Next
                 </button>
-                <button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
+                @*<button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
                     <span><i class="fa fa-check-circle"></i></span>Done
-                </button>
+                </button>*@
 
                 <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
-                    <span><i class="fa fa-angle-double-right"></i></span>Skip & Next
+                    <span><i class="fa fa-angle-double-right"></i></span>Customer Missing
                 </button>
                 <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
                     <span><i class="fa fa-times-circle"></i></span>Skip
                 </button>
-                <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
+                <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
                     <span><i class="fa fa-plus-square"></i></span>Add Service
+                </button>
+                <button class="btn-squere-xl btn-color marzin-bottom">
+                    <a href="@Url.Action("Create", "DailyBreaks")" title="Take A Break">
+                        <span><i class="fa fa-coffee"></i></span>
+                        Break
+                    </a>
                 </button>
             </div>
         </div>
@@ -140,9 +168,43 @@
 
     </div>
 </div>
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dissmiss="modal">&times;</button>
+                <h2 class="modal-title">Modal</h2>
+            </div>
+            <div class="modal-body">
+                <p>Modal</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="CancelNext()">Close</button>
+            </div>
 
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="modal fade" id="myModalSave" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"  data-dissmiss="modal">&times;</button>
+                <h2 class="modal-title">Modal</h2>
+            </div>
+            <div class="modal-body">
+                <p>Current service will finish and next service will start automatically for this customer. Do you want to continue?"</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="AddService()">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 @section scripts{
     <script src="~/Scripts/sqms/date.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/sqms/service-details.js"></script>
 
 }

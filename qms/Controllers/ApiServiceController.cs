@@ -42,6 +42,26 @@ namespace qms.Controllers
         }
 
 
+
+        [HttpPost]
+        public JsonResult GetAllBranches()
+        {
+            try
+            {
+                BLLBranch dbBranch = new BLLBranch();
+
+                var List = dbBranch.GetAllBranch().ToList();
+
+                return Json(new { success = true, branchList = List }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         [HttpPost]
         public JsonResult GetTokenList(string securityToken)
         {
@@ -86,7 +106,7 @@ namespace qms.Controllers
                 //if (!String.IsNullOrEmpty(branch.static_ip))
                 //    dm.CreateTextFile(branch.branch_id, branch.static_ip);
 
-                NotifyDisplay.SendMessages(branchUser.branch_id, "null", "null");
+                NotifyDisplay.SendMessages(branchUser.branch_id, "", "");
 
                 string token_id = tokenObj.token_id.ToString();
                 string token_no = tokenObj.token_no_formated;

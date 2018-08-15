@@ -147,7 +147,24 @@ namespace qms.DAL
                 throw;
             }
         }
+        public void AssignToMe(long token_id,int counter_id)
+        {
+            try
+            {
 
+                manager.AddParameter(new OracleParameter("P_token_id", token_id));
+                manager.AddParameter(new OracleParameter("P_counter_id", counter_id));
+
+                manager.CallStoredProcedure("USP_TOKEN_RE_ASSIGNTOME");
+
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         private void MapParameters(tblTokenQueue token)
         {
             manager.AddParameter(new OracleParameter("p_service_type_id", token.service_type_id));

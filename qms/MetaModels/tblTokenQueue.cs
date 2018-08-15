@@ -10,15 +10,16 @@ namespace qms.Models
     [MetadataType(typeof(TokenQueueMeta))]
     public partial class tblTokenQueue
     {
-        //public int duration
-        //{
-        //    get
-        //    {
-        //        return (end_time.Value - start_time);
-        //        return 0;
-        //    }
-        //}
+        public int? waitingtime
+        {
+            get
+            {
+                if (CallTime.HasValue)
+                    return (CallTime.Value - service_date).Minutes;
+                else return null;
 
+            }
+        }
         public string token_no_formated
         {
             get
@@ -58,6 +59,9 @@ namespace qms.Models
 
         [Display(Name = "Cancel Time")]
         public Nullable<System.DateTime> cancel_time { get; set; }
+        [Display(Name = "Call Time")]
+       
+        public Nullable<System.DateTime> CallTime { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual tblBranch tblBranch { get; set; }
