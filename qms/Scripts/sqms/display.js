@@ -137,6 +137,8 @@ function getAllMessages() {
             });
 
             $("#nextToken").text('Next Token: ' + result.nextTokens);
+
+           
         }
         else {
             alert(result.errorMsg);
