@@ -71,12 +71,11 @@ namespace qms.DAL
             }
         }
 
-        public void Update(tblDailyBreak dailyBreak)
+        public void Update(string user_id)
         {
             try
             {
-                manager.AddParameter(new OracleParameter("p_dailyBreak_id", dailyBreak.daily_break_id));
-                MapParameters(dailyBreak);
+                manager.AddParameter(new OracleParameter("p_user_id", user_id));
                 manager.CallStoredProcedure_Update("USP_DailyBreak_Update");
             }
             catch (Exception)

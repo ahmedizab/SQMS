@@ -130,20 +130,36 @@ namespace qms.Controllers
         // POST: DailyBreaks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "daily_break_id,break_type_id,user_id,start_time,end_time,remarks")] tblDailyBreak tblDailyBreak)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        dbManager.Edit(tblDailyBreak);
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", tblDailyBreak.user_id);
+        //    ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_type_short_name", tblDailyBreak.break_type_id);
+        //    return View(tblDailyBreak);
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "daily_break_id,break_type_id,user_id,start_time,end_time,remarks")] tblDailyBreak tblDailyBreak)
+        public ActionResult Update(string user_id)
         {
+            
+            SessionManager sm = new SessionManager(Session);
+             
+            int counter_id = sm.counter_id;
+            string counter_no = sm.counter_no;
             if (ModelState.IsValid)
             {
-                dbManager.Edit(tblDailyBreak);
+                dbManager.Update(user_id);
                 return RedirectToAction("Index");
             }
-            ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", tblDailyBreak.user_id);
-            ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_type_short_name", tblDailyBreak.break_type_id);
-            return View(tblDailyBreak);
-        }
 
+            return RedirectToAction("Index");
+        }
         // GET: DailyBreaks/Delete/5
         public ActionResult Delete(int? id)
         {

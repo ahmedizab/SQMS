@@ -14,7 +14,7 @@ namespace qms.Models
             get
             {
                 if (end_time.HasValue)
-                    return (end_time.Value - start_time).Minutes;
+                    return (int)(end_time.Value - start_time.Value).TotalMinutes;
                 else return null;
 
             }

@@ -18,7 +18,7 @@ namespace qms.Models
         public int break_type_id { get; set; }
         public string user_id { get; set; }
         public int counter_id { get; set; }
-        public System.DateTime start_time { get; set; }
+        public Nullable<System.DateTime> start_time { get; set; }
         public Nullable<System.DateTime> end_time { get; set; }
         public string remarks { get; set; }
     

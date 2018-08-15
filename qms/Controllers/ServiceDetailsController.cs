@@ -25,6 +25,8 @@ namespace qms.Controllers
         private BLL.BLLBranch dbBranch = new BLL.BLLBranch();
         private BLL.BLLCustomer dbCustomer = new BLL.BLLCustomer();
         private BLL.BLLToken dbtoken = new BLL.BLLToken();
+        private BLL.BLLDailyBreak dbBreak = new BLL.BLLDailyBreak();
+
 
 
 
@@ -176,11 +178,11 @@ namespace qms.Controllers
                 string counter_no = sm.counter_no;
                 string user_id = sm.user_id;
                 long token_id;
-                int token_no;
+                int token_no, is_break;
                 string contact_no, service_type, customer_name, address;
                 DateTime start_time, generate_time;
 
-                var serviceList = dbManager.GetNewToken(branchId, counterid, user_id, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address,out generate_time);
+                var serviceList = dbManager.GetNewToken(branchId, counterid, user_id, out token_id, out token_no, out contact_no, out service_type, out start_time, out customer_name, out address,out generate_time,out is_break);
 
                 if (serviceList.Count>0)
                 {
@@ -194,9 +196,11 @@ namespace qms.Controllers
                         tokenid = token_id,
                         serviceType = service_type,
                         mobile_no = contact_no,
+                        user_id=user_id,
                         generate_time = generate_time.ToString("dd-MMM-yyyy HH:mm"),
                         call_time= start_time.ToString("dd-MMM-yyyy HH:mm"),
-                        waitingtime = (start_time - generate_time).Minutes,
+                        IsBreak= is_break,
+                        waitingtime = (start_time - generate_time).TotalMinutes,
                     customer_name = customer_name,
                         address = address
                     };
@@ -219,7 +223,21 @@ namespace qms.Controllers
                 return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult Update(string user_id)
+        {
 
+            SessionManager sm = new SessionManager(Session);
+
+            int counter_id = sm.counter_id;
+            string counter_no = sm.counter_no;
+            if (ModelState.IsValid)
+            {
+                dbBreak.Update(user_id);
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
         [HttpPost]
         public JsonResult CallManualTokenNo(string token_no_string)
         {

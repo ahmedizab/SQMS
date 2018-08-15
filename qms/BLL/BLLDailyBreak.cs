@@ -32,10 +32,16 @@ namespace qms.BLL
             int daily_break_id = dal.Insert(dailyBreak);
             dailyBreak.daily_break_id = daily_break_id;
         }
-        public void Edit(tblDailyBreak dailyBreak)
+        //public void Edit(tblDailyBreak dailyBreak)
+        //{
+        //    DALDailyBreak dal = new DALDailyBreak();
+        //    dal.Update(dailyBreak);
+
+        //}
+        public void Update(string user_id)
         {
             DALDailyBreak dal = new DALDailyBreak();
-            dal.Update(dailyBreak);
+            dal.Update(user_id);
 
         }
         public void Remove(int id)
@@ -89,8 +95,10 @@ namespace qms.BLL
                 dailyBreak.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
                 dailyBreak.user_full_name = (row["hometown"] == DBNull.Value ? null : row["hometown"].ToString());
                 dailyBreak.break_type_name = (row["break_type_name"] == DBNull.Value ? null : row["break_type_name"].ToString());
-                dailyBreak.start_time = Convert.ToDateTime(row["start_time"] == DBNull.Value ? null : row["start_time"].ToString());
-                if(row["end_time"] != DBNull.Value)dailyBreak.end_time = Convert.ToDateTime(row["end_time"].ToString());
+                //dailyBreak.start_time = Convert.ToDateTime(row["start_time"] == DBNull.Value ? null : row["start_time"].ToString());
+                if (row["start_time"] != DBNull.Value) dailyBreak.start_time = Convert.ToDateTime(row["start_time"].ToString());
+
+                if (row["end_time"] != DBNull.Value)dailyBreak.end_time = Convert.ToDateTime(row["end_time"].ToString());
                 dailyBreak.remarks = (row["remarks"] == DBNull.Value ? null : row["remarks"].ToString());
 
                 list.Add(dailyBreak);
