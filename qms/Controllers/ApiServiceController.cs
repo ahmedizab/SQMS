@@ -41,6 +41,25 @@ namespace qms.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult GetAllBranches()
+        {
+            try
+            {
+                BLLBranch dbBranch = new BLLBranch();
+
+                var List = dbBranch.GetAllBranch().ToList();
+
+                return Json(new { success = true, branchList = List }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
 
 
         [HttpPost]
