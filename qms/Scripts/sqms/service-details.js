@@ -3,33 +3,64 @@
 $(document).ready(function () {
     $('#tablebody').empty();
     $("#historyDiv").hide();
+    $("input[type=radio]").checkboxradio();
     NewServiceNo();
 })
 
 
-function loadServices(services) {
-    //service_sub_type_id
-    $('#service_sub_type_id').empty();
-    $.each(services, function (index, service) {
-        $('#service_sub_type_id').append($('<option>').text(service.Text).attr('value', service.Value));
+function LoadServices(type_id) {
+
+    $.ajax({
+        //url: "/SQMS/ServiceDetails/NewTokenNo",
+        url: "../ServiceSubTypes/GetByTypeId",
+        type: 'POST',
+        dataType: "json",
+        data: { service_type_id: type_id },
+        success: function (data) {
+            var serviceSubTypes = data.serviceSubTypes;
+
+            $('#div-sub-type').empty();
+            $.each(serviceSubTypes, function (index, service) {
+                var div = '<div class="col-lg-4"><input type="radio" class="btn" name="radio-service" id="' + service.service_sub_type_id + '" value="' + service.service_sub_type_name + '" />'
+                    + '<label for="' + service.service_sub_type_id + '" class="btn btn-primary glyphicon-text-color" hidden="hidden" style="padding:10px">' + service.service_sub_type_name + '</label></div>';
+                $('#div-sub-type').append(div);
+            });
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            modalAlert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+        }
     });
 }
 
+
+$("#service_type_id").change(function () {
+    var type_id = this.value;
+
+    LoadServices(type_id);
+
+});
+
+
 function breakcall() {
-    user_id = $("#hiduserId").val();
+   // user_id = $("#hiduserId").val();
 
     $.ajax({
         //url: "/SQMS/ServiceDetails/NewTokenNo",
         url: "../ServiceDetails/Update",
         type: 'POST',
         dataType: "json",
-        data: { user_id: user_id },
+        //data: { user_id: user_id },
         success: function (data) {
             $("#txtServiceType").val('');
             $("#txtgnTime").val('');
             $("#txtCallTime").val('');
             $("#txtWtTime").val('');
             return;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            modalAlert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
         }
     });
 
@@ -83,8 +114,9 @@ function NewServiceNo() {
                     $("#txtAddress").val("");
                 }
 
-            
-                loadServices(data.Services);
+                $("#service_type_id").val(data.Message.service_type_id);
+                LoadServices(data.Message.service_type_id);
+                
             } else {
                 modalAlert(data.Message);
             }
@@ -141,6 +173,9 @@ function AddServiceCall() {
 
 
 function AddService() {
+
+    modalServiceType();
+    return;
     var contactNo = $("#txtContact").val();
     var Customername = $("#txtName").val();
     var Customeraddress = $("#txtAddress").val();

@@ -606,6 +606,7 @@
     <Content Include="Scripts\modal\jquery-1.12.4.js" />
     <Content Include="Scripts\modal\jquery-ui.js" />
     <Content Include="Scripts\modal\modal.js" />
+    <Content Include="Scripts\modal\tab.js" />
     <Content Include="Scripts\sqms\branch-login.js" />
     <Content Include="Scripts\sqms\branch-user.js" />
     <Content Include="Scripts\sqms\branch.js" />

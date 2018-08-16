@@ -7,7 +7,7 @@
     ViewBag.Title = "Customer Service";
     SessionManager sm = new SessionManager(Session);
 }
-
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
         <input type="hidden" id="hiduserId" name="hidUser" />
@@ -129,16 +129,11 @@
                 <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
                     <span><i class="fa fa-chevron-circle-right"></i></span>Next
                 </button>
-                @*<button type="submit" onclick="Save()" class="btn-squere-xl  btn-color marzin-bottom" id="save_btn">
-                    <span><i class="fa fa-check-circle"></i></span>Done
-                </button>*@
-
+                
                 <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
                     <span><i class="fa fa-angle-double-right"></i></span>Customer Missing
                 </button>
-                <button type="submit" onclick="Cancel()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn">
-                    <span><i class="fa fa-times-circle"></i></span>Skip
-                </button>
+                
                 <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
                     <span><i class="fa fa-plus-square"></i></span>Add Service
                 </button>
@@ -169,22 +164,18 @@
 
     </div>
 </div>
-<div class="container">
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dissmiss="modal">&times;</button>
-                <h2 class="modal-title">Modal</h2>
-            </div>
-            <div class="modal-body">
-                <p>Modal</p>
-            </div>
-            <div class="modal-footer">
-                <button onclick="CancelNext()">Close</button>
-            </div>
-
-        </div>
+<div id="div-services" title="Service List">
+    <div id="div-type">
+        @Html.DropDownList("service_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Service Types" })
     </div>
+    <div id="div-sub-type" class="row" style="border:1px solid #EAEAEA;
+            padding-top:5px;
+            text-align:left;
+            padding-left:5px;
+            margin-top:25px">
+        
+    </div>
+    
 </div>
 
 <div id="dialog-message" title="Information">
@@ -198,6 +189,7 @@
     <script src="~/Scripts/modal/jquery-1.12.4.js"></script>
     <script src="~/Scripts/modal/jquery-ui.js"></script>
     <script src="~/Scripts/modal/modal.js"></script>
+    <script src="~/Scripts/modal/tab.js"></script>
 
     <script src="~/Scripts/sqms/date.js"></script>
     <script src="~/Scripts/sqms/service-details.js"></script>

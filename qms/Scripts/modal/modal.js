@@ -65,3 +65,28 @@ function modalPrompt(msg, callback) {
     });
 }
 
+
+
+function modalServiceType() {
+
+    
+
+    $("#div-services").dialog({
+        autoOpen: true,
+        resizable: false,
+        modal: true,
+        height: 400,
+        width: 800,
+        closeOnEscape: false,
+        buttons: {
+            "Ok": function () {
+                $(this).dialog("close");
+                //callback(dialogBody.find("#inputBox").val());
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+                //callback("close");
+            }
+        }
+    });
+}

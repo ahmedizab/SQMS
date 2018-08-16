@@ -17,6 +17,14 @@ namespace qms.BLL
             DataTable dt = dal.GetAll();
             return ObjectMappingListVM(dt);
         }
+
+        public List<VMServiceType> GetByTypeId(int service_type_id)
+        {
+            DALServiceSubType dal = new DALServiceSubType();
+            DataTable dt = dal.GetByTypeId(service_type_id);
+            return ObjectMappingListVM(dt);
+        }
+
         public tblServiceSubType GetById(int id)
         {
             DALServiceSubType dal = new DALServiceSubType();

@@ -26,6 +26,14 @@ namespace qms.Controllers
             return View( dbManager.GetAll());
         }
 
+        [Authorize]
+        public JsonResult GetAll()
+        {
+
+            return Json(new { Success = true, serviceTypes = dbManager.GetAll() }, JsonRequestBehavior.AllowGet);
+            
+        }
+
         // GET: ServiceTypes/Details/5
         //public async Task<ActionResult> Details(int? id)
         //{

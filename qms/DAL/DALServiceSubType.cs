@@ -49,6 +49,27 @@ namespace qms.DAL
 
 
         }
+
+        public DataTable GetByTypeId(int service_type_id)
+        {
+            try
+            {
+                manager.AddParameter(new OracleParameter("p_service_type_id", service_type_id));
+                OracleParameter param = new OracleParameter("po_Cursor", OracleDbType.RefCursor);
+                param.Direction = ParameterDirection.Output;
+                manager.AddParameter(param);
+
+                return manager.CallStoredProcedure_Select("USP_ServiceSubType_List_ByTId");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
         /// <summary>
         /// Call only for New Service Type Insert
         /// Return service_type_id

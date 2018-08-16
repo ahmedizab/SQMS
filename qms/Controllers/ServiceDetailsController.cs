@@ -69,7 +69,7 @@ namespace qms.Controllers
         public ActionResult Create()
         {
             var servicetype = dbServiceType.GetAll();
-            ViewBag.ServiceTypeList = servicetype;
+            ViewBag.service_type_id = new SelectList(servicetype, "service_type_id", "service_type_name");
             ViewBag.service_sub_type_id = new SelectList(dbServiceSubType.GetAll(), "service_sub_type_id", "service_sub_type_name");
             //ViewBag.ServiceTypeList = new SelectList(dbServiceSubType.GetAll(), "service_sub_type_id", "service_sub_type_name");
 
@@ -201,6 +201,7 @@ namespace qms.Controllers
                         call_time= start_time.ToString("dd-MMM-yyyy HH:mm"),
                         IsBreak= is_break,
                         waitingtime = (start_time - generate_time).TotalMinutes,
+                        service_type_id = (serviceList.Count>0? serviceList.FirstOrDefault().service_type_id : 0),
                     customer_name = customer_name,
                         address = address
                     };
@@ -223,11 +224,11 @@ namespace qms.Controllers
                 return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult Update(string user_id)
+        public ActionResult Update()
         {
 
             SessionManager sm = new SessionManager(Session);
-
+            string user_id = sm.user_id;
             int counter_id = sm.counter_id;
             string counter_no = sm.counter_no;
             if (ModelState.IsValid)

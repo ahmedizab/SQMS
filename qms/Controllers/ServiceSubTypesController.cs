@@ -25,6 +25,14 @@ namespace qms.Controllers
             //return View(await tblServiceSubTypes.ToListAsync());
         }
 
+        [AllowAnonymous]
+        public JsonResult GetByTypeId(int service_type_id)
+        {
+            var subTypes = dbManager.GetByTypeId(service_type_id);
+            return Json(new { Success = true, serviceSubTypes = subTypes }, JsonRequestBehavior.AllowGet);
+
+        }
+
         // GET: ServiceSubTypes/Details/5
         //public async Task<ActionResult> Details(int? id)
         //{
