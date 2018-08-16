@@ -1,19 +1,14 @@
 ﻿@model qms.Models.tblDailyBreak
 
-@{
-    ViewBag.Title = "Daily Break Include";
-}
-<div class="container">
+
+<div class="container" style="width:600px">
     <div class="row">
 
-        <h4 class="page-head-line">Take a Break</h4>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <br />
             <div class="form-horizontal">
-               
-                <hr />
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group">
@@ -40,18 +35,11 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-6">
-                        <input type="submit" value="Create" class="btn btn-color" />
-                        <button class="btn btn-color">
-                            @Html.ActionLink("Back to Service", "Create", "ServiceDetails", new { area = "" }, new { @id="button" })
-                    </button>
-                </div>
+
             </div>
-        </div>
         }
 
     </div>
+
 </div>
-    
    

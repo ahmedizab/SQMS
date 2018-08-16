@@ -9,13 +9,13 @@ namespace qms.Models
     [MetadataType(typeof(DailyBreakMeta))]
     public partial class tblDailyBreak
     {
-        public int? duration
+        public string duration
         {
             get
             {
-                if (end_time.HasValue)
-                    return (int)(end_time.Value - start_time.Value).TotalMinutes;
-                else return null;
+                if (end_time.HasValue && start_time.HasValue)
+                    return end_time.Value.Subtract(start_time.Value).ToString();
+                else return "";
 
             }
         }

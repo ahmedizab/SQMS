@@ -76,38 +76,67 @@ namespace qms.Controllers
             ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", sm.user_id);
             
             ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_name_with_duration");
-            return View();
+            return PartialView();
         }
+
+        //// POST: DailyBreaks/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "daily_break_id,break_type_id,user_id,start_time,end_time,remarks")] tblDailyBreak tblDailyBreak)
+        //{
+        //    try
+        //    {
+        //        SessionManager sm = new SessionManager(Session);
+        //        tblDailyBreak.counter_id = sm.counter_id;
+        //        tblDailyBreak.user_id = sm.user_id;
+        //        tblDailyBreak.start_time = DateTime.Now;
+        //        dbManager.Create(tblDailyBreak);
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.error_message = ex.Message;
+        //        SessionManager sm = new SessionManager(Session);
+        //        ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", sm.user_id);
+
+        //        ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_name_with_duration");
+        //        return View(tblDailyBreak);
+        //    }
+               
+            
+
+            
+        //}
 
         // POST: DailyBreaks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "daily_break_id,break_type_id,user_id,start_time,end_time,remarks")] tblDailyBreak tblDailyBreak)
+        public JsonResult Create(int break_type_id, string remarks)
         {
             try
             {
+                tblDailyBreak dailyBreak = new tblDailyBreak();
                 SessionManager sm = new SessionManager(Session);
-                tblDailyBreak.counter_id = sm.counter_id;
-                tblDailyBreak.user_id = sm.user_id;
-                tblDailyBreak.start_time = DateTime.Now;
-                dbManager.Create(tblDailyBreak);
-                return RedirectToAction("Index");
+                dailyBreak.break_type_id = break_type_id;
+                dailyBreak.remarks = remarks;
+                dailyBreak.counter_id = sm.counter_id;
+                dailyBreak.user_id = sm.user_id;
+                dailyBreak.start_time = DateTime.Now;
+                dbManager.Create(dailyBreak);
+                return Json(new { Success = true, Message = "Successfully added" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                ViewBag.error_message = ex.Message;
-                SessionManager sm = new SessionManager(Session);
-                ViewBag.user_id = new SelectList(dbUser.GetAllUser(), "Id", "Hometown", sm.user_id);
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
 
-                ViewBag.break_type_id = new SelectList(dbBreak.GetAll(), "break_type_id", "break_name_with_duration");
-                return View(tblDailyBreak);
             }
-               
-            
 
-            
+
+
+
         }
 
         // GET: DailyBreaks/Edit/5
@@ -144,21 +173,26 @@ namespace qms.Controllers
         //    return View(tblDailyBreak);
         //}
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Update(string user_id)
+        public JsonResult Update()
         {
-            
-            SessionManager sm = new SessionManager(Session);
-             
-            int counter_id = sm.counter_id;
-            string counter_no = sm.counter_no;
-            if (ModelState.IsValid)
+            try
             {
-                dbManager.Update(user_id);
-                return RedirectToAction("Index");
+                SessionManager sm = new SessionManager(Session);
+                string user_id = sm.user_id;
+                int counter_id = sm.counter_id;
+                string counter_no = sm.counter_no;
+                if (ModelState.IsValid)
+                {
+                    dbManager.Update(user_id);
+                    return Json(new { Success = true, Message = "Successfully added" }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { Success = false, Message = "Failed for parameter missing" }, JsonRequestBehavior.AllowGet);
             }
+            catch (Exception ex)
+            {
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
 
-            return RedirectToAction("Index");
+            }
         }
         // GET: DailyBreaks/Delete/5
         public ActionResult Delete(int? id)

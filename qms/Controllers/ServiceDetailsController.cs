@@ -86,6 +86,7 @@ namespace qms.Controllers
                 SessionManager sm = new SessionManager(Session);
                 DisplayManager dm = new DisplayManager();
                 model.service_datetime = DateTime.Now;
+                model.customer_name = model.contact_no;
                 model.end_time = DateTime.Now;
                 model.user_id = sm.user_id;
                 model.counter_id = sm.counter_id;
@@ -192,15 +193,15 @@ namespace qms.Controllers
                     var customer = new
                     {
                         token = token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0'),
-                        start_time = start_time.ToString("dd-MMM-yyyy HH:mm"),
+                        start_time = start_time.ToString("HH:mm:ss"),
                         tokenid = token_id,
                         serviceType = service_type,
                         mobile_no = contact_no,
                         user_id=user_id,
-                        generate_time = generate_time.ToString("dd-MMM-yyyy HH:mm"),
-                        call_time= start_time.ToString("dd-MMM-yyyy HH:mm"),
+                        generate_time = generate_time.ToString("HH:mm:ss"),
+                        call_time= start_time.ToString("HH:mm:ss"),
                         IsBreak= is_break,
-                        waitingtime = (start_time - generate_time).TotalMinutes,
+                        waitingtime = start_time.Subtract(generate_time).ToString(),
                         service_type_id = (serviceList.Count>0? serviceList.FirstOrDefault().service_type_id : 0),
                     customer_name = customer_name,
                         address = address
@@ -224,21 +225,7 @@ namespace qms.Controllers
                 return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult Update()
-        {
-
-            SessionManager sm = new SessionManager(Session);
-            string user_id = sm.user_id;
-            int counter_id = sm.counter_id;
-            string counter_no = sm.counter_no;
-            if (ModelState.IsValid)
-            {
-                dbBreak.Update(user_id);
-                return RedirectToAction("Index");
-            }
-
-            return RedirectToAction("Index");
-        }
+        
         [HttpPost]
         public JsonResult CallManualTokenNo(string token_no_string)
         {
@@ -271,7 +258,7 @@ namespace qms.Controllers
                         customer_name = customer_name,
                         address = address
                     };
-                    NotifyDisplay.SendMessages(branchId, counter_no, token_no.ToString());
+                    //NotifyDisplay.SendMessages(branchId, counter_no, token_no.ToString());
                     return Json(new { Success = true, Message = customer, Services = services }, JsonRequestBehavior.AllowGet);
 
 

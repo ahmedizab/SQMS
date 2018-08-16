@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('#tablebody').empty();
     $("#historyDiv").hide();
     $("input[type=radio]").checkboxradio();
+    
     NewServiceNo();
 })
 
@@ -21,11 +22,11 @@ function LoadServices(type_id) {
 
             $('#div-sub-type').empty();
             $.each(serviceSubTypes, function (index, service) {
-                var div = '<div class="col-lg-4"><input type="radio" class="btn" name="radio-service" id="' + service.service_sub_type_id + '" value="' + service.service_sub_type_name + '" />'
-                    + '<label for="' + service.service_sub_type_id + '" class="btn btn-primary glyphicon-text-color" hidden="hidden" style="padding:10px">' + service.service_sub_type_name + '</label></div>';
+                var div = '<div class="col-lg-6 col-md-6 col-sm-6 btn btn-color" style="text-align: left; padding:0px 0px 0px 12px; left; margin:5px 5px 0px 0px; border-radius:4px" ><input type="radio" style="cursor:pointer" name="radio-service" id="' + service.service_sub_type_id + '" value="' + service.service_sub_type_id + '"/>'
+                    + '<label for="' + service.service_sub_type_id + '" class="btn" style="cursor:pointer;" hidden="hidden" style="padding:10px">' + service.service_sub_type_name + '</label></div>';
                 $('#div-sub-type').append(div);
             });
-
+            $("input[type=radio]").checkboxradio();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -43,21 +44,44 @@ $("#service_type_id").change(function () {
 });
 
 
+function breakAdd(break_type_id, remarks) {
+    $.ajax({
+        //daily_break_id, break_type_id, user_id, start_time, end_time, remarks//
+        url: webRootAddtionalPath + "/DailyBreaks/Create",
+        type: 'POST',
+        dataType: "json",
+        data: {
+            break_type_id: break_type_id,
+            remarks: remarks
+        },
+        success: function (data) {
+            if (data.success == false) {
+                modalAlert(data.Message);
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            modalAlert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+        }
+    });
+}
+
 function breakcall() {
    // user_id = $("#hiduserId").val();
 
     $.ajax({
         //url: "/SQMS/ServiceDetails/NewTokenNo",
-        url: "../ServiceDetails/Update",
+        url: webRootAddtionalPath + "/DailyBreaks/Update",
         type: 'POST',
         dataType: "json",
         //data: { user_id: user_id },
         success: function (data) {
-            $("#txtServiceType").val('');
-            $("#txtgnTime").val('');
-            $("#txtCallTime").val('');
-            $("#txtWtTime").val('');
-            return;
+            if (data.Success == true) {
+                //window.location.href(webRootAddtionalPath + "/DailyBreaks/Index");
+                $(location).attr('href', webRootAddtionalPath + "/DailyBreaks/Index");
+            }
+            else {
+                modalAlert(data.Message);
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             modalAlert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
@@ -88,7 +112,7 @@ function NewServiceNo() {
                 $("#update-message").html('');
                 $("#hiduserId").val(data.Message.user_id);
                 $("#update-message").html(data.Message.token);
-                $("#start_time").val('');
+                $("#start_time").val(data.Message.start_time);
                 $("#start_time").prop('disabled', true);
                 $("#txtServiceType").val(data.Message.serviceType);
                 $("#txtServiceType").prop('disabled', true);
@@ -174,7 +198,7 @@ function AddServiceCall() {
 
 function AddService() {
 
-    modalServiceType();
+    serviceDialog.dialog('open');
     return;
     var contactNo = $("#txtContact").val();
     var Customername = $("#txtName").val();

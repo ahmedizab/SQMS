@@ -23,7 +23,7 @@ namespace qms.ViewModels
         public string break_type_name { get; set; }
 
         [Display(Name = "Start Time")]
-        public DateTime start_time { get; set; }
+        public DateTime? start_time { get; set; }
 
         [Display(Name = "End Time")]
         public DateTime? end_time { get; set; }
@@ -32,13 +32,13 @@ namespace qms.ViewModels
         public string remarks { get; set; }
 
         [Display(Name = "Duration")]
-        public int? duration
+        public string duration
         {
             get
             {
-                if (end_time.HasValue)
-                    return (end_time.Value - start_time).Minutes;
-                else return null;
+                if (end_time.HasValue && start_time.HasValue)
+                    return end_time.Value.Subtract(start_time.Value).ToString();
+                else return "";
 
             }
         }

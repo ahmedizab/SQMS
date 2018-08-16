@@ -66,7 +66,7 @@
                         <td>
                             <div style="position:relative">
                                 <div style="position:relative; float:left">
-                                    @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = " Service Start Time" })
+                                    Service Type :
                                 </div>
                                 <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.service_type_name, new { @class = "form-control Next", @id = "txtServiceType", @placeholder = "Service Type" })
@@ -75,14 +75,38 @@
                             </div>
                             <div style="position:relative">
                                 <div style="position:relative; float:left">
+                                    Token Issue Time :
+                                </div>
+                                <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @placeholder = "Generation Time", @id = "txtgnTime" })
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div style="position:relative">
+                                <div style="position:relative; float:left">
+                                    Token Call Time :
                                 </div>
                                 <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })
                                 </div>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div style="position:relative">
+
+                                <div style="position:relative; float:left">
+                                    Waiting Time :
+                                </div>
+
 
                                 <div style="position:relative; float:right">
                                     @Html.TextBoxFor(m => m.waitingtime, new { @class = "form-control Next", @id = "txtWtTime", @placeholder = "Waiting Time" })
+                                </div>
+                                <div style="clear:both"></div>
+                                <div style="position:relative; float:left">
+                                    Service Start Time:
+                                </div>
+                                <div style="position:relative; float:right">
+                                    @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = " Service Start Time" })
                                 </div>
                                 <div style="clear:both"></div>
                             </div>
@@ -95,26 +119,7 @@
                         <td>@Html.TextBoxFor(m => m.contact_no, new { @class = "form-control Next", @id = "txtContact", @placeholder = "Mobile No" }) @Html.ValidationMessageFor(m => m.contact_no)</td>
                         <td><button class="btn btn-color" onclick="GetCustomerInformation()">History</button></td>
                     </tr>
-                    <tr>
-                        <td>@Html.TextBoxFor(m => m.customer_name, new { @class = "form-control Next", @id = "txtName", @placeholder = "Customer Name" }) @Html.ValidationMessageFor(m => m.customer_name)</td>
-                    </tr>
-
-                    @*<tr>
-                       <td class="form-control Next">Generation Time</td>
-                        <td>@Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @id = "txtgnTime", @placeholder = "Generation Time" })</td>
-                    </tr>
-                    <tr>
-                        <td class="form-control Next">Call Time</td>
-                        <td>@Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })</td>
-                    </tr>
-                    <tr>
-                        <td class="form-control Next">Waiting Time</td>
-
-                    </tr>*@
-
-                    <tr>
-                        <td>@Html.TextBoxFor(m => m.address, new { @class = "form-control Next", @id = "txtAddress", @placeholder = "Address" }) @Html.ValidationMessageFor(m => m.address)</td>
-                    </tr>
+                   
                     <tr>
                         <td>@Html.TextAreaFor(m => m.issues, 5, 20, new { @class = "form-control Next", @id = "txtIssues", @row = "10", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
                     </tr>
@@ -129,20 +134,19 @@
                 <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
                     <span><i class="fa fa-chevron-circle-right"></i></span>Next
                 </button>
-                
+
                 <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
                     <span><i class="fa fa-angle-double-right"></i></span>Customer Missing
                 </button>
-                
+
                 <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
                     <span><i class="fa fa-plus-square"></i></span>Add Service
                 </button>
-                <button class="btn-squere-xl btn-color marzin-bottom">
-                    <a href="@Url.Action("Create", "DailyBreaks")" title="Take A Break">
-                        <span><i class="fa fa-coffee"></i></span>
-                        Break
-                    </a>
+
+                <button type="submit" onclick="loadBreakDialog()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
+                    <span><i class="fa fa-coffee"></i></span>Break
                 </button>
+                
             </div>
         </div>
         <div class="row">
@@ -172,10 +176,15 @@
             padding-top:5px;
             text-align:left;
             padding-left:5px;
-            margin-top:25px">
+            margin-top:25px; 
+            margin-right:0px;
+            margin-left:0px;">
         
     </div>
     
+</div>
+<div id="dialog-url" title="Information">
+
 </div>
 
 <div id="dialog-message" title="Information">

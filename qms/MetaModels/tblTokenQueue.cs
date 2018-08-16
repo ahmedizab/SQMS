@@ -10,13 +10,14 @@ namespace qms.Models
     [MetadataType(typeof(TokenQueueMeta))]
     public partial class tblTokenQueue
     {
-        public int? waitingtime
+        public string waitingtime
         {
             get
             {
                 if (CallTime.HasValue)
-                    return (int)(CallTime.Value - service_date).TotalMinutes;
-                else return null;
+
+                    return CallTime.Value.Subtract(service_date).ToString();
+                else return "";
 
             }
         }
