@@ -9,9 +9,10 @@
     <div class="row">
         <h4 class="page-head-line">Break > List </h4>
 
-        <button class="btn btn-color">
-            @Html.ActionLink("Create New Break", "Create")
-        </button>
+        
+        <a href='@Url.Action("Create", "BreakTypes")' style="margin-bottom : 10px;">
+            <button class="btn btn-color" style="margin-bottom : 10px;">Create New Break Type</button>
+        </a>
 
         <div class="col-md-12 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">
 
@@ -65,7 +66,7 @@
                 }
 
             </table>
-            </div>
-
         </div>
+
+    </div>
     </div>

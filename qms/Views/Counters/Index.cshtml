@@ -6,10 +6,10 @@
 <div class="container">
     <div class="row">
         <h4 class="page-head-line">Counter > List</h4>
-        <button class="btn btn-color" style="margin-bottom : 10px;">
-            @Html.ActionLink("Create New Counter", "Create")
-        </button>
-
+        
+        <a href='@Url.Action("Create", "Counter")' style="margin-bottom : 10px;">
+            <button class="btn btn-color" style="margin-bottom : 10px;">Create New Counter</button>
+        </a>
         <div class="form-group">
             @Html.Label("Branch:", new { @class = "col-md-1 control-label" })
             <div class="col-md-3" style="margin-bottom : 10px;">

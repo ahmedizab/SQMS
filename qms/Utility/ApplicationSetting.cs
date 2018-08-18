@@ -71,5 +71,13 @@ namespace qms.Utility
                 return ConfigurationManager.AppSettings.Get("voiceText");
             }
         }
+
+        public static string DisplayWhenEmptyToken
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings.Get("DisplayWhenEmptyToken");
+            }
+        }
     }
 }

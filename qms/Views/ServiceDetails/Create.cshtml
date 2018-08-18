@@ -8,6 +8,7 @@
     SessionManager sm = new SessionManager(Session);
 }
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
 <div class="container">
     <div class="row">
         <input type="hidden" id="hiduserId" name="hidUser" />
@@ -48,126 +49,177 @@
                 <button type="submit" onclick="Transfer()" class="btn-squere-xl  btn-color marzin-bottom" id="Transfer_btn">
                     <span><i class="fa fa-cart-arrow-down"></i></span>Counter Transfer
                 </button>
-
-                <button class="btn-squere-xl btn-color marzin-bottom">
-                    <a href="@Url.Action("Skipped", "TokenQueues")" title="Skipped List">
-                        <span><i class="fa fa-list"></i></span>
-                        Missing List
-                    </a>
+                <button type="submit" onclick="loadMissingListDialog()" class="btn-squere-xl  btn-color marzin-bottom" id="missing_btn">
+                    <span><i class="fa fa-list"></i></span>Missing List
                 </button>
 
             </div>
             <div class="col-md-7" style="text-align:center">
 
-                <table class="table table-striped">
-                    <tr>
 
-                        @*<td>Start Time</td>*@
-                        <td>
-                            <div style="position:relative">
-                                <div style="position:relative; float:left">
-                                    Service Type :
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                    Token Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Service Type :
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        @Html.TextBoxFor(m => m.service_type_name, new { @class = "form-control Next", @id = "txtServiceType", @placeholder = "Service Type" })
+                                    </div>
+                                    <div style="clear:both"></div>
                                 </div>
-                                <div style="position:relative; float:right">
-                                    @Html.TextBoxFor(m => m.service_type_name, new { @class = "form-control Next", @id = "txtServiceType", @placeholder = "Service Type" })
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Token Issue Time :
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        @Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @placeholder = "Generation Time", @id = "txtgnTime" })
+                                    </div>
+                                    <div style="clear:both"></div>
                                 </div>
-                                <div style="clear:both"></div>
+                                <div style="position:relative">
+                                    <div style="position:relative; float:left">
+                                        Token Call Time :
+                                    </div>
+                                    <div style="position:relative; float:right">
+                                        @Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div style="position:relative">
+
+                                    <div style="position:relative; float:left">
+                                        Waiting Time :
+                                    </div>
+
+
+                                    <div style="position:relative; float:right">
+                                        @Html.TextBoxFor(m => m.waitingtime, new { @class = "form-control Next", @id = "txtWtTime", @placeholder = "Waiting Time" })
+                                    </div>
+                                    <div style="clear:both"></div>
+
+                                </div>
                             </div>
-                            <div style="position:relative">
-                                <div style="position:relative; float:left">
-                                    Token Issue Time :
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                    Service Information
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body" style="padding-top:5px">
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Service Start Time:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = " Service Start Time" })
+                                    </div>
+
                                 </div>
-                                <div style="position:relative; float:right">
-                                    @Html.TextBoxFor(m => m.generate_time, new { @class = "form-control Next", @placeholder = "Generation Time", @id = "txtgnTime" })
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Service:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        <input type="hidden" id="service_sub_type_id" name="service_sub_type_id" />
+                                        @Html.TextBoxFor(m => m.service_sub_type_name, new { @class = "form-control Next", @placeholder = "Add a Service" })
+                                    </div>
+
                                 </div>
-                                <div style="clear:both"></div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Mobile No:
+                                    </div>
+                                    <div class="col-lg-7  col-md-7 col-sm-7" style="position:relative; float:left">
+                                        @Html.TextBoxFor(m => m.contact_no, new { @class = "form-control Next", @id = "txtContact", @placeholder = "Mobile No" }) @Html.ValidationMessageFor(m => m.contact_no)
+                                    </div>
+                                    <div class="col-lg-2  col-md-2 col-sm-2" style="position:relative; float:right; text-align:left">
+                                        <button class="btn btn-color" onclick="GetCustomerInformation()">History</button>
+                                    </div>
+
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Issue:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        @Html.TextAreaFor(m => m.issues, 3, 20, new { @class = "form-control Next", @id = "txtIssues", @row = "3", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)
+                                    </div>
+
+                                </div>
+                                <div class="row" style="position:relative; padding-top:10px;">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="position:relative; float:left; text-align:left">
+                                        Solution:
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9" style="position:relative; float:right">
+                                        @Html.TextAreaFor(m => m.solutions, 3, 20, new { @class = "form-control Next", @id = "txtsolutions", @row = "3", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)
+                                    </div>
+
+                                </div>
+
                             </div>
-                            <div style="position:relative">
-                                <div style="position:relative; float:left">
-                                    Token Call Time :
-                                </div>
-                                <div style="position:relative; float:right">
-                                    @Html.TextBoxFor(m => m.call_time, new { @class = "form-control Next", @id = "txtCallTime", @placeholder = "Call Time" })
-                                </div>
-                                <div style="clear:both"></div>
-                            </div>
-                            <div style="position:relative">
+                        </div>
+                    </div>
 
-                                <div style="position:relative; float:left">
-                                    Waiting Time :
-                                </div>
+                </div>
 
 
-                                <div style="position:relative; float:right">
-                                    @Html.TextBoxFor(m => m.waitingtime, new { @class = "form-control Next", @id = "txtWtTime", @placeholder = "Waiting Time" })
-                                </div>
-                                <div style="clear:both"></div>
-                                <div style="position:relative; float:left">
-                                    Service Start Time:
-                                </div>
-                                <div style="position:relative; float:right">
-                                    @Html.TextBoxFor(m => m.start_time, new { @class = "form-control Next", @placeholder = " Service Start Time" })
-                                </div>
-                                <div style="clear:both"></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>@Html.DropDownList("service_sub_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Services" })</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.TextBoxFor(m => m.contact_no, new { @class = "form-control Next", @id = "txtContact", @placeholder = "Mobile No" }) @Html.ValidationMessageFor(m => m.contact_no)</td>
-                        <td><button class="btn btn-color" onclick="GetCustomerInformation()">History</button></td>
-                    </tr>
-                   
-                    <tr>
-                        <td>@Html.TextAreaFor(m => m.issues, 5, 20, new { @class = "form-control Next", @id = "txtIssues", @row = "10", @placeholder = "Issues" }) @Html.ValidationMessageFor(m => m.issues)</td>
-                    </tr>
-                    <tr>
-                        <td>@Html.TextAreaFor(m => m.solutions, 7, 20, new { @class = "form-control Next", @id = "txtsolutions", @row = "10", @placeholder = "Solutions" }) @Html.ValidationMessageFor(m => m.solutions)</td>
-                    </tr>
-
-                </table>
             </div>
 
             <div class="col-md-2" style="text-align:center">
+                <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
+                    <span><i class="fa fa-plus-square"></i></span>Add Service
+                </button>
                 <button type="submit" onclick="SaveNext()" class="btn-squere-xl  btn-color marzin-bottom" id="saveNext_btn">
                     <span><i class="fa fa-chevron-circle-right"></i></span>Next
                 </button>
 
                 <button type="submit" onclick="CancelNext()" class="btn-squere-xl  btn-color marzin-bottom" id="cancelNext_btn">
-                    <span><i class="fa fa-angle-double-right"></i></span>Customer Missing
-                </button>
-
-                <button type="submit" onclick="AddService()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
-                    <span><i class="fa fa-plus-square"></i></span>Add Service
+                    <span><i class="fa fa-times-circle"></i></span>Customer Missing
                 </button>
 
                 <button type="submit" onclick="loadBreakDialog()" class="btn-squere-xl  btn-color marzin-bottom" id="cancel_btn" data-toggle="modal" data-target="#myModalSave">
                     <span><i class="fa fa-coffee"></i></span>Break
                 </button>
-                
+
             </div>
         </div>
-        <div class="row">
-            <div id="historyDiv" class="col-md-offset-2 col-md-6">
-                <h4>Previous Service History</h4>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Issues</th>
-                            <th>Solutions</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablebody"></tbody>
-                </table>
-            </div>
-        </div>
+        
 
 
     </div>
 </div>
+
+<div id="div-history" title="Previous Service History">
+    <div id="historyDiv" class="row">
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Issues</th>
+                    <th>Solutions</th>
+
+                </tr>
+            </thead>
+            <tbody id="tablebody"></tbody>
+        </table>
+    </div>
+</div>
+
 <div id="div-services" title="Service List">
     <div id="div-type">
         @Html.DropDownList("service_type_id", null, htmlAttributes: new { @class = "form-control", @placeholder = "Service Types" })
@@ -176,20 +228,24 @@
             padding-top:5px;
             text-align:left;
             padding-left:5px;
-            margin-top:25px; 
+            margin-top:25px;
             margin-right:0px;
             margin-left:0px;">
-        
+
     </div>
-    
+
 </div>
-<div id="dialog-url" title="Information">
+<div id="dialog-url-break" title="Information">
+
+</div>
+
+<div id="dialog-url-skipped" title="Information">
 
 </div>
 
 <div id="dialog-message" title="Information">
     <div id="body">
-        
+
     </div>
 </div>
 
@@ -199,6 +255,8 @@
     <script src="~/Scripts/modal/jquery-ui.js"></script>
     <script src="~/Scripts/modal/modal.js"></script>
     <script src="~/Scripts/modal/tab.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="~/Scripts/sqms/date.js"></script>
     <script src="~/Scripts/sqms/service-details.js"></script>

@@ -29,7 +29,7 @@ namespace qms.ViewModels
         {
             get
             {
-                return service_date.ToString("dd-MMM-yy hh:mm tt");
+                return service_date.ToString("dd-MMM-yy hh:mm:ss tt");
             }
         }
 

@@ -8,10 +8,10 @@
 <div class="container">
     <div class="row">
         <h4 class="page-head-line">Branch User > List </h4>
-
-        <button class="btn btn-color" style="margin-bottom : 10px;">
-            @Html.ActionLink("Create New User", "Register", "Account")
-        </button>
+        <a href='@Url.Action("Register", "Account")' style="margin-bottom : 10px;">
+            <button class="btn btn-color" style="margin-bottom : 10px;">Create New User</button>
+        </a>
+        
         <div class="form-group">
             @Html.Label("Branch:", new { @class = "col-md-1 control-label" })
             <div class="col-md-3" style="margin-bottom : 10px;">
@@ -74,10 +74,10 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         @*<td>
-                                @Html.ActionLink("Edit", "Edit", new { id=item.user_branch_id }) |
-                                @Html.ActionLink("Details", "Details", new { id=item.user_branch_id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id=item.user_branch_id })
-                            </td>*@
+                            @Html.ActionLink("Edit", "Edit", new { id=item.user_branch_id }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.user_branch_id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.user_branch_id })
+                        </td>*@
                     </tr>
                 }
 

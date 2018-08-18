@@ -193,13 +193,13 @@ namespace qms.Controllers
                     var customer = new
                     {
                         token = token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0'),
-                        start_time = start_time.ToString("HH:mm:ss"),
+                        start_time = start_time.ToString("hh:mm:ss tt"),
                         tokenid = token_id,
                         serviceType = service_type,
                         mobile_no = contact_no,
                         user_id=user_id,
-                        generate_time = generate_time.ToString("HH:mm:ss"),
-                        call_time= start_time.ToString("HH:mm:ss"),
+                        generate_time = generate_time.ToString("hh:mm:ss tt"),
+                        call_time= start_time.ToString("hh:mm:ss tt"),
                         IsBreak= is_break,
                         waitingtime = start_time.Subtract(generate_time).ToString(),
                         service_type_id = (serviceList.Count>0? serviceList.FirstOrDefault().service_type_id : 0),
@@ -251,7 +251,7 @@ namespace qms.Controllers
                     var customer = new
                     {
                         token = token_no.ToString().PadLeft(ApplicationSetting.PaddingLeft, '0'),
-                        start_time = start_time.ToString("dd-MMM-yyyy HH:mm"),
+                        start_time = start_time.ToString("dd-MMM-yyyy hh:mm:ss tt"),
                         tokenid = token_id,
                         serviceType = service_type,
                         mobile_no = contact_no,

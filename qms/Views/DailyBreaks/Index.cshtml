@@ -6,8 +6,13 @@
     <div class="row">
         <h4 class="page-head-line">Break > List </h4>
 
+        @if (!(User.IsInRole("Admin") || User.IsInRole("Branch Admin")))
+        {
+            <a href='@Url.Action("Create", "ServiceDetails")' style="margin-bottom : 10px;">
+                <button class="btn btn-color" style="margin-bottom : 10px;">Generate Service</button>
+            </a>
+        }
 
-       
         <div class="form-group" style="margin-left:-15px;">
             @Html.Label("Branch:", new { @class = "col-md-1 control-label" })
             <div class="col-md-3">
@@ -34,68 +39,68 @@
             <input type="text" style="font-size: medium;background-color: lightyellow" class="pull-right col-md-3 form-control" placeholder="Search" id="filterBox" onkeyup="FilterTable()" />
         </div>
         @*<div class="col-md-3 scrollbar" style="overflow-x: hidden; overflow-y: scroll; max-height: 400px; height: auto">*@
-            <div class="col-md-12 scrollbar table-scroll" style="margin-bottom : 20px;">
-                <table class="table table-hover table-bordered" id="data">
+        <div class="col-md-12 scrollbar table-scroll" style="margin-bottom : 20px;">
+            <table class="table table-hover table-bordered" id="data">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.branch_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.counter_no)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.user_full_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.break_type_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.start_time)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.end_time)
+                    </th>
+                    <th>
+                        Duration(min)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.remarks)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.branch_name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.counter_no)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.user_full_name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.break_type_name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.start_time)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.end_time)
-                        </th>
-                        <th>
-                            Duration(min)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.remarks)
-                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.counter_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.user_full_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.break_type_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.start_time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.end_time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.duration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.remarks)
+                        </td>
                     </tr>
+                }
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.branch_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.counter_no)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.user_full_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.break_type_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.start_time)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.end_time)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.duration)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.remarks)
-                            </td>
-                        </tr>
-                    }
+            </table>
 
-                </table>
-            
-            </div>
+        </div>
     </div>
 </div>
 @section scripts{

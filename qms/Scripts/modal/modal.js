@@ -1,4 +1,4 @@
-﻿var dialogBox, dialogBody, inputBox, serviceDialog, breakDialog;
+﻿var dialogBox, dialogBody, inputBox, serviceDialog, breakDialog, missingListDialog, historyDialog;
 
 $(document).ready(function () {
     dialogBox = $("#dialog-message");
@@ -6,8 +6,10 @@ $(document).ready(function () {
     
     inputBox = '<br/><input type="text" id="inputBox" placeholder="XXXXXXX" />'
 
-    modalServiceTypeCreate();
+    modalServiceTypeCreate(AddServiceCall);
     modalBreakCreate(breakAdd);
+    modalHistoryCreate();
+    modalMissingListCreate();
 })
 
 function modalAlert(msg){
@@ -15,7 +17,7 @@ function modalAlert(msg){
     dialogBox.dialog({
         resizable: false,
         modal: true,
-        closeOnEscape: false,
+        closeOnEscape: true,
         buttons: {
             Ok: function () {
                 $(this).dialog("close");
@@ -24,7 +26,24 @@ function modalAlert(msg){
     });
 }
 
-function modalConfirm(msg, callback) {
+function modalHistoryCreate() {
+    historyDialog=
+        $("#div-history").dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        height: 500,
+        width: 700,
+        closeOnEscape: true,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+}
+
+function modalConfirm(msg, callback, cancelCallBack) {
     dialogBody.html(msg);
     $("#dialog-message").dialog({
         autoOpen: true,
@@ -38,7 +57,9 @@ function modalConfirm(msg, callback) {
             },
             "No": function () {
                 $(this).dialog("close");
-                //callback("close");
+                if (cancelCallBack != null) {
+                    cancelCallBack();
+                }
             }
         }
     });
@@ -76,7 +97,7 @@ function modalPrompt(msg, callback) {
 
 
 
-function modalServiceTypeCreate() {
+function modalServiceTypeCreate(callback) {
 
      serviceDialog=
 
@@ -89,8 +110,18 @@ function modalServiceTypeCreate() {
         closeOnEscape: false,
         buttons: {
             "Ok": function () {
+                var value = $("input[name=radio-service]:checked").val();
+                var text = $("input[name=radio-service]:checked").next('label').text();
+                var max_duration = $("input[name=radio-service]:checked").next('label').attr('max_duration');
+                
+                if (value == null || value == "") {
+                    modalAlert("Please select a service then press Ok or press Cancel");
+                    return;
+                }
+
                 $(this).dialog("close");
-                //callback(dialogBody.find("#inputBox").val());
+                callback(value, text, max_duration);
+                
             },
             "Cancel": function () {
                 $(this).dialog("close");
@@ -106,7 +137,7 @@ function modalServiceTypeCreate() {
 function modalBreakCreate(callback) {
     breakDialog =
 
-        $("#dialog-url").dialog({
+        $("#dialog-url-break").dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
@@ -116,8 +147,8 @@ function modalBreakCreate(callback) {
             closeOnEscape: false,
             buttons: {
                 "Ok": function () {
-                    var break_type_id = $("#dialog-url").find("#break_type_id").val();
-                    var remarks = $("#dialog-url").find("#remarks").val();
+                    var break_type_id = $("#dialog-url-break").find("#break_type_id").val();
+                    var remarks = $("#dialog-url-break").find("#remarks").val();
                     callback(break_type_id, remarks);
                     $(this).dialog("close");
                 },
@@ -130,8 +161,34 @@ function modalBreakCreate(callback) {
 }
 
 function loadBreakDialog() {
-    breakDialog.load(webRootAddtionalPath + "/DailyBreaks/Create", function () {
+    breakDialog.load("../DailyBreaks/Create", function () {
         breakDialog.dialog('open');
+    });
+
+}
+
+function modalMissingListCreate() {
+    missingListDialog =
+
+        $("#dialog-url-skipped").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            title: 'Customer Missing List',
+            height: 600,
+            width: 950,
+            closeOnEscape: true,
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+}
+
+function loadMissingListDialog() {
+    missingListDialog.load("../TokenQueues/Skipped", function () {
+        missingListDialog.dialog('open');
     });
 
 }

@@ -6,32 +6,32 @@
 <div class="container">
     <div class="row">
         <h4 class="page-head-line">Service > List</h4>
-        <button class="btn btn-color" style="margin-bottom : 10px;">
-            @*@if (!User.IsInRole("Admin"))
-                {*@
-            @Html.ActionLink("Generate Service", "Create")
-            @*}*@
+        @if (!(User.IsInRole("Admin") || User.IsInRole("Branch Admin")))
+        {
+            <a href='@Url.Action("Create", "ServiceDetails")' style="margin-bottom : 10px;">
+                <button class="btn btn-color" style="margin-bottom : 10px;">Generate Service</button>
+            </a>
+        }
 
-        </button>
         @*<div class="col-md-12">
-                <fieldset>
+            <fieldset>
 
-                    <table>
-                        <tr>
-                            <td>As on Date</td>
-                            <td>
-                                <input type="text" class="dateTimePicker form-control" id="txtAsOnDate" />
-                            </td>
-                            <td>
-                                <input type="button" value="Find" class="btn btn-info" onclick="GetList();" />
-                            </td>
-                        </tr>
-                    </table>
+                <table>
+                    <tr>
+                        <td>As on Date</td>
+                        <td>
+                            <input type="text" class="dateTimePicker form-control" id="txtAsOnDate" />
+                        </td>
+                        <td>
+                            <input type="button" value="Find" class="btn btn-info" onclick="GetList();" />
+                        </td>
+                    </tr>
+                </table>
 
-                </fieldset>
-                <div id="dvList"></div>
+            </fieldset>
+            <div id="dvList"></div>
 
-            </div>*@
+        </div>*@
 
         <div class="form-group">
 
@@ -92,52 +92,52 @@
                     <th>
                         @Html.DisplayName("Contact No")
                     </th>
-                    
+
                     @*<th></th>*@
                 </tr>
 
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.branch_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.counter_no)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.service_datetime_string)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.start_time_string)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.end_time_string)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.duration)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.customer_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.contact_no)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.counter_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.service_datetime_string)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.start_time_string)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.end_time_string)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.duration)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.customer_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
 
-                    @*<td>
-           @if (User.IsInRole("Admin"))
-           {
-               @Html.ActionLink("Edit", "Edit", new { id = item.service_id })
-           }
-           else
-           {
-               @Html.DisplayName("Edit")
-           }
-        </td>*@
-                </tr>
+                        @*<td>
+                           @if (User.IsInRole("Admin"))
+                           {
+                               @Html.ActionLink("Edit", "Edit", new { id = item.service_id })
+                           }
+                           else
+                           {
+                               @Html.DisplayName("Edit")
+                           }
+                        </td>*@
+                    </tr>
                 }
 
 

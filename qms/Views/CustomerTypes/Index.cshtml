@@ -7,9 +7,10 @@
     <div class="row">
         <h4 class="page-head-line">Customer Type > List</h4>
 
-        <button class="btn btn-color" style="margin-bottom : 10px;">
-            @Html.ActionLink("Create New Customer Type", "Create")
-        </button>
+        <a href='@Url.Action("Create", "CustomerTypes")' style="margin-bottom : 10px;">
+            <button class="btn btn-color" style="margin-bottom : 10px;">Create New Customer Type</button>
+        </a>
+
         <div class="col-md-12 scrollbar table-scroll">
             <table class="table table-hover table-bordered" id="data">
                 <tr>

@@ -35,11 +35,11 @@ body {
 }
 
 .dropdown-menu {
-    background-color: #505050;
+    background-color: #f26f23;
 }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background-color: #505050;
+    background-color: #f26f23;
 }
 
 .checkbox {
@@ -103,6 +103,8 @@ body {
     color: #fff;
     text-decoration: none;
 }
+
+
 
 .btn-color:hover, .btn-color:focus, .btn-color.focus, .btn-color:active, .btn-color.active, .open > .dropdown-toggle.btn-color {
     /*color: #fff;*/
@@ -260,7 +262,7 @@ header {
 /* MENU LINKS SECTION*/
 
 .menu-section {
-    background-color: #3D3D3D;
+    background-color: #f26f23;
 }
 
 #menu-top a {

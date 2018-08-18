@@ -8,21 +8,22 @@
     <div class="row">
         <h4 class="page-head-line">Service Sub Type > List</h4>
 
-        <button class="btn btn-color" style="margin-bottom : 10px;">
-            @Html.ActionLink("Generate Service Sub Types", "Create")
-        </button>
+        
+        <a href='@Url.Action("Create", "ServiceSubTypes")' style="margin-bottom : 10px;">
+            <button class="btn btn-color" style="margin-bottom : 10px;">Create New Service</button>
+        </a>
         <div class="col-md-12 scrollbar table-scroll">
 
             <table class="table table-hover table-bordered" id="data">
                 <tr>
                     <th>
-                       Type Name
+                        Type Name
                     </th>
                     <th>
                         Service Name
                     </th>
                     <th>
-                       Duration(Minutes)
+                        Duration(Minutes)
                     </th>
 
                     <th></th>
@@ -52,7 +53,7 @@
                 }
 
             </table>
-            </div>
-
         </div>
+
+    </div>
     </div>

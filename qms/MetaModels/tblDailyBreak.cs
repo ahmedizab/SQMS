@@ -38,11 +38,11 @@ namespace qms.Models
 
         [Display(Name = "Start Time")]
         [DataType(DataType.Time)]
-        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:HH:mm}", NullDisplayText = "00:00")]
+        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:hh:mm:ss tt}", NullDisplayText = "00:00")]
         public Nullable<System.DateTime> start_time { get; set; }
 
         [Display(Name = "End Time")]
-        [DisplayFormat(ApplyFormatInEditMode =true, ConvertEmptyStringToNull =true, DataFormatString = "{0:HH:mm}", NullDisplayText ="00:00")]
+        [DisplayFormat(ApplyFormatInEditMode =true, ConvertEmptyStringToNull =true, DataFormatString = "{0:hh:mm:ss tt}", NullDisplayText ="00:00")]
         public Nullable<System.DateTime> end_time { get; set; }
         //public Long diffTicks = (end_time - start_time).Ticks;
         [Display(Name ="Remarks")]

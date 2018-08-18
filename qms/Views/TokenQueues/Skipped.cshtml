@@ -1,31 +1,14 @@
 ﻿@using Microsoft.AspNet.Identity
 @using qms.Utility
 @model IEnumerable<qms.ViewModels.VMTokenSkipped>
-
 @{
-    ViewBag.Title = "Token Skipped List";
+    Layout = null;
 }
 
-<div class="container">
+    
+
+<div class="container" style="width:900px">
     <div class="row">
-
-        <h4 class="page-head-line">Token > Token Skipped List </h4>
-        <div class="row">
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-7">
-                <div id="message" style="height: 50px;font-size: 20px;padding-top:10px;" class="col-md-offset-5 col-md-7 alert alert-success"></div>
-            </div>
-
-        </div>
-
-
-
-
-
-
         <div class="form-group">
             @Html.Label("Branch:", new { @class = "col-md-1 control-label" })
             <div class="col-md-3" style="margin-bottom :10px;">
@@ -56,7 +39,7 @@
         </div>
         <div class="col-md-12 scrollbar table-scroll" style="margin-bottom : 20px;">
 
-            <table class="table table-hover table-bordered" id="data">
+            <table class="table table-hover table-bordered table-responsive" id="data-skipped">
                 <tr id="Hedding" style="text-align: center">
                     <th>
                         @Html.DisplayName("Branch Name")
@@ -71,10 +54,6 @@
                         @Html.DisplayName("Token No")
                     </th>
                     <th>
-                        @Html.DisplayName("Customer Name")
-                    </th>
-
-                    <th>
                         @Html.DisplayName("Contact No")
                     </th>
 
@@ -86,45 +65,39 @@
 
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.branch_name)
-                    </td>
-                    <td id="token" style="text-align : center;">
+                    <tr id="@item.token_id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.branch_name)
+                        </td>
+                        <td id="token" style="text-align : center;">
 
-                        @Html.DisplayFor(modelItem => item.counter_no)
-                    </td>
-                    <td>
+                            @Html.DisplayFor(modelItem => item.counter_no)
+                        </td>
+                        <td>
 
-                        @Html.DisplayFor(modelItem => item.user_full_name)
+                            @Html.DisplayFor(modelItem => item.user_full_name)
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.token_no_formated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.customer_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.contact_no)
-                    </td>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.token_no_formated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.contact_no)
+                        </td>
 
-                    <td>
+                        <td>
 
-                        @Html.DisplayFor(modelItem => item.cancel_time)
-                    </td>
-                    <td>
-                        
-                            <a href="@Url.Action("ReInitiate", "TokenQueues", new { token_id = @Html.DisplayFor(modelItem => item.token_id) })" class="btn btn-color" title="Re-initiate">
-                                Re-initiate
-                            </a>
-                        <a href="@Url.Action("AssignToMe", "TokenQueues", new { token_id = @Html.DisplayFor(modelItem => item.token_id) })" class="btn btn-color" title="Re-initiate">
-                            Assign To Me
-                        </a>
-                        
-                    </td>
+                            @Html.DisplayFor(modelItem => item.cancel_time)
+                        </td>
+                        <td>
 
-                </tr>
+                            <button type="submit" onclick="TokenReInitiate(@item.token_id)" value="Re-Initiate" class="btn  btn-color marzin-bottom" id="reinitiate_btn">Re-Initiate</button>
+                            <button type="submit" onclick="TokenAssignToMe(@item.token_id)" class="btn  btn-color marzin-bottom" id="reinitiate_btn">Asign to Me</button>
+
+
+                        </td>
+
+                    </tr>
 
 
                 }
@@ -137,7 +110,6 @@
 
     </div>
 </div>
-@section scripts{
-    <script src="~/Scripts/sqms/token-queue-index.js"></script>
 
-}
+
+

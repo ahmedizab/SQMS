@@ -91,32 +91,52 @@ namespace qms.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpPost]
         public ActionResult ReInitiate(long token_id)
         {
-            SessionManager sm = new SessionManager(Session);
-            int branchId = sm.branch_id;
+            try
+            {
+                SessionManager sm = new SessionManager(Session);
+                int branchId = sm.branch_id;
 
-            string counter_no = sm.counter_no;
+                string counter_no = sm.counter_no;
 
-            dbManager.ReInitiate(token_id);
-            NotifyDisplay.SendMessages(branchId, counter_no, "");
-            return RedirectToAction("Skipped");
+                dbManager.ReInitiate(token_id);
+                NotifyDisplay.SendMessages(branchId, counter_no, "");
+                return Json(new { Success = true, Message = "Successfully Token Re-initiated" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
 
-            
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
         }
         [Authorize]
-        [HttpGet]
+        [HttpPost]
         public ActionResult AssignToMe(long token_id)
         {
-            SessionManager sm = new SessionManager(Session);
-            int branchId = sm.branch_id;
-            int counter_id = sm.counter_id;
-            string counter_no = sm.counter_no;
+            try
+            {
+                SessionManager sm = new SessionManager(Session);
+                int branchId = sm.branch_id;
+                int counter_id = sm.counter_id;
+                string counter_no = sm.counter_no;
 
-            dbManager.AssignToMe(token_id,counter_id);
-            NotifyDisplay.SendMessages(branchId, counter_no, "");
-            return RedirectToAction("Skipped");
+                dbManager.AssignToMe(token_id, counter_id);
+                NotifyDisplay.SendMessages(branchId, counter_no, "");
+                return Json(new { Success = true, Message = "Successfully Token Assigned To Me" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+
 
 
         }

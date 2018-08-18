@@ -49,14 +49,14 @@ namespace qms.ViewModels
         {
             get
             {
-                return start_time.ToString("hh:mm tt");
+                return start_time.ToString("hh:mm:ss tt");
             }
         }
         public string end_time_string
         {
             get
             {
-                return end_time.ToString("hh:mm tt");
+                return end_time.ToString("hh:mm:ss tt");
             }
         }
         public int waitingtime
