@@ -650,7 +650,7 @@
     <Content Include="Scripts\app\common.js" />
     <Content Include="Scripts\app\home.viewmodel.js" />
     <Content Include="Video\banglalink.MP4" />
-    <Content Include="Video\test.mp4" />
+    <Content Include="Video\banglalink1.MP4" />
     <Content Include="Views\CounterList.html" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
