@@ -9,10 +9,10 @@ $(document).ready(function () {
     modalServiceTypeCreate(AddServiceCall);
     modalBreakCreate(breakAdd);
     modalHistoryCreate();
-    modalMissingListCreate();
+    modalMissingListCreate(missingNewCall);
 })
 
-function modalAlert(msg){
+function modalAlert(msg, callBack){
     dialogBody.html(msg);
     dialogBox.dialog({
         resizable: false,
@@ -21,6 +21,9 @@ function modalAlert(msg){
         buttons: {
             Ok: function () {
                 $(this).dialog("close");
+                if (callBack != null) {
+                    callBack();
+                }
             }
         }
     });
@@ -167,7 +170,7 @@ function loadBreakDialog() {
 
 }
 
-function modalMissingListCreate() {
+function modalMissingListCreate(callBack) {
     missingListDialog =
 
         $("#dialog-url-skipped").dialog({
@@ -181,6 +184,9 @@ function modalMissingListCreate() {
             buttons: {
                 Ok: function () {
                     $(this).dialog("close");
+                    if (callBack != null) {
+                        callBack();
+                    }
                 }
             }
         });
@@ -189,6 +195,7 @@ function modalMissingListCreate() {
 function loadMissingListDialog() {
     missingListDialog.load("../TokenQueues/Skipped", function () {
         missingListDialog.dialog('open');
+        SelectBranch();
     });
 
 }

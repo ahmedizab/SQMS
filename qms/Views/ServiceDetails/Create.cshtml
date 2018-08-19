@@ -12,6 +12,8 @@
 <div class="container">
     <div class="row">
         <input type="hidden" id="hiduserId" name="hidUser" />
+        <input type="hidden" id="is_break" name="is_break" />
+        <input type="hidden" id="hid_counter_no" name="hid_counter_no" value="@(sm.counter_no)" />
         <div class="page-head-line" style="position:relative; font-weight:bold; padding-bottom:3px">
             <div style="position:relative; float:left">
                 <h4>Customer Service > Create Service </h4>
@@ -38,7 +40,7 @@
 
         <div class="row" style="text-align:center">
             <div class="col-md-2" style="text-align:center">
-                <button type="submit" onclick="NewServiceNo()" class="btn-squere-xl  btn-color marzin-bottom" id="newService_btn">
+                <button type="submit" onclick="Recall()" class="btn-squere-xl  btn-color marzin-bottom" id="newService_btn">
                     <span><i class="fa fa-bullhorn"></i></span> Recall
                 </button>
 
@@ -198,7 +200,7 @@
 
             </div>
         </div>
-        
+
 
 
     </div>
@@ -256,7 +258,7 @@
     <script src="~/Scripts/modal/modal.js"></script>
     <script src="~/Scripts/modal/tab.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/modal/bootstrap.min.js"></script>
 
     <script src="~/Scripts/sqms/date.js"></script>
     <script src="~/Scripts/sqms/service-details.js"></script>

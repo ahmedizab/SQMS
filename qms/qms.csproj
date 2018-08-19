@@ -603,6 +603,7 @@
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Chart.bundle.min.js" />
     <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\modal\bootstrap.min.js" />
     <Content Include="Scripts\modal\jquery-1.12.4.js" />
     <Content Include="Scripts\modal\jquery-ui.js" />
     <Content Include="Scripts\modal\modal.js" />

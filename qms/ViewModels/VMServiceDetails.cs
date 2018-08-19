@@ -59,21 +59,24 @@ namespace qms.ViewModels
                 return end_time.ToString("hh:mm:ss tt");
             }
         }
-        public int waitingtime
+
+        
+
+        public string duration
         {
             get
             {
-                return (call_time - generate_time).Minutes;
+                return end_time.Subtract(start_time).ToString();
             }
         }
 
-        public int duration
+        public string waitingtime
         {
             get
             {
-                return (end_time - start_time).Minutes;
+                return call_time.Subtract(generate_time).ToString();
             }
         }
-        
+
     }
 }

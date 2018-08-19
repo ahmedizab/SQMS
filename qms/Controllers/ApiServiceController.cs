@@ -131,7 +131,7 @@ namespace qms.Controllers
                 BLLToken tokenManager = new BLLToken();
 
                 tokenManager.SendSMS(mobile, string.Format(msgText, tokenNo));
-                return Json(new { success = true, message = "SMS Saved Succesfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "SMS Sent Succesfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

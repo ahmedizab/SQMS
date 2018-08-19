@@ -423,3 +423,8 @@ footer {
 .btn-google {
     background-color: #c32f10;
 }
+
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #e56200;
+}

@@ -1,8 +1,55 @@
 ﻿
+function FilterTable() {
+    index = -1;
+    inp = $('#filterBox').val();
+    $("#data-skipped:visible tr:not(:has(>th))").each(function () {
+        if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+    $('#Hedding').show();
+}
+
+
+
+function FilterTable2() {
+    index = -1;
+    inp = $("#branch_name option:selected").text();
+    if (inp == "All Branch") {
+        inp = "";
+    }
+    $("#data-skipped:visible tr:not(:has(>th))").each(function () {
+        if (~$(this).text().toLowerCase().indexOf(inp.toLowerCase())) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+    $('#Hedding').show();
+};
+
+function SelectBranch() {
+    inp = $("#branch_name option:selected").text();
+    if (inp == "All Branch") {
+        $("#branch_name").attr('disabled', false);
+    }
+    else $("#branch_name").attr('disabled', true);
+
+    FilterTable2();
+    $("#branch_name").change(function () {
+        // var selectedBranch = $("#branch_name option:selected").text();
+        FilterTable2();
+
+    });
+}
 
 $(document).ready(function () {
     $('#tablebody').empty();
     $("input[type=radio]").checkboxradio();
+
+    
     
     NewServiceNo();
 })
@@ -55,6 +102,10 @@ $("#service_type_id").change(function () {
 
 
 function breakAdd(break_type_id, remarks) {
+    if ($("#is_break").val() == 1) {
+        modalAlert("You already defined a break, please complete the break first.");
+        return;
+    }
     $.ajax({
         //daily_break_id, break_type_id, user_id, start_time, end_time, remarks//
         url: "../DailyBreaks/Create",
@@ -101,6 +152,69 @@ function breakcall() {
     return;
 }
 
+function Recall() {
+
+    $('#tablebody').empty();
+
+    ShowPannel(1);
+
+
+
+    $.ajax({
+        //url: "/SQMS/ServiceDetails/NewTokenNo",
+        url: "../ServiceDetails/NewTokenNo",
+        type: 'POST',
+        dataType: "json",
+        success: function (data) {
+            //debugger;
+            if (data.Success == true) {
+                $("#is_break").val(data.Message.IsBreak);
+                
+                $("#update-message").html('');
+                $("#hiduserId").val(data.Message.user_id);
+                $("#update-message").html(data.Message.token);
+                //$("#start_time").val(data.Message.start_time);
+                $("#start_time").prop('disabled', true);
+                $("#txtServiceType").val(data.Message.serviceType);
+                $("#txtServiceType").prop('disabled', true);
+                $("#service_sub_type_name").prop('disabled', true);
+                $("#hidtokenNo").val(data.Message.tokenid);
+                $("#token").val(data.Message.token);
+                $("#txtIssues").val('');
+                $("#txtsolutions").val('');
+                $("#txtCallTime").val(data.Message.call_time);
+                $("#txtCallTime").prop('disabled', true);
+                $("#txtgnTime").val(data.Message.generate_time);
+                $("#txtgnTime").prop('disabled', true);
+                $("#txtWtTime").val(data.Message.waitingtime);
+                $("#txtWtTime").prop('disabled', true);
+                if (data.Message.mobile_no != "") {
+
+                    $("#txtContact").val(data.Message.mobile_no);
+                    $("#txtName").val(data.Message.customer_name);
+                    $("#txtAddress").val(data.Message.address);
+                } else {
+                    $("#txtContact").prop('disabled', false);
+                    $("#txtName").val("");
+                    $("#txtAddress").val("");
+                }
+
+                $("#service_type_id").val(data.Message.service_type_id);
+                LoadServices(data.Message.service_type_id);
+
+            } else {
+                modalAlert(data.Message);
+            }
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            modalAlert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
+        }
+
+    });
+}
+
 function NewServiceNo() {
 
 
@@ -118,6 +232,7 @@ function NewServiceNo() {
         success: function (data) {
             //debugger;
             if (data.Success == true) {
+                $("#is_break").val(data.Message.IsBreak);
                 if (data.Message.IsBreak == 1) {
                     modalConfirm("Do you want to Take a Break?", breakcall);
                     
@@ -155,7 +270,13 @@ function NewServiceNo() {
                 LoadServices(data.Message.service_type_id);
                 
             } else {
-                modalAlert(data.Message);
+                modalAlert(data.Message, function () {
+                    if (data.Message.IsBreak == 1) {
+                        modalConfirm("Do you want to Take a Break?", breakcall);
+
+                    }
+
+                });
             }
 
 
@@ -166,6 +287,8 @@ function NewServiceNo() {
 
     });
 }
+
+
 
 function AddServiceCall(value, text, max_duration) {
     ShowPannel(2);
@@ -286,7 +409,13 @@ function CallToken(token_no) {
         success: function (data) {
             //debugger;
             if (data.Success == true) {
-                modalAlert("Token No# " + token_no + " is now in your queue list after current service, it will automatically call.");
+
+                modalAlert("Token No# " + token_no + " is now in your queue list after current service, it will automatically call.", function () {
+                    var token_id = $("#hidtokenNo").val();
+                    if (token_id == null || token_id == "") {
+                        NewServiceNo();
+                    }
+                });
             } else {
                 modalAlert(data.Message);
             }
@@ -315,6 +444,8 @@ function CounterTransfer(counter_no) {
     if (counter_no == null || counter_no == "") {
         modalAlert("Please input a counter no for transfer this service");
         return;
+    } else if ($("#hid_counter_no").val() == counter_no) {
+        modalAlert("You can not transfer token yourself, pelase input another counter no.");
         return;
     }
 
@@ -542,4 +673,11 @@ function TokenAssignToMe(token_id) {
             modalAlert(XMLHttpRequest + ": " + textStatus + ": " + errorThrown, 'Error!!!');
         }
     });
+}
+
+function missingNewCall() {
+    var token_id = $("#hidtokenNo").val();
+    if (token_id == null || token_id== "") {
+        NewServiceNo();
+    }
 }

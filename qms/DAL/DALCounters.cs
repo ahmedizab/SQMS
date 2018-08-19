@@ -52,12 +52,11 @@ namespace qms.DAL
         /// </summary>
         /// <param name="serviceType">Service Type Object</param>
         /// <returns>Return service_type_id</returns>
-        public int Insert(tblCounter counter,int branch_id)
+        public int Insert(tblCounter counter)
         {
             try
             {
                 MapParameters(counter);
-                manager.AddParameter(new OracleParameter("p_branch_id", branch_id));
                 long? counter_id = manager.CallStoredProcedure_Insert("USP_Counters_Insert");
                 if (counter_id.HasValue) return (int)counter_id.Value;
                 else return 0;
@@ -88,7 +87,7 @@ namespace qms.DAL
             
             manager.AddParameter(new OracleParameter("p_location", counter.location));
             manager.AddParameter(new OracleParameter("p_counter_no", counter.counter_no));
-            //manager.AddParameter(new OracleParameter("p_branch_id", counter.branch_id));
+            manager.AddParameter(new OracleParameter("p_branch_id", counter.branch_id));
 
 
         }

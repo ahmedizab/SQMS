@@ -92,19 +92,19 @@ namespace qms.Controllers
         [Authorize(Roles = "Admin, Branch Admin")]
         public ActionResult Create([Bind(Include = "counter_id,branch_id,counter_no,location")] tblCounter tblCounter)
         {
-            int branch_id = 0;
             if (!User.IsInRole("Admin"))
             {
-                branch_id = new SessionManager(Session).branch_id;
+                tblCounter.branch_id = new SessionManager(Session).branch_id;
             }
             else
             {
-                branch_id = tblCounter.branch_id;
+                tblCounter.branch_id = tblCounter.branch_id;
             }
+            
 
             if (ModelState.IsValid)
             {
-                dbManager.Create(tblCounter,branch_id);
+                dbManager.Create(tblCounter);
 
                 //SessionManager sm = new SessionManager(Session);
                 //if (!String.IsNullOrEmpty(sm.branch_static_ip))
