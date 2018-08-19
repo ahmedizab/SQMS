@@ -102,10 +102,7 @@ $("#service_type_id").change(function () {
 
 
 function breakAdd(break_type_id, remarks) {
-    if ($("#is_break").val() == 1) {
-        modalAlert("You already defined a break, please complete the break first.");
-        return;
-    }
+    
     $.ajax({
         //daily_break_id, break_type_id, user_id, start_time, end_time, remarks//
         url: "../DailyBreaks/Create",
@@ -118,6 +115,8 @@ function breakAdd(break_type_id, remarks) {
         success: function (data) {
             if (data.success == false) {
                 modalAlert(data.Message);
+            } else {
+                $("#is_break").val('1');
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -271,7 +270,8 @@ function NewServiceNo() {
                 
             } else {
                 modalAlert(data.Message, function () {
-                    if (data.Message.IsBreak == 1) {
+                    if (data.IsBreak > 0) {
+                        $("#is_break").val(data.IsBreak);
                         modalConfirm("Do you want to Take a Break?", breakcall);
 
                     }

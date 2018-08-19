@@ -112,7 +112,7 @@ namespace qms.BLL
             {
                 VMTokenProgress token = new VMTokenProgress();
                 
-                token.token_no = (row["token_no"] == DBNull.Value ? ApplicationSetting.DisplayWhenEmptyToken : row["token_no"].ToString().PadLeft(ApplicationSetting.PaddingLeft));
+                token.token_no = (row["token_no"] == DBNull.Value ? ApplicationSetting.DisplayWhenEmptyToken : row["token_no"].ToString().PadLeft(ApplicationSetting.PaddingLeft,'0'));
                 
                 token.counter_no = (row["counter_no"] == DBNull.Value ? null : row["counter_no"].ToString());
                

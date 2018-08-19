@@ -138,6 +138,7 @@ function modalServiceTypeCreate(callback) {
 
 
 function modalBreakCreate(callback) {
+    
     breakDialog =
 
         $("#dialog-url-break").dialog({
@@ -164,6 +165,10 @@ function modalBreakCreate(callback) {
 }
 
 function loadBreakDialog() {
+    if ($("#is_break").val() == 1) {
+        modalAlert("You already defined a break, please complete the break first.");
+        return;
+    }
     breakDialog.load("../DailyBreaks/Create", function () {
         breakDialog.dialog('open');
     });

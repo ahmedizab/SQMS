@@ -215,7 +215,7 @@ namespace qms.Controllers
                 else
                 {
                     NotifyDisplay.SendMessages(branchId, counter_no, "");
-                    return Json(new { Success = false, Message = "No token for new service!" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Success = false, Message = "No token for new service!", IsBreak = is_break }, JsonRequestBehavior.AllowGet);
                 }
 
 

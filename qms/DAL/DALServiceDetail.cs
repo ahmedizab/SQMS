@@ -139,7 +139,7 @@ namespace qms.DAL
                     service_type = null;
                     start_time = DateTime.Now;
                     customer_name = null;
-                    is_break = 0;
+                    is_break = (int)((Oracle.DataAccess.Types.OracleDecimal)param_Break.Value).Value;
                     address = null;
                     generate_time = DateTime.Now; 
                 }
